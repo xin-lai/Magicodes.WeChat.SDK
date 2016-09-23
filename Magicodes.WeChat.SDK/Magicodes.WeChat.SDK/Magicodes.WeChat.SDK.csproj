@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F6E23A6-CD4A-4181-8F91-9BB4A446D52E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Magicodes.WeChat.SDK</RootNamespace>
+    <AssemblyName>Magicodes.WeChat.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Magicodes.Logger, Version=1.0.6109.31628, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Logger.1.0.6109.31628\lib\net45\Magicodes.Logger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Magicodes.Storage, Version=1.0.6110.17912, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Storage.1.0.6110.17912\lib\net45\Magicodes.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiArgumentException.cs" />
+    <Compile Include="Apis\ApiBase.cs" />
+    <Compile Include="Apis\ApiResult.cs" />
+    <Compile Include="Apis\CustomerService\CustomerServiceApi.cs" />
+    <Compile Include="Apis\CustomerService\GetCustomerAccountListResult.cs" />
+    <Compile Include="Apis\CustomMessage\CustomMessageApi.cs" />
+    <Compile Include="Apis\CustomMessage\model.cs" />
+    <Compile Include="Apis\Material\model.cs" />
+    <Compile Include="Apis\Material\NewsApi.cs" />
+    <Compile Include="Apis\Menu\MenuApi.cs" />
+    <Compile Include="Apis\Menu\MenuButtonsCustomConverter.cs" />
+    <Compile Include="Apis\Menu\model.cs" />
+    <Compile Include="Apis\QRCode\model.cs" />
+    <Compile Include="Apis\QRCode\QRCodeApi.cs" />
+    <Compile Include="Apis\Statistics\model.cs" />
+    <Compile Include="Apis\Statistics\StatisticsApi.cs" />
+    <Compile Include="Apis\TemplateMessage\model.cs" />
+    <Compile Include="Apis\TemplateMessage\TemplateMessageApi.cs" />
+    <Compile Include="Apis\Ticket\TicketApi.cs" />
+    <Compile Include="Apis\Ticket\TicketApiResult.cs" />
+    <Compile Include="Apis\Token\TokenApi.cs" />
+    <Compile Include="Apis\Token\TokenApiResult.cs" />
+    <Compile Include="Apis\UserGroup\model.cs" />
+    <Compile Include="Apis\UserGroup\UserGroupApi.cs" />
+    <Compile Include="Apis\User\model.cs" />
+    <Compile Include="Apis\User\UserApi.cs" />
+    <Compile Include="Extend\DateTimeExtend.cs" />
+    <Compile Include="Helper\EncryUtils.cs" />
+    <Compile Include="Helper\JSSDKHelper.cs" />
+    <Compile Include="Helper\MD5UtilHelper.cs" />
+    <Compile Include="Helper\RequestUtility.cs" />
+    <Compile Include="Helper\SHA1UtilHelper.cs" />
+    <Compile Include="Helper\WebRequestDataTypes.cs" />
+    <Compile Include="Helper\WebRequestHelper.cs" />
+    <Compile Include="Helper\WeChatApiWebRequestHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
+    <Compile Include="Injection.cs" />
+    <Compile Include="IWeiChatConfig.cs" />
+    <Compile Include="IWeiChatPayConfig.cs" />
+    <Compile Include="JSSDKConfigInfo.cs" />
+    <Compile Include="Pays\EnterprisePay\EnterprisePayApi.cs" />
+    <Compile Include="Pays\EnterprisePay\model.cs" />
+    <Compile Include="Pays\PayBase.cs" />
+    <Compile Include="Pays\PayResult.cs" />
+    <Compile Include="Pays\PayUtil.cs" />
+    <Compile Include="Pays\RedPackApi\model.cs" />
+    <Compile Include="Pays\RedPackApi\RedPackApi.cs" />
+    <Compile Include="Pays\ResponseHandler.cs" />
+    <Compile Include="Pays\TenPayV3\model.cs" />
+    <Compile Include="Pays\TenPayV3\TenPayV3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeiChatApisContext.cs" />
+    <Compile Include="WeiChatConfigManager.cs" />
+    <Compile Include="WeiChatFuncArgInfo.cs" />
+    <Compile Include="WeiChatFuncsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
