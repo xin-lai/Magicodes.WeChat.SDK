@@ -38,6 +38,11 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         ///     获取微信支付信息
         /// </summary>
-        Config_GetWeChatPayConfigByKey = 3
+        Config_GetWeChatPayConfigByKey = 3,
+
+        /// <summary>
+        ///     获取AccessToken。用于中控服务器模式，即从中控服务器获取Accesstoken
+        /// </summary>
+        APIFunc_GetAccessToken = 4
     }
 }

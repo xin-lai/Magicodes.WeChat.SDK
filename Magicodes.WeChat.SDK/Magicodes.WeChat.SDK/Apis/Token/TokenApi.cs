@@ -30,10 +30,21 @@ namespace Magicodes.WeChat.SDK.Apis.Token
         /// <returns></returns>
         public TokenApiResult Get()
         {
+            //判断Accesstoken是否从其他函数中获取，比如中控服务器
+            if (WeChatFrameworkFuncsManager.Current.Funcs.ContainsKey(WeChatFrameworkFuncTypes.APIFunc_GetAccessToken))
+            {
+                var accesstoken = WeChatFrameworkFuncsManager.Current.InvokeFunc(
+                   WeChatFrameworkFuncTypes.APIFunc_GetAccessToken, new WeChatApiCallbackFuncArgInfo
+                   {
+                       Api = this,
+                       Data = this.Key
+                   }) as TokenApiResult;
+                return accesstoken;
+            }
             var url = string.Format("{0}/{1}?grant_type=client_credential&appid={2}&secret={3}", ApiRoot, ApiName,
                 AppConfig.AppId, AppConfig.AppSecret);
             var result = Get<TokenApiResult>(url);
-            result.ExporesTime = DateTime.Now.AddSeconds(result.Expires - 30);
+            result.ExpiresTime = DateTime.Now.AddSeconds(result.Expires - 30);
             return result;
         }
 
@@ -48,7 +59,7 @@ namespace Magicodes.WeChat.SDK.Apis.Token
             if (WeChatApisContext.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
             {
                 token = WeChatApisContext.Current.AccessTokenConcurrentDictionary[appConfig.AppId];
-                if (DateTime.Now < token.ExporesTime)
+                if (DateTime.Now < token.ExpiresTime)
                     return token;
                 token = Get();
                 WeChatApisContext.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,

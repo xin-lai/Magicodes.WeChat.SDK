@@ -35,6 +35,6 @@ namespace Magicodes.WeChat.SDK.Apis.Token
         /// <summary>
         ///     凭证过期时间
         /// </summary>
-        public DateTime ExporesTime { get; set; }
+        public DateTime ExpiresTime { get; set; }
     }
 }
