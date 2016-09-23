@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 // 与程序集关联的信息。
 
 [assembly: AssemblyTitle("Magicodes.WeChat.SDK")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Magicodes.WeChat.SDK为湖南心莱信息科技有限公司基于微信业务封装的工具包，以便更便捷更简单的调用和使用微信接口，以更好地和自己的业务结合")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("湖南心莱信息科技有限公司")]
 [assembly: AssemblyProduct("Magicodes.WeChat.SDK")]
