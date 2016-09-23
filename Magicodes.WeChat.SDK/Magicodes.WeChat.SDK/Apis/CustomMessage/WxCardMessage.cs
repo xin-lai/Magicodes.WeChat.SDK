@@ -6,7 +6,7 @@
 //          filename : WxCardMessage.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 16:33
+//          created by 李文强 at  2016/09/23 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com

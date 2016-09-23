@@ -143,7 +143,7 @@
     <Compile Include="Apis\User\UserApi.cs" />
     <Compile Include="Apis\User\UserBatchGetApiResult.cs" />
     <Compile Include="Apis\User\WeChatSexTypes.cs" />
-    <Compile Include="Extend\DateTimeExtend.cs" />
+    <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\EncryUtils.cs" />
     <Compile Include="Helper\JSSDKHelper.cs" />
     <Compile Include="Helper\MD5UtilHelper.cs" />

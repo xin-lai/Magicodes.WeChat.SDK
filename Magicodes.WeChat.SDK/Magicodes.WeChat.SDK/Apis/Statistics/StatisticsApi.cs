@@ -6,7 +6,7 @@
 //          filename : StatisticsApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 16:33
+//          created by 李文强 at  2016/09/23 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -49,11 +49,11 @@ namespace Magicodes.WeChat.SDK.Apis.Statistics
             return Post<T>(url, jsondata);
         }
 
-        ///// 获取用户增减数据
+        //protected T Get<T>(string url) where T : ApiResult
 
         ///// <summary>
 
-        //protected T Get<T>(string url) where T : ApiResult
+        ///// 获取用户增减数据
         ///// </summary>
         ///// <returns>返回结果</returns>
         //public UserSummaryAnalyisResult GetUserSummaryInfo(DateTime begindate,DateTime enddate)

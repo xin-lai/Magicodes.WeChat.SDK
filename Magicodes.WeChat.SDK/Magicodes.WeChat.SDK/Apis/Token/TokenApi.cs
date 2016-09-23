@@ -6,7 +6,7 @@
 //          filename : TokenApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 16:33
+//          created by 李文强 at  2016/09/23 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -34,11 +34,11 @@ namespace Magicodes.WeChat.SDK.Apis.Token
             if (WeChatFrameworkFuncsManager.Current.Funcs.ContainsKey(WeChatFrameworkFuncTypes.APIFunc_GetAccessToken))
             {
                 var accesstoken = WeChatFrameworkFuncsManager.Current.InvokeFunc(
-                   WeChatFrameworkFuncTypes.APIFunc_GetAccessToken, new WeChatApiCallbackFuncArgInfo
-                   {
-                       Api = this,
-                       Data = this.Key
-                   }) as TokenApiResult;
+                    WeChatFrameworkFuncTypes.APIFunc_GetAccessToken, new WeChatApiCallbackFuncArgInfo
+                    {
+                        Api = this,
+                        Data = Key
+                    }) as TokenApiResult;
                 return accesstoken;
             }
             var url = string.Format("{0}/{1}?grant_type=client_credential&appid={2}&secret={3}", ApiRoot, ApiName,

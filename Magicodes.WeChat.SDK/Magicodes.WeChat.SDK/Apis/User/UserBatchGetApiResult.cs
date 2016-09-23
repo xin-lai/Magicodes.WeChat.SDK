@@ -6,7 +6,7 @@
 //          filename : UserBatchGetApiResult.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 16:33
+//          created by 李文强 at  2016/09/23 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -15,7 +15,7 @@
 
 using System;
 using System.Collections.Generic;
-using Magicodes.WeChat.SDK.Extend;
+using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.User

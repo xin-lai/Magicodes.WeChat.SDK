@@ -3,10 +3,10 @@
 //          Copyright (C) 2016-2020 湖南心莱信息科技有限公司    
 //          All rights reserved
 //  
-//          filename : DateTimeExtend.cs
+//          filename : DateTimeHelper.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 16:33
+//          created by 李文强 at  2016/09/23 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -15,12 +15,12 @@
 
 using System;
 
-namespace Magicodes.WeChat.SDK.Extend
+namespace Magicodes.WeChat.SDK.Helper
 {
     /// <summary>
     ///     微信时间戳转换
     /// </summary>
-    public static class DateTimeExtend
+    public static class DateTimeHelper
     {
         private const long STANDARD_TIME_STAMP = 621355968000000000;
 
