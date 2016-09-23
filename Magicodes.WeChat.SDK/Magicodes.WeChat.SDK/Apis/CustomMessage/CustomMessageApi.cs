@@ -6,9 +6,9 @@
 //          filename : CustomMessageApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -20,7 +20,7 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
     /// </summary>
     public class CustomMessageApi : ApiBase
     {
-        private const string APIName = "message/custom";
+        private const string ApiName = "message/custom";
 
         /// <summary>
         ///     发送文本消息
@@ -106,10 +106,10 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private ApiResult Send(CustomMessageSendModelBase model)
+        private ApiResult Send(CustomMessageSendApiResultBase model)
         {
             //获取api请求url
-            var url = GetAccessApiUrl("send", APIName);
+            var url = GetAccessApiUrl("send", ApiName);
             return Post<ApiResult>(url, model);
         }
     }

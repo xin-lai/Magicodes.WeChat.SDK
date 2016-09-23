@@ -6,9 +6,9 @@
 //          filename : TenPayV3.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -31,7 +31,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             UnifiedorderResult result = null;
 
-            model.AppId = WeiChatConfig.AppId;
+            model.AppId = WeChatConfig.AppId;
             model.MchId = PayConfig.MchId;
             if (model.NotifyUrl == null)
                 model.NotifyUrl = PayConfig.Notify;

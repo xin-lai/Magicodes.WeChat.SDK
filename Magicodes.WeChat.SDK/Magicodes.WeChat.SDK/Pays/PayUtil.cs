@@ -6,9 +6,9 @@
 //          filename : PayUtil.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Xml.Serialization;
 using Magicodes.WeChat.SDK.Helper;
 
@@ -71,11 +72,11 @@ namespace Magicodes.WeChat.SDK.Pays
 
             try
             {
-                res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+                res = HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
             }
             catch (Exception ex)
             {
-                res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+                res = HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
             }
 
 
@@ -96,11 +97,11 @@ namespace Magicodes.WeChat.SDK.Pays
 
             try
             {
-                res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+                res = HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
             }
             catch (Exception ex)
             {
-                res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+                res = HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
             }
 
 

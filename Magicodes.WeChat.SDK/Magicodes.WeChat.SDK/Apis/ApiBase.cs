@@ -6,16 +6,15 @@
 //          filename : ApiBase.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
@@ -46,22 +45,22 @@ namespace Magicodes.WeChat.SDK.Apis
                 if (Key != null)
                 {
                     var config = AppConfig;
-                    return WeiChatConfigManager.Current.GetAccessToken(config.AppId, config.AppSecret);
+                    return WeChatConfigManager.Current.GetAccessToken(config.AppId, config.AppSecret);
                 }
-                return WeiChatConfigManager.Current.AccessToken;
+                return WeChatConfigManager.Current.AccessToken;
             }
         }
 
         /// <summary>
         ///     获取微信配置
         /// </summary>
-        public IWeiChatConfig AppConfig
+        public IWeChatConfig AppConfig
         {
             get
             {
                 return Key == null
-                    ? WeiChatConfigManager.Current.GetConfig()
-                    : WeiChatConfigManager.Current.GetConfig(Key);
+                    ? WeChatConfigManager.Current.GetConfig()
+                    : WeChatConfigManager.Current.GetConfig(Key);
             }
         }
 
@@ -131,7 +130,7 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             if ((result.ReturnCode == ReturnCodes.access_token超时) ||
                 (result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效))
-                WeiChatConfigManager.Current.RefreshAccessToken(AppConfig.AppId, AppConfig.AppSecret);
+                WeChatConfigManager.Current.RefreshAccessToken(AppConfig.AppId, AppConfig.AppSecret);
         }
 
         /// <summary>

@@ -6,15 +6,15 @@
 //          filename : CustomerServiceApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
 
 using System.Collections.Generic;
-using Magicodes.WeiChat.Unity;
+using Magicodes.WeChat.SDK.Helper;
 
 namespace Magicodes.WeChat.SDK.Apis.CustomerService
 {
@@ -23,7 +23,7 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
     /// </summary>
     public class CustomerServiceApi : ApiBase
     {
-        private const string APIName = "customservice";
+        private const string ApiName = "customservice";
         private const string CustomerServiceApiRoot = "https://api.weixin.qq.com";
 
         /// <summary>
@@ -35,21 +35,21 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
         /// <returns>调用结果</returns>
         public ApiResult AddCustomerAccount(string accountName, string nickname, string password)
         {
-            accountName = setAccountName(accountName);
+            accountName = SetAccountName(accountName);
             //获取api请求url
-            var url = GetAccessApiUrl("kfaccount/add", APIName, CustomerServiceApiRoot);
+            var url = GetAccessApiUrl("kfaccount/add", ApiName, CustomerServiceApiRoot);
             //Post数据
             var model = new
             {
                 kf_account = accountName,
                 nickname,
                 //需要加密处理
-                password = password.GetWeChatMD5()
+                password = password.GetWeChatMd5()
             };
             return Post<ApiResult>(url, model);
         }
 
-        private string setAccountName(string accountName)
+        private string SetAccountName(string accountName)
         {
             if (!accountName.Contains("@"))
                 accountName = string.Format("{0}@{1}", accountName, AppConfig.WeiXinAccount);
@@ -65,15 +65,15 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
         /// <returns>调用结果</returns>
         public ApiResult UpdateCustomerAccount(string accountName, string nickname, string password)
         {
-            accountName = setAccountName(accountName);
+            accountName = SetAccountName(accountName);
             //获取api请求url
-            var url = GetAccessApiUrl("kfaccount/update", APIName, CustomerServiceApiRoot);
+            var url = GetAccessApiUrl("kfaccount/update", ApiName, CustomerServiceApiRoot);
             //Post数据
             var model = new
             {
                 kf_account = accountName,
                 nickname,
-                password = password.GetWeChatMD5()
+                password = password.GetWeChatMd5()
             };
             return Post<ApiResult>(url, model);
         }
@@ -85,13 +85,13 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
         /// <returns>调用结果</returns>
         public ApiResult RemoveCustomerAccount(string accountName)
         {
-            accountName = setAccountName(accountName);
+            accountName = SetAccountName(accountName);
             var urlParams = new Dictionary<string, string>
             {
                 {"kf_account", accountName}
             };
             //获取api请求url
-            var url = GetAccessApiUrl("kfaccount/del", APIName, CustomerServiceApiRoot, urlParams);
+            var url = GetAccessApiUrl("kfaccount/del", ApiName, CustomerServiceApiRoot, urlParams);
             return Get<ApiResult>(url);
         }
 
@@ -99,11 +99,11 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
         ///     获取所有客服账号
         /// </summary>
         /// <returns>所有客服账号结果</returns>
-        public GetCustomerAccountListResult GetCustomerAccountList()
+        public GetCustomerAccountListApiResult GetCustomerAccountList()
         {
             //获取api请求url
-            var url = GetAccessApiUrl("getkflist", APIName);
-            return Get<GetCustomerAccountListResult>(url);
+            var url = GetAccessApiUrl("getkflist", ApiName);
+            return Get<GetCustomerAccountListApiResult>(url);
         }
     }
 }

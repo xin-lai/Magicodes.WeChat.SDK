@@ -6,9 +6,9 @@
 //          filename : MenuApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -21,18 +21,18 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
     /// </summary>
     public class MenuApi : ApiBase
     {
-        private const string APIName = "menu";
+        private const string ApiName = "menu";
 
         /// <summary>
         ///     自定义菜单查询接口
         ///     https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN
         /// </summary>
         /// <returns>菜单返回结果</returns>
-        public MenuGetApiResultModel Get()
+        public MenuGetApiResult Get()
         {
             //获取api请求url
-            var url = GetAccessApiUrl("get", APIName);
-            return Get<MenuGetApiResultModel>(url, new MenuButtonsCustomConverter());
+            var url = GetAccessApiUrl("get", ApiName);
+            return Get<MenuGetApiResult>(url, new MenuButtonsCustomConverter());
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// <returns>返回操作结果</returns>
         public ApiResult Create(MenuInfo model)
         {
-            var url = GetAccessApiUrl("create", APIName);
+            var url = GetAccessApiUrl("create", ApiName);
             return Post<ApiResult>(url, model);
         }
 
@@ -54,7 +54,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// <returns>返回操作结果</returns>
         public ApiResult Delete()
         {
-            var url = GetAccessApiUrl("delete", APIName);
+            var url = GetAccessApiUrl("delete", ApiName);
             return Get<ApiResult>(url);
         }
 
@@ -79,7 +79,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// <returns>返回操作结果</returns>
         public ApiResult AddConditional(ConditionalMenuInfo model)
         {
-            var url = GetAccessApiUrl("addconditional", APIName);
+            var url = GetAccessApiUrl("addconditional", ApiName);
             return Post<ApiResult>(url, model);
         }
 
@@ -91,7 +91,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// <returns></returns>
         public ApiResult DelConditional(string menuId)
         {
-            var url = GetAccessApiUrl("delconditional", APIName);
+            var url = GetAccessApiUrl("delconditional", ApiName);
             var model = new {menuid = menuId};
             return Post<ApiResult>(url, model);
         }
@@ -102,11 +102,11 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// </summary>
         /// <param name="userIdJson">粉丝的OpenID或者粉丝的微信号，请求json格式</param>
         /// <returns></returns>
-        public MenuGetApiResultModel TryMatch(string userId)
+        public MenuGetApiResult TryMatch(string userId)
         {
-            var url = GetAccessApiUrl("trymatch", APIName);
+            var url = GetAccessApiUrl("trymatch", ApiName);
             var model = new {user_id = userId};
-            return Post<MenuGetApiResultModel>(url, model);
+            return Post<MenuGetApiResult>(url, model);
         }
 
         #endregion

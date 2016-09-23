@@ -1,66 +1,67 @@
-ï»¿// ======================================================================
+// ======================================================================
 //  
-//          Copyright (C) 2016-2020 æ¹–å—å¿ƒè±ä¿¡æ¯ç§‘æŠ€æœ‰é™å…¬å¸    
+//          Copyright (C) 2016-2020 ºşÄÏĞÄÀ³ĞÅÏ¢¿Æ¼¼ÓĞÏŞ¹«Ë¾    
 //          All rights reserved
 //  
-//          filename : CustomMessageApi.cs
+//          filename : TicketApi.cs
 //          description :
 //  
-//          created by ææ–‡å¼º at  2016/09/21 14:04
-//          Blogï¼šhttp://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
-//          Homeï¼šhttp://xin-lai.com
+//          created by ÀîÎÄÇ¿ at  2016/09/23 16:33
+//          Blog£ºhttp://www.cnblogs.com/codelove/
+//          GitHub £º https://github.com/xin-lai
+//          Home£ºhttp://xin-lai.com
 //  
 // ======================================================================
 
 using System;
 using System.Collections.Generic;
-using Magicodes.WeChat.SDK.Apis.CustomMessage;
 
 namespace Magicodes.WeChat.SDK.Apis.Ticket
 {
     /// <summary>
-    ///     å®¢æœæ¥å£
+    ///     ¿Í·ş½Ó¿Ú
     /// </summary>
     public class TicketApi : ApiBase
     {
         private const string ApiName = "ticket";
+
         /// <summary>
-        /// è·å–AccessToken
+        ///     »ñÈ¡AccessToken
         /// </summary>
         /// <returns></returns>
         public TicketApiResult Get()
         {
-            var url = GetAccessApiUrl("getticket", ApiName, ApiRoot, new Dictionary<string, string>()
+            var url = GetAccessApiUrl("getticket", ApiName, ApiRoot, new Dictionary<string, string>
             {
-                {"type","jsapi" }
+                {"type", "jsapi"}
             });
             var result = Get<TicketApiResult>(url);
             result.ExporesTime = DateTime.Now.AddSeconds(result.Expires - 30);
             return result;
         }
+
         /// <summary>
-        /// å®‰å…¨è·å–AccessToken
+        ///     °²È«»ñÈ¡AccessToken
         /// </summary>
         /// <returns></returns>
         public TicketApiResult SafeGet()
         {
             var appConfig = AppConfig;
             TicketApiResult ticket;
-            if (WeiChatApisContext.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
+            if (WeChatApisContext.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
             {
-                ticket = WeiChatApisContext.Current.TicketConcurrentDictionary[appConfig.AppId];
+                ticket = WeChatApisContext.Current.TicketConcurrentDictionary[appConfig.AppId];
                 if (DateTime.Now < ticket.ExporesTime)
                     return ticket;
                 ticket = Get();
-                WeiChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
+                WeChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
                     (tKey, existingVal) => ticket);
                 return ticket;
             }
             ticket = Get();
-            WeiChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket, (tKey, existingVal) => ticket);
+            WeChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
+                (tKey, existingVal) => ticket);
             return ticket;
         }
-
     }
 }

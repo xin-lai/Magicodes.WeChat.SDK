@@ -6,9 +6,9 @@
 //          filename : StatisticsApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -23,9 +23,9 @@ namespace Magicodes.WeChat.SDK.Apis.Statistics
     /// </summary>
     public class StatisticsApi : ApiBase
     {
-        private const string APIName = "datacube";
+        private const string ApiName = "datacube";
         //因为微信获取数据统计的接口url和其他的url有点不同，在qq.com后面不是cgi-bin 而是datacube
-        private const string StatisticsAPIRoot = "https://api.weixin.qq.com";
+        private const string StatisticsApiRoot = "https://api.weixin.qq.com";
 
 
         /// <summary>
@@ -39,20 +39,21 @@ namespace Magicodes.WeChat.SDK.Apis.Statistics
         public T GetStatisticsInfo<T>(DateTime begindate, DateTime enddate, string funname) where T : ApiResult
         {
             //获取api请求url
-            var url = GetAccessApiUrl(funname, APIName, StatisticsAPIRoot);
+            var url = GetAccessApiUrl(funname, ApiName, StatisticsApiRoot);
             var getSummaryModel = new UserAnalysisModel
             {
                 BeginDate = begindate.ToString("yyyy-MM-dd"),
                 EndDate = enddate.ToString("yyyy-MM-dd")
             };
-            string jsondata = JsonConvert.SerializeObject(getSummaryModel);
+            var jsondata = JsonConvert.SerializeObject(getSummaryModel);
             return Post<T>(url, jsondata);
         }
 
-        //protected T Get<T>(string url) where T : ApiResult
+        ///// 获取用户增减数据
 
         ///// <summary>
-        ///// 获取用户增减数据
+
+        //protected T Get<T>(string url) where T : ApiResult
         ///// </summary>
         ///// <returns>返回结果</returns>
         //public UserSummaryAnalyisResult GetUserSummaryInfo(DateTime begindate,DateTime enddate)

@@ -6,9 +6,9 @@
 //          filename : NewsApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -20,7 +20,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
     /// </summary>
     public class NewsApi : ApiBase
     {
-        private const string APIName = "material";
+        private const string ApiName = "material";
 
         /// <summary>
         ///     获取多图文素材
@@ -30,7 +30,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         public NewsGetApiResult Get(string id)
         {
             //获取api请求url
-            var url = GetAccessApiUrl("get_material", APIName);
+            var url = GetAccessApiUrl("get_material", ApiName);
             var data = new
             {
                 media_id = id
@@ -41,7 +41,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         public ApiResult Get(int offset = 0, int count = 20)
         {
             //获取api请求url
-            var url = GetAccessApiUrl("batchget_material", APIName);
+            var url = GetAccessApiUrl("batchget_material", ApiName);
             var data = new
             {
                 type = "news",
@@ -55,12 +55,8 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         public NewsPostApiResult Post(NewsPostModel news)
         {
             //获取api请求url
-            var url = GetAccessApiUrl("add_news", APIName);
-            //foreach (var item in news.Articles)
-            //{
-            //    item.Content = HttpUtility.HtmlEncode(HttpUtility.UrlEncode(item.Content));
-            //}
-            return Post<NewsPostApiResult>(url, news, inputStr => { return inputStr; });
+            var url = GetAccessApiUrl("add_news", ApiName);
+            return Post<NewsPostApiResult>(url, news, inputStr => inputStr);
         }
     }
 }

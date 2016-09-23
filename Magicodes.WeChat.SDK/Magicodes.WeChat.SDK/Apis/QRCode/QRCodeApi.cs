@@ -6,14 +6,13 @@
 //          filename : QRCodeApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
 
-using System;
 using System.Web;
 
 namespace Magicodes.WeChat.SDK.Apis.QRCode
@@ -26,7 +25,6 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
     public class QRCodeApi : ApiBase
     {
         private const string ApiName = "qrcode";
-        private const string QrCodeDir = "QRCode";
 
         /// <summary>
         ///     获取二维码路径
@@ -81,8 +79,8 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                 };
                 result = Post<QRCodeCreateApiResult>(url, model);
             }
-            WeiChatFrameworkFuncsManager.Current.InvokeFunc(WeiChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
-                new WeiChatApiCallbackFuncArgInfo
+            WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
+                new WeChatApiCallbackFuncArgInfo
                 {
                     Api = this,
                     Data = result
@@ -112,8 +110,8 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                 }
             };
             result = Post<QRCodeCreateApiResult>(url, model);
-            WeiChatFrameworkFuncsManager.Current.InvokeFunc(WeiChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
-                new WeiChatApiCallbackFuncArgInfo
+            WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
+                new WeChatApiCallbackFuncArgInfo
                 {
                     Api = this,
                     Data = result

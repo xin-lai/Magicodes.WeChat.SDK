@@ -6,9 +6,9 @@
 //          filename : PayBase.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -32,13 +32,13 @@ namespace Magicodes.WeChat.SDK.Pays
         /// <summary>
         ///     获取微信配置
         /// </summary>
-        public IWeiChatPayConfig PayConfig => Key == null
-            ? WeiChatConfigManager.Current.GetPayConfig()
-            : WeiChatConfigManager.Current.GetPayConfig(Key);
+        public IWeChatPayConfig PayConfig => Key == null
+            ? WeChatConfigManager.Current.GetPayConfig()
+            : WeChatConfigManager.Current.GetPayConfig(Key);
 
-        public IWeiChatConfig WeiChatConfig => Key == null
-            ? WeiChatConfigManager.Current.GetConfig()
-            : WeiChatConfigManager.Current.GetConfig(Key);
+        public IWeChatConfig WeChatConfig => Key == null
+            ? WeChatConfigManager.Current.GetConfig()
+            : WeChatConfigManager.Current.GetConfig(Key);
 
         public void SetKey(object key)
         {
@@ -63,7 +63,7 @@ namespace Magicodes.WeChat.SDK.Pays
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
             var result = wr.HttpPost<T>(url, obj, out resultStr, serializeStrFunc,
-                inputDataType: WebRequestDataTypes.XML, outDataType: WebRequestDataTypes.XML);
+                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
             if (result != null)
                 result.DetailResult = resultStr;
             return result;
@@ -82,7 +82,7 @@ namespace Magicodes.WeChat.SDK.Pays
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
             var result = wr.HttpPost<T>(url, obj, cer, out resultStr, serializeStrFunc,
-                inputDataType: WebRequestDataTypes.XML, outDataType: WebRequestDataTypes.XML);
+                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
             if (result != null)
                 result.DetailResult = resultStr;
             return result;

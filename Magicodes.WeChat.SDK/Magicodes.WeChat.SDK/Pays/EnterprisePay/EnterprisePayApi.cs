@@ -6,9 +6,9 @@
 //          filename : EnterprisePayApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -16,6 +16,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Hosting;
+using Magicodes.Logger;
 
 namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 {
@@ -32,7 +33,7 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
             EnterpriseResult result = null;
             try
             {
-                var wechatConfig = WeiChatConfig;
+                var wechatConfig = WeChatConfig;
                 model.MchAppId = wechatConfig.AppId;
                 model.MchId = PayConfig.MchId;
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
@@ -52,7 +53,7 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
             }
             catch (Exception ex)
             {
-                Injection.Current.PayLogger.Log(Magicodes.Logger.LoggerLevels.Error, ex);
+                Injection.Current.PayLogger.Log(LoggerLevels.Error, ex);
             }
             return result;
         }

@@ -6,14 +6,13 @@
 //          filename : RequestUtility.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 15:43
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -27,7 +26,6 @@ namespace Magicodes.WeChat.SDK.Helper
 {
     public static class RequestUtility
     {
-
         /// <summary>
         ///     组装QueryString的方法
         ///     参数之间用&amp;连接，首位没有符号，如：a=1&amp;b=2&amp;c=3
@@ -164,9 +162,10 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <param name="encoding"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, int timeOut = 30000)
+        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null,
+            int timeOut = 30000)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -174,7 +173,7 @@ namespace Magicodes.WeChat.SDK.Helper
             if (cookieContainer != null)
                 request.CookieContainer = cookieContainer;
 
-            var response = (HttpWebResponse)request.GetResponse();
+            var response = (HttpWebResponse) request.GetResponse();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -218,7 +217,7 @@ namespace Magicodes.WeChat.SDK.Helper
             Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
             int timeOut = 30000, bool checkValidationResult = false)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -263,7 +262,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
             #endregion
 
-            var response = (HttpWebResponse)request.GetResponse();
+            var response = (HttpWebResponse) request.GetResponse();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -327,7 +326,7 @@ namespace Magicodes.WeChat.SDK.Helper
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null,
             Encoding encoding = null, int timeOut = 30000)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -335,7 +334,7 @@ namespace Magicodes.WeChat.SDK.Helper
             if (cookieContainer != null)
                 request.CookieContainer = cookieContainer;
 
-            var response = (HttpWebResponse)await request.GetResponseAsync();
+            var response = (HttpWebResponse) await request.GetResponseAsync();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -379,7 +378,7 @@ namespace Magicodes.WeChat.SDK.Helper
             Stream postStream = null, string refererUrl = null,
             Encoding encoding = null, int timeOut = 30000, bool checkValidationResult = false)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -425,7 +424,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
             #endregion
 
-            var response = (HttpWebResponse)await request.GetResponseAsync();
+            var response = (HttpWebResponse) await request.GetResponseAsync();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);

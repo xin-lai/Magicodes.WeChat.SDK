@@ -6,7 +6,7 @@
 //          filename : JSSDKHelper.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 10:23
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -61,7 +61,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     else
                         sb.Append("&" + k + "=" + v);
                 }
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     var v = (string) parameters[k];
                     sb.Append(v);
                 }
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
             foreach (var v in aValues)
                 sb.Append(v);
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
         {
-            var accessToken = WeiChatApisContext.Current.TokenApi.SafeGet().AccessToken;
+            var accessToken = WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
             var parameters = new Hashtable
             {
                 {"appId", appId},

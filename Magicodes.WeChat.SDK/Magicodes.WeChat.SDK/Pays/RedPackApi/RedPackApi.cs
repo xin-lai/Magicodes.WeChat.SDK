@@ -6,9 +6,9 @@
 //          filename : RedPackApi.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/21 14:04
+//          created by 李文强 at  2016/09/23 16:33
 //          Blog：http://www.cnblogs.com/codelove/
-//          GitHub : https://github.com/xin-lai
+//          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
@@ -16,6 +16,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
+using Magicodes.Logger;
 
 namespace Magicodes.WeChat.SDK.Pays.RedPackApi
 {
@@ -36,7 +37,7 @@ namespace Magicodes.WeChat.SDK.Pays.RedPackApi
 
             try
             {
-                model.WxAppId = WeiChatConfig.AppId;
+                model.WxAppId = WeChatConfig.AppId;
                 model.MchId = PayConfig.MchId;
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = HttpContext.Current.Request.PhysicalApplicationPath + PayConfig.PayCertPath;
@@ -57,7 +58,7 @@ namespace Magicodes.WeChat.SDK.Pays.RedPackApi
             }
             catch (Exception ex)
             {
-                Logger.Log(Magicodes.Logger.LoggerLevels.Error, ex.Message, ex);
+                Logger.Log(LoggerLevels.Error, ex.Message, ex);
             }
             return result;
         }
