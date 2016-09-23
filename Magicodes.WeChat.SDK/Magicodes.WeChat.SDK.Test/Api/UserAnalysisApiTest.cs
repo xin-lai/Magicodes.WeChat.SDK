@@ -17,7 +17,7 @@ using System;
 using Magicodes.WeChat.SDK.Apis.Statistics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magicodes.WeChat.SDK.Test.ApiTests
+namespace Magicodes.WeChat.SDK.Test.Api
 {
     /// <summary>
     ///     用户数据统计API测试

@@ -16,7 +16,7 @@
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magicodes.WeChat.SDK.Test.ApiTests
+namespace Magicodes.WeChat.SDK.Test.Api
 {
     [TestClass]
     public class CustomerServiceApiTest : ApiTestBase

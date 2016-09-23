@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using Magicodes.WeChat.SDK.Apis.Material;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magicodes.WeChat.SDK.Test.ApiTests
+namespace Magicodes.WeChat.SDK.Test.Api
 {
     [TestClass]
     public class NewsApiTest : ApiTestBase

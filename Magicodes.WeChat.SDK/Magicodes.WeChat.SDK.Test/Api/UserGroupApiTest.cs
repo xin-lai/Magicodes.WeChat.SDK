@@ -18,7 +18,7 @@ using System.Threading;
 using Magicodes.WeChat.SDK.Apis.UserGroup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Magicodes.WeChat.SDK.Test.ApiTests
+namespace Magicodes.WeChat.SDK.Test.Api
 {
     /// <summary>
     ///     用户组API测试

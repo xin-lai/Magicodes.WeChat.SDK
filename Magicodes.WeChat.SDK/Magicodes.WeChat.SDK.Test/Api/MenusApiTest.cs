@@ -17,7 +17,7 @@ using Magicodes.WeChat.SDK.Apis.Menu;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace Magicodes.WeChat.SDK.Test.ApiTests
+namespace Magicodes.WeChat.SDK.Test.Api
 {
     [TestClass]
     public class MenusApiTest : ApiTestBase
