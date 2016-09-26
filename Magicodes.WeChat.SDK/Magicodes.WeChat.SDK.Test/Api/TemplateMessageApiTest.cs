@@ -21,7 +21,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class TemplateMessageApiTest : ApiTestBase
     {
-        private readonly TemplateMessageApi api = new TemplateMessageApi();
+        private readonly TemplateMessageApi api = WeChatApisContext.Current.TemplateMessageApi;
 
         [TestMethod]
         public void TemplateMessageApiTest_AddTemplate()

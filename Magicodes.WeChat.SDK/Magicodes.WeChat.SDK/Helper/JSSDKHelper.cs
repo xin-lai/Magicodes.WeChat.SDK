@@ -54,7 +54,7 @@ namespace Magicodes.WeChat.SDK.Helper
             foreach (var k in akeys)
                 if (parameters[k] != null)
                 {
-                    var v = (string) parameters[k];
+                    var v = (string)parameters[k];
 
                     if (sb.Length == 0)
                         sb.Append(k + "=" + v);
@@ -77,7 +77,7 @@ namespace Magicodes.WeChat.SDK.Helper
             foreach (var k in akeys)
                 if (parameters[k] != null)
                 {
-                    var v = (string) parameters[k];
+                    var v = (string)parameters[k];
                     sb.Append(v);
                 }
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
@@ -122,15 +122,15 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <summary>
         ///     获取位置签名AddrSign
         /// </summary>
+        /// <param name="accessToken">访问凭据</param>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="noncestr"></param>
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
+        public static string GetAddrSign(string accessToken, string appId, string appSecret, string noncestr, string timestamp, string url)
         {
-            var accessToken = WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
             var parameters = new Hashtable
             {
                 {"appId", appId},

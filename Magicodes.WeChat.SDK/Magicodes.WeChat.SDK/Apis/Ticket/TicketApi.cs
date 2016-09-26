@@ -48,18 +48,18 @@ namespace Magicodes.WeChat.SDK.Apis.Ticket
         {
             var appConfig = AppConfig;
             TicketApiResult ticket;
-            if (WeChatApisContext.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
+            if (WeChatConfigManager.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
             {
-                ticket = WeChatApisContext.Current.TicketConcurrentDictionary[appConfig.AppId];
+                ticket = WeChatConfigManager.Current.TicketConcurrentDictionary[appConfig.AppId];
                 if (DateTime.Now < ticket.ExporesTime)
                     return ticket;
                 ticket = Get();
-                WeChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
+                WeChatConfigManager.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
                     (tKey, existingVal) => ticket);
                 return ticket;
             }
             ticket = Get();
-            WeChatApisContext.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
+            WeChatConfigManager.Current.TicketConcurrentDictionary.AddOrUpdate(appConfig.AppId, ticket,
                 (tKey, existingVal) => ticket);
             return ticket;
         }

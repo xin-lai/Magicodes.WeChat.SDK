@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Magicodes.Logger, Version=1.0.6109.31628, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Logger.1.0.6109.31628\lib\net45\Magicodes.Logger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +68,7 @@
     <Compile Include="Api\UserAnalysisApiTest.cs" />
     <Compile Include="Api\UserApiTest.cs" />
     <Compile Include="Api\UserGroupApiTest.cs" />
+    <Compile Include="DebugLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeChatConfig.cs" />
   </ItemGroup>

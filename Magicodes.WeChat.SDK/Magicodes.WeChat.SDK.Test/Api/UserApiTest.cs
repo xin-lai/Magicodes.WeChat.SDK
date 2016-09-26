@@ -25,7 +25,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class UserApiTest : ApiTestBase
     {
-        private readonly UserApi api = new UserApi();
+        private readonly UserApi api = WeChatApisContext.Current.UserApi;
 
         [TestMethod]
         public void UserApiTest_ALL()

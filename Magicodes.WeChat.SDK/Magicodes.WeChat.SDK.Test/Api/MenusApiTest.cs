@@ -22,11 +22,10 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class MenusApiTest : ApiTestBase
     {
-        private readonly MenuApi weChatApi = new MenuApi();
+        private readonly MenuApi weChatApi = WeChatApisContext.Current.MenuApi;
 
         public MenusApiTest()
         {
-            weChatApi.SetKey(1);
         }
 
         [TestMethod]

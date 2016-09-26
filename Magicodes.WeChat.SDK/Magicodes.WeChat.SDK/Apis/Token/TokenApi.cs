@@ -56,18 +56,18 @@ namespace Magicodes.WeChat.SDK.Apis.Token
         {
             var appConfig = AppConfig;
             TokenApiResult token;
-            if (WeChatApisContext.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
+            if (WeChatConfigManager.Current.AccessTokenConcurrentDictionary.ContainsKey(appConfig.AppId))
             {
-                token = WeChatApisContext.Current.AccessTokenConcurrentDictionary[appConfig.AppId];
+                token = WeChatConfigManager.Current.AccessTokenConcurrentDictionary[appConfig.AppId];
                 if (DateTime.Now < token.ExpiresTime)
                     return token;
                 token = Get();
-                WeChatApisContext.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
+                WeChatConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
                     (tKey, existingVal) => token);
                 return token;
             }
             token = Get();
-            WeChatApisContext.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
+            WeChatConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
                 (tKey, existingVal) => token);
             return token;
         }
@@ -76,7 +76,7 @@ namespace Magicodes.WeChat.SDK.Apis.Token
         {
             var appConfig = AppConfig;
             var token = Get();
-            WeChatApisContext.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
+            WeChatConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(appConfig.AppId, token,
                 (tKey, existingVal) => token);
         }
     }

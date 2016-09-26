@@ -16,6 +16,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Web;
+using Magicodes.WeChat.SDK.Apis.Ticket;
+using Magicodes.WeChat.SDK.Apis.Token;
 using Magicodes.WeChat.SDK.Helper;
 
 namespace Magicodes.WeChat.SDK
@@ -25,8 +27,6 @@ namespace Magicodes.WeChat.SDK
     /// </summary>
     public class WeChatConfigManager
     {
-        private const string KEYNAME = "WeChatConfigManager_Key";
-
         private static readonly Lazy<WeChatConfigManager> Lazy =
             new Lazy<WeChatConfigManager>(() => new WeChatConfigManager());
 
@@ -39,65 +39,20 @@ namespace Magicodes.WeChat.SDK
         protected ConcurrentDictionary<object, IWeChatPayConfig> WeChatPayConfigs =
             new ConcurrentDictionary<object, IWeChatPayConfig>();
 
+        /// <summary>
+        ///     访问凭据存储
+        /// </summary>
+        internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
+            new ConcurrentDictionary<string, TokenApiResult>();
+
+        internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
+            new ConcurrentDictionary<string, TicketApiResult>();
+
         public static WeChatConfigManager Current => Lazy.Value;
-
-        /// <summary>
-        ///     微信AppId
-        /// </summary>
-        public string AppId
-        {
-            get { return GetConfig().AppId; }
-        }
-
-        /// <summary>
-        ///     接口访问密钥
-        /// </summary>
-        public string AppSecret
-        {
-            get { return GetConfig().AppSecret; }
-        }
-
-        /// <summary>
-        ///     微信号
-        /// </summary>
-        public string WeiXinAccount
-        {
-            get { return GetConfig().WeiXinAccount; }
-        }
-
-        /// <summary>
-        ///     接口访问凭据
-        /// </summary>
-        public string AccessToken => WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
-
-        /// <summary>
-        ///     设置配置Key，以便获取相关配置
-        /// </summary>
-        /// <param name="key"></param>
-        public void SetKey(object key)
-        {
-            var context = HttpContext.Current;
-            if (context == null)
-                throw new HttpException("SetKey只能在当前请求线程中使用！");
-            context.Session[KEYNAME] = key;
-        }
 
         public object GetKey()
         {
-            var context = HttpContext.Current;
-            if (context == null)
-                throw new HttpException("GetKey只能在当前请求线程中使用！");
-            return context.Session[KEYNAME];
-        }
-
-        public IWeChatConfig GetConfig()
-        {
-            return GetConfig(GetKey());
-        }
-
-        public IWeChatPayConfig GetPayConfig()
-        {
-            return GetPayConfig(GetKey());
+            return WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.GetKey, new WeChatApiCallbackFuncArgInfo());
         }
 
         /// <summary>
@@ -105,8 +60,10 @@ namespace Magicodes.WeChat.SDK
         /// </summary>
         /// <param name="key">唯一Key</param>
         /// <returns></returns>
-        public IWeChatPayConfig GetPayConfig(object key)
+        public IWeChatPayConfig GetPayConfig(object key = null)
         {
+            if (key == null)
+                key = GetKey();
             if (key == null)
                 throw new Exception("Key不能为NULL！");
             if (WeChatPayConfigs.ContainsKey(key))
@@ -129,8 +86,10 @@ namespace Magicodes.WeChat.SDK
         /// </summary>
         /// <param name="key">唯一Key</param>
         /// <returns></returns>
-        public IWeChatConfig GetConfig(object key)
+        public IWeChatConfig GetConfig(object key = null)
         {
+            if (key == null)
+                key = GetKey();
             if (key == null)
                 throw new Exception("Key不能为NULL！");
             if (WeChatConfigs.ContainsKey(key))
@@ -144,6 +103,18 @@ namespace Magicodes.WeChat.SDK
                     });
             if (result == null) throw new Exception(string.Format("通过Key：{0}获取Config失败！", key));
             var weChatConfig = result as IWeChatConfig;
+            if (weChatConfig == null)
+            {
+                throw new Exception("获取微信配置失败");
+            }
+            if (string.IsNullOrWhiteSpace(weChatConfig.AppId))
+            {
+                throw new ApiArgumentException("微信配置错误，参数不能为空", "AppId");
+            }
+            if (string.IsNullOrWhiteSpace(weChatConfig.AppSecret))
+            {
+                throw new ApiArgumentException("微信配置错误，参数不能为空", "AppSecret");
+            }
             WeChatConfigs.AddOrUpdate(key, weChatConfig, (tKey, existingVal) => weChatConfig);
             return weChatConfig;
         }
@@ -157,7 +128,7 @@ namespace Magicodes.WeChat.SDK
             var ticket = WeChatApisContext.Current.TicketApi.SafeGet().Ticket;
             var configInfo = new JSSDKConfigInfo
             {
-                AppId = AppId,
+                AppId = WeChatConfigManager.Current.GetConfig().AppId,
                 Timestamp = JSSDKHelper.GetTimestamp(),
                 NonceStr = JSSDKHelper.GetNoncestr()
             };
@@ -169,22 +140,29 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         ///     接口访问凭据
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
         /// <returns></returns>
-        public string GetAccessToken(string appId, string appSecret)
+        public string GetAccessToken(object key = null)
         {
-            return WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
+            if (key == null)
+                return WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
+            var api = new TokenApi();
+            api.SetKey(key);
+            return api.SafeGet().AccessToken;
         }
 
         /// <summary>
         ///     刷新访问凭据
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
-        public void RefreshAccessToken(string appId, string appSecret)
+        public void RefreshAccessToken(object key = null)
         {
-            WeChatApisContext.Current.TokenApi.Update();
+            if (key == null)
+            {
+                WeChatApisContext.Current.TokenApi.Update();
+                return;
+            }
+            var api = new TokenApi();
+            api.SetKey(key);
+            api.Update();
         }
 
         /// <summary>
@@ -205,7 +183,7 @@ namespace Magicodes.WeChat.SDK
         public void RefreshConfigAndAccessToken(object key, IWeChatConfig config)
         {
             RefreshConfig(key, config);
-            RefreshAccessToken(config.AppId, config.AppSecret);
+            RefreshAccessToken(key);
         }
     }
 }

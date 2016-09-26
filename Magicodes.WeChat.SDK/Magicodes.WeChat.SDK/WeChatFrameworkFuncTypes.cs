@@ -43,6 +43,11 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         ///     获取AccessToken。用于中控服务器模式，即从中控服务器获取Accesstoken
         /// </summary>
-        APIFunc_GetAccessToken = 4
+        APIFunc_GetAccessToken = 4,
+
+        /// <summary>
+        ///     获取Key
+        /// </summary>
+        GetKey = 5,
     }
 }

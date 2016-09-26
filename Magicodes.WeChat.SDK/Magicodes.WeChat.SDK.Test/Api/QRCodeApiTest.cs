@@ -22,11 +22,10 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class QRCodeApiTest : ApiTestBase
     {
-        private readonly QRCodeApi weChatApi = new QRCodeApi();
+        private readonly QRCodeApi weChatApi = WeChatApisContext.Current.QrCodeApi;
 
         public QRCodeApiTest()
         {
-            weChatApi.SetKey(1);
         }
 
         [TestMethod]

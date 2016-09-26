@@ -26,12 +26,23 @@ namespace Magicodes.WeChat.SDK.Test
 
         static ApiTestBase()
         {
+            Injection.Current.ApiLogger = new DebugLogger("Api");
+            Injection.Current.PayLogger = new DebugLogger("Pay");
+
+            //注册Key。这里用于单元测试，写死。在实际开发中，可以考虑使用Sesstion来存储
+            WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.GetKey,
+                model => "wxa6eecd3e040a2d1e");
+
             //注册获取配置函数：根据Key获取微信配置（加载一次后续将缓存）
             WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.Config_GetWeChatConfigByKey,
                 model =>
                 {
                     var arg = model as WeChatApiCallbackFuncArgInfo;
-                    return new WeChatConfig();
+                    return new WeChatConfig()
+                    {
+                        AppId = "wxa6eecd3e040a2d1e",
+                        AppSecret = "52fce1fca473b15243a32dbbac8b6a95"
+                    };
                 });
         }
 

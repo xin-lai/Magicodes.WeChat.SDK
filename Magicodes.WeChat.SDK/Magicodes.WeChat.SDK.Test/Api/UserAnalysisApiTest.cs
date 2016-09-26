@@ -25,7 +25,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class UserAnalysisApiTest : ApiTestBase
     {
-        private readonly StatisticsApi api = new StatisticsApi();
+        private readonly StatisticsApi api = WeChatApisContext.Current.StatisticsApi;
 
         /// <summary>
         ///     获取用户新增数据单元测试

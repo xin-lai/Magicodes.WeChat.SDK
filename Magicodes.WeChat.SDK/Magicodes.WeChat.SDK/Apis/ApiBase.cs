@@ -42,12 +42,7 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             get
             {
-                if (Key != null)
-                {
-                    var config = AppConfig;
-                    return WeChatConfigManager.Current.GetAccessToken(config.AppId, config.AppSecret);
-                }
-                return WeChatConfigManager.Current.AccessToken;
+                return WeChatConfigManager.Current.GetAccessToken();
             }
         }
 
@@ -56,12 +51,7 @@ namespace Magicodes.WeChat.SDK.Apis
         /// </summary>
         public IWeChatConfig AppConfig
         {
-            get
-            {
-                return Key == null
-                    ? WeChatConfigManager.Current.GetConfig()
-                    : WeChatConfigManager.Current.GetConfig(Key);
-            }
+            get { return WeChatConfigManager.Current.GetConfig(Key); }
         }
 
         public void SetKey(object key)
@@ -130,7 +120,7 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             if ((result.ReturnCode == ReturnCodes.access_token超时) ||
                 (result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效))
-                WeChatConfigManager.Current.RefreshAccessToken(AppConfig.AppId, AppConfig.AppSecret);
+                WeChatConfigManager.Current.RefreshAccessToken(Key);
         }
 
         /// <summary>

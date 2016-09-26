@@ -21,11 +21,10 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class CustomMessageApiTest : ApiTestBase
     {
-        private readonly CustomMessageApi weChatApi = new CustomMessageApi();
+        private readonly CustomMessageApi weChatApi = WeChatApisContext.Current.CustomMessageApi;
 
         public CustomMessageApiTest()
         {
-            weChatApi.SetKey(1);
         }
 
         [TestMethod]

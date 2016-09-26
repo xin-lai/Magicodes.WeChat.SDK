@@ -21,7 +21,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class CustomerServiceApiTest : ApiTestBase
     {
-        private readonly CustomerServiceApi _weChatApi = new CustomerServiceApi();
+        private readonly CustomerServiceApi _weChatApi = WeChatApisContext.Current.CustomerServiceApi;
 
         [TestMethod]
         public void CustomerServiceApiTest_GetCustomerAccountList()

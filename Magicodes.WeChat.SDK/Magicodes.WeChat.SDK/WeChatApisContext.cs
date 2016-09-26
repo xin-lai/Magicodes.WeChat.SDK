@@ -14,7 +14,6 @@
 // ======================================================================
 
 using System;
-using System.Collections.Concurrent;
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.CustomMessage;
 using Magicodes.WeChat.SDK.Apis.Material;
@@ -39,12 +38,7 @@ namespace Magicodes.WeChat.SDK
     {
         private static readonly Lazy<WeChatApisContext> Lazy =
             new Lazy<WeChatApisContext>(() => new WeChatApisContext());
-
-        /// <summary>
-        ///     访问凭据存储
-        /// </summary>
-        internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
-            new ConcurrentDictionary<string, TokenApiResult>();
+        public static WeChatApisContext Current => Lazy.Value;
 
         /// <summary>
         ///     多客服接口
@@ -101,9 +95,6 @@ namespace Magicodes.WeChat.SDK
         /// </summary>
         public TicketApi TicketApi = new TicketApi();
 
-        internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
-            new ConcurrentDictionary<string, TicketApiResult>();
-
         /// <summary>
         ///     凭据管理接口
         /// </summary>
@@ -118,7 +109,5 @@ namespace Magicodes.WeChat.SDK
         ///     用户组相关操作API
         /// </summary>
         public UserGroupApi UserGroupApi = new UserGroupApi();
-
-        public static WeChatApisContext Current => Lazy.Value;
     }
 }

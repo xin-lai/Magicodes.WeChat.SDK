@@ -22,11 +22,10 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class NewsApiTest : ApiTestBase
     {
-        private readonly NewsApi api = new NewsApi();
+        private readonly NewsApi api = WeChatApisContext.Current.NewsApi;
 
         public NewsApiTest()
         {
-            api.SetKey(1);
         }
 
         [TestMethod]
