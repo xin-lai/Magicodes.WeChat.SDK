@@ -98,6 +98,8 @@
     <Compile Include="Apis\Menu\SubMenuButton.cs" />
     <Compile Include="Apis\Menu\ViewButton.cs" />
     <Compile Include="Apis\Menu\ViewLimitedButton.cs" />
+    <Compile Include="Apis\OAuth\OAuthApi.cs" />
+    <Compile Include="Apis\OAuth\OAuthTokenApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeCreateApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeApi.cs" />
     <Compile Include="Apis\ReturnCodes.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="Pays\TenPayV3\UnifiedorderRequest.cs" />
     <Compile Include="Pays\TenPayV3\UnifiedorderResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerMessages\Message.cs" />
+    <Compile Include="ServerMessages\Request.cs" />
     <Compile Include="WeChatApisContext.cs" />
     <Compile Include="WeChatConfigManager.cs" />
     <Compile Include="WeChatFrameworkFuncTypes.cs" />
