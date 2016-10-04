@@ -33,7 +33,7 @@ namespace Magicodes.WeChat.SDK.Apis
         /// <summary>
         ///     日志记录
         /// </summary>
-        protected LoggerBase Logger = Injection.Current.ApiLogger;
+        protected LoggerBase Logger = WeChatHelper.ApiLogger;
 
         /// <summary>
         ///     接口访问凭据

@@ -27,7 +27,7 @@ namespace Magicodes.WeChat.SDK.Pays
         /// <summary>
         ///     日志记录
         /// </summary>
-        protected LoggerBase Logger = Injection.Current.PayLogger;
+        protected LoggerBase Logger = WeChatHelper.PayLogger;
 
         /// <summary>
         ///     获取微信配置

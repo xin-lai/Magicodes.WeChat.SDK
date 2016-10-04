@@ -53,7 +53,7 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
             }
             catch (Exception ex)
             {
-                Injection.Current.PayLogger.Log(LoggerLevels.Error, ex);
+                WeChatHelper.PayLogger.Log(LoggerLevels.Error, ex);
             }
             return result;
         }

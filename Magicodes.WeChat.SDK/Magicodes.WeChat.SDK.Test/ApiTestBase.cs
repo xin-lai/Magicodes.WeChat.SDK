@@ -26,8 +26,8 @@ namespace Magicodes.WeChat.SDK.Test
 
         static ApiTestBase()
         {
-            Injection.Current.ApiLogger = new DebugLogger("Api");
-            Injection.Current.PayLogger = new DebugLogger("Pay");
+            WeChatHelper.ApiLogger = new DebugLogger("Api");
+            WeChatHelper.PayLogger = new DebugLogger("Pay");
 
             //注册Key。这里用于单元测试，写死。在实际开发中，可以考虑使用Sesstion来存储
             WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.GetKey,

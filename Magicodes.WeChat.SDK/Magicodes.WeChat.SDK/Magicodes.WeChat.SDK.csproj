@@ -31,12 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Magicodes.Logger, Version=1.0.6109.31628, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magicodes.Logger.1.0.6109.31628\lib\net45\Magicodes.Logger.dll</HintPath>
+    <Reference Include="Magicodes.Logger, Version=1.0.6121.36843, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Logger.1.0.6121.36843\lib\net45\Magicodes.Logger.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Magicodes.Storage, Version=1.0.6110.17912, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magicodes.Storage.1.0.6110.17912\lib\net45\Magicodes.Storage.dll</HintPath>
+    <Reference Include="Magicodes.Storage, Version=1.0.6121.37084, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Storage.1.0.6121.37084\lib\net45\Magicodes.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -145,6 +145,7 @@
     <Compile Include="Apis\User\UserApi.cs" />
     <Compile Include="Apis\User\UserBatchGetApiResult.cs" />
     <Compile Include="Apis\User\WeChatSexTypes.cs" />
+    <Compile Include="Builder\WeChatSDKBuilder.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\EncryUtils.cs" />
     <Compile Include="Helper\JSSDKHelper.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="Helper\WebRequestHelper.cs" />
     <Compile Include="Helper\WeChatApiWebRequestHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
-    <Compile Include="Injection.cs" />
+    <Compile Include="WeChatHelper.cs" />
     <Compile Include="IWeChatConfig.cs" />
     <Compile Include="IWeChatPayConfig.cs" />
     <Compile Include="JSSDKConfigInfo.cs" />
