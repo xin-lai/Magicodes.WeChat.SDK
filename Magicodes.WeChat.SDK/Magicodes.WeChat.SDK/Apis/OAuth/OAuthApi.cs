@@ -15,6 +15,7 @@
 
 using System;
 using Magicodes.WeChat.SDK.Apis.OAuth;
+using Magicodes.WeChat.SDK.Helper;
 
 namespace Magicodes.WeChat.SDK.Apis.Token
 {
@@ -49,6 +50,20 @@ namespace Magicodes.WeChat.SDK.Apis.Token
             var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken, openId, lang);
             var result = Get<GetUserInfoApiResult>(url);
             return result;
+        }
+
+        /// <summary>
+        /// 获取网页授权链接
+        /// </summary>
+        /// <param name="redirectUrl">授权后重定向的回调链接地址，请使用urlencode对链接进行处理</param>
+        /// <param name="state">重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节</param>
+        /// <param name="scope">应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）</param>
+        /// <param name="responseType">返回类型，请填写code</param>
+        /// <returns></returns>
+        public string GetAuthorizeUrl(string redirectUrl, string state, OAuthScopes scope = OAuthScopes.snsapi_userinfo, string responseType = "code")
+        {
+            return string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}#wechat_redirect",
+                                AppConfig.AppId, redirectUrl.UrlEncode(), responseType, scope, state);
         }
 
         public void Update()
