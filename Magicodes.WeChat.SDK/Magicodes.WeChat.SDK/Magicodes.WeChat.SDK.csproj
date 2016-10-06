@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Magicodes.WeChat.SDK.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magicodes.Logger, Version=1.0.6121.36843, Culture=neutral, processorArchitecture=MSIL">
@@ -100,6 +101,7 @@
     <Compile Include="Apis\Menu\ViewLimitedButton.cs" />
     <Compile Include="Apis\OAuth\OAuthApi.cs" />
     <Compile Include="Apis\OAuth\OAuthTokenApiResult.cs" />
+    <Compile Include="Apis\OAuth\GetUserInfoApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeCreateApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeApi.cs" />
     <Compile Include="Apis\ReturnCodes.cs" />

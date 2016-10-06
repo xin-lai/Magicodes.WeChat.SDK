@@ -109,5 +109,10 @@ namespace Magicodes.WeChat.SDK
         ///     用户组相关操作API
         /// </summary>
         public UserGroupApi UserGroupApi = new UserGroupApi();
+
+        /// <summary>
+        ///     OAUTH验证接口
+        /// </summary>
+        public OAuthApi OAuthApi = new OAuthApi();
     }
 }
