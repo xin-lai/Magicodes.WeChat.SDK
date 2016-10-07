@@ -20,12 +20,9 @@ namespace Magicodes.WeChat.SDK.Builder
 {
     public class WeChatSDKBuilder
     {
-        public IStorageProvider StorageProvider { get; set; }
-
-
-        public LoggerBase PayLogger { get; set; }
-
-        public LoggerBase ApiLogger { get; set; }
+        internal IStorageProvider StorageProvider { get; set; }
+        internal LoggerBase PayLogger { get; set; }
+        internal LoggerBase ApiLogger { get; set; }
 
         /// <summary>
         ///     创建实例
