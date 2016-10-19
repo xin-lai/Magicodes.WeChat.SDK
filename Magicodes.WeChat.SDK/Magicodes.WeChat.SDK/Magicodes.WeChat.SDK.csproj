@@ -59,6 +59,8 @@
     <Compile Include="ApiArgumentException.cs" />
     <Compile Include="Apis\ApiBase.cs" />
     <Compile Include="Apis\ApiResult.cs" />
+    <Compile Include="Apis\Card\CardApi.cs" />
+    <Compile Include="Apis\Card\CardInfo.cs" />
     <Compile Include="Apis\CustomerService\CustomerServiceApi.cs" />
     <Compile Include="Apis\CustomerService\GetCustomerAccountListApiResult.cs" />
     <Compile Include="Apis\CustomMessage\CustomMessageApi.cs" />
@@ -103,6 +105,8 @@
     <Compile Include="Apis\OAuth\OAuthScopes.cs" />
     <Compile Include="Apis\OAuth\OAuthTokenApiResult.cs" />
     <Compile Include="Apis\OAuth\GetUserInfoApiResult.cs" />
+    <Compile Include="Apis\POI\GetCategoryListApiResult.cs" />
+    <Compile Include="Apis\POI\POIApi.cs" />
     <Compile Include="Apis\QRCode\QRCodeCreateApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeApi.cs" />
     <Compile Include="Apis\ReturnCodes.cs" />

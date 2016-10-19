@@ -28,6 +28,7 @@ using Magicodes.WeChat.SDK.Apis.UserGroup;
 using Magicodes.WeChat.SDK.Pays.EnterprisePay;
 using Magicodes.WeChat.SDK.Pays.RedPackApi;
 using Magicodes.WeChat.SDK.Pays.TenPayV3;
+using Magicodes.WeChat.SDK.Apis.POI;
 
 namespace Magicodes.WeChat.SDK
 {
@@ -114,5 +115,10 @@ namespace Magicodes.WeChat.SDK
         ///     OAUTH验证接口
         /// </summary>
         public OAuthApi OAuthApi = new OAuthApi();
+
+        /// <summary>
+        ///     门店相关接口
+        /// </summary>
+        public POIApi POIApi = new POIApi();
     }
 }

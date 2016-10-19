@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Magicodes.Logger, Version=1.0.6109.31628, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magicodes.Logger.1.0.6109.31628\lib\net45\Magicodes.Logger.dll</HintPath>
+    <Reference Include="Magicodes.Logger, Version=1.0.6121.36843, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magicodes.Logger.1.0.6121.36843\lib\net45\Magicodes.Logger.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -59,6 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApiTestBase.cs" />
+    <Compile Include="Api\POIApiTest.cs" />
     <Compile Include="Api\CustomerServiceApiTest.cs" />
     <Compile Include="Api\CustomMessageApiTest.cs" />
     <Compile Include="Api\MenusApiTest.cs" />
