@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Magicodes.WeChat.SDK.Apis.POI
 {
@@ -34,6 +35,19 @@ namespace Magicodes.WeChat.SDK.Apis.POI
             //获取api请求url
             var url = GetAccessApiUrl("getwxcategory", ApiName);
             return Get<GetCategoryListApiResult>(url);
+        }
+
+        /// <summary>
+        /// 上传门店图片
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileStream">文件流</param>
+        /// <returns></returns>
+        public ApiResult UploadImage(string fileName, Stream fileStream)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("uploadimg", "media");
+            return Post<ApiResult>(url, fileName, fileStream);
         }
     }
 }

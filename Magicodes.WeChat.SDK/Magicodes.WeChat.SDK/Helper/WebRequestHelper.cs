@@ -138,7 +138,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -170,7 +170,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -209,6 +209,50 @@ namespace Magicodes.WeChat.SDK.Helper
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
             result = HttpPost(url, postStr);
+            switch (outDataType)
+            {
+                case WebRequestDataTypes.XML:
+                    return XmlHelper.DeserializeObject<T>(result);
+                default:
+                    return JsonConvert.DeserializeObject<T>(result);
+            }
+        }
+        public T HttpPost<T>(string url, string fileName, Stream fileStream, out string result, WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
+        {
+            var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            var boundarybytes = Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
+            var endbytes = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+            var request = CreateWebRequest(url);
+            request.ContentType = "multipart/form-data; boundary=" + boundary;
+            request.KeepAlive = true;
+            request.AllowAutoRedirect = AllowAutoRedirect;
+            request.Method = "POST";
+            if (Cookie != null)
+                request.CookieContainer = Cookie;
+            request.Credentials = CredentialCache.DefaultCredentials;
+
+            using (var requestStream = request.GetRequestStream())
+            {
+                var headerTemplate =
+                   "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                var buffer = new byte[4096];
+                var bytesRead = 0;
+                requestStream.Write(boundarybytes, 0, boundarybytes.Length);
+                var header = string.Format(headerTemplate, "file", fileName);
+                var headerbytes = Encoding.UTF8.GetBytes(header);
+                requestStream.Write(headerbytes, 0, headerbytes.Length);
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                    requestStream.Write(buffer, 0, bytesRead);
+
+                requestStream.Write(endbytes, 0, endbytes.Length);
+            }
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    result = sr.ReadToEnd();
+                }
+            }
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
@@ -293,7 +337,7 @@ namespace Magicodes.WeChat.SDK.Helper
             var request = CreateWebRequest(url);
             request.Method = "GET";
             // response.Cookies = cookie.GetCookies(response.ResponseUri);
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")))
                 {
@@ -305,7 +349,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
         protected HttpWebRequest CreateWebRequest(string url)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             //request.ContentType = "text/html;charset=UTF-8";
             request.ContentType = ContentType;
             if (cookie != null)
@@ -346,7 +390,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public string HttpUploadFile(string url, string file, Dictionary<string, string> postdata, Encoding encoding)
         {
-            return HttpUploadFile(url, new[] {file}, postdata, encoding);
+            return HttpUploadFile(url, new[] { file }, postdata, encoding);
         }
 
         /// <summary>
@@ -421,7 +465,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 stream.Write(endbytes, 0, endbytes.Length);
             }
             //2.WebResponse
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
             using (var stream = new StreamReader(response.GetResponseStream()))
             {
                 return stream.ReadToEnd();
@@ -442,7 +486,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 var request = CreateWebRequest(url);
                 request.KeepAlive = true;
                 request.Method = "GET";
-                var res = (HttpWebResponse) request.GetResponse();
+                var res = (HttpWebResponse)request.GetResponse();
                 stream = res.GetResponseStream();
                 return stream;
             }

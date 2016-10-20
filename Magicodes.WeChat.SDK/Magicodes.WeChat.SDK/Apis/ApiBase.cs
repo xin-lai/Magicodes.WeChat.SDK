@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Magicodes.WeChat.SDK.Apis
 {
@@ -116,6 +117,17 @@ namespace Magicodes.WeChat.SDK.Apis
             return result;
         }
 
+        protected T Post<T>(string url, object obj, Stream fileStream, Func<string, string> serializeStrFunc = null) where T : ApiResult
+        {
+            var wr = new WeChatApiWebRequestHelper();
+            string resultStr = null;
+            var result = wr.HttpPost<T>(url, obj, out resultStr);
+            if (result != null)
+                result.DetailResult = resultStr;
+            RefreshAccessTokenWhenTimeOut(result);
+            return result;
+        }
+
         private void RefreshAccessTokenWhenTimeOut<T>(T result) where T : ApiResult
         {
             if ((result.ReturnCode == ReturnCodes.access_token超时) ||
@@ -140,6 +152,25 @@ namespace Magicodes.WeChat.SDK.Apis
             RefreshAccessTokenWhenTimeOut(obj);
             return obj;
         }
+        /// <summary>
+        ///     POST提交请求，上传文件，返回ApiResult对象
+        /// </summary>
+        /// <typeparam name="T">ApiResult对象</typeparam>
+        /// <param name="url">请求地址</param>
+        /// <param name="fileName">文件名称</param>
+        /// <param name="fileStream">文件流</param>
+        /// <returns></returns>
+        protected T Post<T>(string url, string fileName, Stream fileStream) where T : ApiResult
+        {
+            var wr = new WeChatApiWebRequestHelper();
+            string result = null;
+            var obj = wr.HttpPost<T>(url, fileName, fileStream, out result);
+            if (obj != null)
+                obj.DetailResult = result;
+            RefreshAccessTokenWhenTimeOut(obj);
+            return obj;
+        }
+
 
         /// <summary>
         ///     GET提交请求，返回ApiResult对象
