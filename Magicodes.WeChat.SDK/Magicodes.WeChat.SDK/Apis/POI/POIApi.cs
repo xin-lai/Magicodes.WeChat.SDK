@@ -43,11 +43,11 @@ namespace Magicodes.WeChat.SDK.Apis.POI
         /// <param name="fileName">文件名</param>
         /// <param name="fileStream">文件流</param>
         /// <returns></returns>
-        public ApiResult UploadImage(string fileName, Stream fileStream)
+        public UploadImageApiResult UploadImage(string fileName, Stream fileStream)
         {
             //获取api请求url
             var url = GetAccessApiUrl("uploadimg", "media");
-            return Post<ApiResult>(url, fileName, fileStream);
+            return Post<UploadImageApiResult>(url, fileName, fileStream);
         }
     }
 }
