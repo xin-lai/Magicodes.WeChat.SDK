@@ -16,6 +16,8 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
+using System.IO;
+using Magicodes.Logger.DebugLogger;
 
 namespace Magicodes.WeChat.SDK.Test
 {

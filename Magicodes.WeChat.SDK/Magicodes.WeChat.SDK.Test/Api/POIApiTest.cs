@@ -42,6 +42,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 var result = _weChatApi.UploadImage("qrcode.jpg", fs);
                 if (!result.IsSuccess())
                     Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                WeChatHelper.ApiLogger.Log(Logger.LoggerLevels.Debug, result.DetailResult);
             }
         }
     }
