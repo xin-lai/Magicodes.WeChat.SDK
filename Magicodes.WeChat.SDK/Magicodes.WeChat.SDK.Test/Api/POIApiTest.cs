@@ -16,6 +16,8 @@
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.POI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Reflection;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
@@ -30,6 +32,17 @@ namespace Magicodes.WeChat.SDK.Test.Api
             var result = _weChatApi.GetCategoryList();
             if (!result.IsSuccess())
                 Assert.Fail("获取类目列表失败，返回结果如下：" + result.DetailResult);
+        }
+        
+        [TestMethod]
+        public void POIApiTest_UploadImage()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+            }
         }
     }
 }

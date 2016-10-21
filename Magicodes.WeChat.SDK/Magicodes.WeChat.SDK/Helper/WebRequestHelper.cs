@@ -238,7 +238,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 var buffer = new byte[4096];
                 var bytesRead = 0;
                 requestStream.Write(boundarybytes, 0, boundarybytes.Length);
-                var header = string.Format(headerTemplate, "file", fileName);
+                var header = string.Format(headerTemplate, fileName, fileName);
                 var headerbytes = Encoding.UTF8.GetBytes(header);
                 requestStream.Write(headerbytes, 0, headerbytes.Length);
                 while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)

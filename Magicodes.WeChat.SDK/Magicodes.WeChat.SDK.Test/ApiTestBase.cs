@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Reflection;
 
 namespace Magicodes.WeChat.SDK.Test
 {
@@ -44,6 +45,13 @@ namespace Magicodes.WeChat.SDK.Test
                         AppSecret = "52fce1fca473b15243a32dbbac8b6a95"
                     };
                 });
+        }
+
+        public static Stream GetInputFile(string filename)
+        {
+            Assembly thisAssembly = Assembly.GetExecutingAssembly();
+            string path = "Magicodes.WeChat.SDK.Test.Resource";
+            return thisAssembly.GetManifestResourceStream(path + "." + filename);
         }
 
         /// <summary>
