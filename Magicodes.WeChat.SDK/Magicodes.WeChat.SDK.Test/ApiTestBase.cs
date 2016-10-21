@@ -43,8 +43,8 @@ namespace Magicodes.WeChat.SDK.Test
                     var arg = model as WeChatApiCallbackFuncArgInfo;
                     return new WeChatConfig()
                     {
-                        AppId = "wxa6eecd3e040a2d1e",
-                        AppSecret = "52fce1fca473b15243a32dbbac8b6a95"
+                        AppId = "wxe753e9de3a7ebfc2",
+                        AppSecret = "7cc4b4ef1daf99791d9a4f64b8f94648"
                     };
                 });
         }

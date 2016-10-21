@@ -107,6 +107,8 @@
     <Compile Include="Apis\OAuth\GetUserInfoApiResult.cs" />
     <Compile Include="Apis\POI\GetCategoryListApiResult.cs" />
     <Compile Include="Apis\POI\POIApi.cs" />
+    <Compile Include="Apis\POI\POIInfo.cs" />
+    <Compile Include="Apis\POI\POIPhotoInfo.cs" />
     <Compile Include="Apis\POI\UploadImageApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeCreateApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeApi.cs" />

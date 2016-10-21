@@ -122,6 +122,7 @@ namespace Magicodes.WeChat.SDK.Apis
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
             var result = wr.HttpPost<T>(url, obj, out resultStr);
+
             if (result != null)
                 result.DetailResult = resultStr;
             RefreshAccessTokenWhenTimeOut(result);
@@ -145,6 +146,8 @@ namespace Magicodes.WeChat.SDK.Apis
         protected T Post<T>(string url, string jsonData) where T : ApiResult
         {
             var wr = new WeChatApiWebRequestHelper();
+
+            Logger.LogFormat(LoggerLevels.Trace, "Pre POST Url:{0}；JSON：{1}；", url, jsonData);
             var result = wr.HttpPost(url, jsonData);
             var obj = JsonConvert.DeserializeObject<T>(result);
             if (obj != null)

@@ -27,6 +27,25 @@ namespace Magicodes.WeChat.SDK.Apis.POI
         private const string ApiName = "poi";
 
         /// <summary>
+        /// 添加门店
+        /// </summary>
+        /// <param name="model">门店信息</param>
+        /// <returns></returns>
+        public ApiResult Add(POIInfo model)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("addpoi", ApiName);
+            var data = new
+            {
+                business = new
+                {
+                    base_info = model
+                }
+            };
+            return Post<ApiResult>(url, data);
+        }
+
+        /// <summary>
         ///     获取AccessToken
         /// </summary>
         /// <returns></returns>

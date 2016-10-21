@@ -208,6 +208,7 @@ namespace Magicodes.WeChat.SDK.Helper
             }
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
+            WeChatHelper.ApiLogger.LogFormat(Logger.LoggerLevels.Trace, "Pre POST Url:{0},Data:{1}", url, postStr);
             result = HttpPost(url, postStr);
             switch (outDataType)
             {
