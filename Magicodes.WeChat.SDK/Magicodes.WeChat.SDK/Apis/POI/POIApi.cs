@@ -44,6 +44,54 @@ namespace Magicodes.WeChat.SDK.Apis.POI
             };
             return Post<ApiResult>(url, data);
         }
+        /// <summary>
+        /// 删除POI
+        /// </summary>
+        /// <param name="poiId">门店ID，审核事件返回</param>
+        /// <returns></returns>
+        public ApiResult Remove(string poiId)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("delpoi", ApiName);
+            var data = new
+            {
+                poi_id = poiId
+            };
+            return Post<ApiResult>(url, data);
+        }
+
+        /// <summary>
+        /// 获取门店详细信息
+        /// </summary>
+        /// <param name="poiId">门店ID，审核事件返回</param>
+        /// <returns></returns>
+        public GetPOIDetailInfoAPIResult GetPOIDetailInfo(string poiId)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("getpoi", ApiName);
+            var data = new
+            {
+                poi_id = poiId
+            };
+            return Post<GetPOIDetailInfoAPIResult>(url, data);
+        }
+
+        /// <summary>
+        /// 获取门店列表信息
+        /// </summary>
+        /// <param name="poiId">门店ID，审核事件返回</param>
+        /// <returns></returns>
+        public GetApiResult Get(int begin = 0, int limit = 10)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("getpoilist", ApiName);
+            var data = new
+            {
+                begin = begin,
+                limit = limit
+            };
+            return Post<GetApiResult>(url, data);
+        }
 
         /// <summary>
         ///     获取AccessToken

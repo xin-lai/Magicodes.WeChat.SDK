@@ -28,6 +28,14 @@ namespace Magicodes.WeChat.SDK.Test.Api
         private readonly POIApi _weChatApi = WeChatApisContext.Current.POIApi;
 
         [TestMethod]
+        public void POIApiTest_Get()
+        {
+            var poiResult = _weChatApi.Get();
+            if (!poiResult.IsSuccess())
+                Assert.Fail("查询门店失败，返回结果如下：" + poiResult.DetailResult + "；Msg:" + poiResult.GetFriendlyMessage());
+            WeChatHelper.ApiLogger.Log(Logger.LoggerLevels.Debug, "门店数：" + poiResult.BusinessList.Count);
+        }
+        [TestMethod]
         public void POIApiTest_Add()
         {
             var model = new POIInfo()

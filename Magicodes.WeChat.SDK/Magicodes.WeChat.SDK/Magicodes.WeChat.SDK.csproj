@@ -105,8 +105,12 @@
     <Compile Include="Apis\OAuth\OAuthScopes.cs" />
     <Compile Include="Apis\OAuth\OAuthTokenApiResult.cs" />
     <Compile Include="Apis\OAuth\GetUserInfoApiResult.cs" />
+    <Compile Include="Apis\POI\BusinessInfo.cs" />
+    <Compile Include="Apis\POI\GetApiResult.cs" />
     <Compile Include="Apis\POI\GetCategoryListApiResult.cs" />
+    <Compile Include="Apis\POI\GetPOIDetailInfoAPIResult.cs" />
     <Compile Include="Apis\POI\POIApi.cs" />
+    <Compile Include="Apis\POI\POIDetailInfo.cs" />
     <Compile Include="Apis\POI\POIInfo.cs" />
     <Compile Include="Apis\POI\POIPhotoInfo.cs" />
     <Compile Include="Apis\POI\UploadImageApiResult.cs" />
