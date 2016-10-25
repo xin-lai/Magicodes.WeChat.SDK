@@ -43,7 +43,7 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             get
             {
-                return WeChatConfigManager.Current.GetAccessToken(Key);
+                return WeChatConfigManager.Current.GetAccessToken(GetKey());
             }
         }
 
@@ -52,12 +52,17 @@ namespace Magicodes.WeChat.SDK.Apis
         /// </summary>
         public IWeChatConfig AppConfig
         {
-            get { return WeChatConfigManager.Current.GetConfig(Key); }
+            get { return WeChatConfigManager.Current.GetConfig(GetKey()); }
         }
 
         public void SetKey(object key)
         {
             Key = key;
+        }
+
+        public object GetKey()
+        {
+            return Key;
         }
 
         /// <summary>

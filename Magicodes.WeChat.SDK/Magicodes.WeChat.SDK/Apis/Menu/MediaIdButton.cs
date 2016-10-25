@@ -27,11 +27,5 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         {
             Type = MenuButtonTypes.media_id;
         }
-
-        /// <summary>
-        ///     调用新增永久素材接口返回的合法media_id
-        /// </summary>
-        [JsonProperty(PropertyName = "media_id", Required = Required.Always)]
-        public string MediaId { get; set; }
     }
 }

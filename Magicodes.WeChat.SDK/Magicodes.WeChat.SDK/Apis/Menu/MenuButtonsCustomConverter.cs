@@ -40,58 +40,63 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
             if (reader.TokenType == JsonToken.Null) return null;
             var jObject = JObject.Load(reader);
             var target = default(MenuButtonBase);
-            //获取type属性
-            var type = jObject.Property("type");
-            if ((type != null) && (type.Count > 0))
-            {
-                var typeValue = type.Value.ToString();
-                var menuButtonType = (MenuButtonTypes) Enum.Parse(typeof(MenuButtonTypes), typeValue);
-
-                #region 根据类型返回相应菜单类型
-
-                switch (menuButtonType)
-                {
-                    case MenuButtonTypes.click:
-                        target = new ClickButton();
-                        break;
-                    case MenuButtonTypes.view:
-                        target = new ViewButton();
-                        break;
-                    case MenuButtonTypes.scancode_push:
-                        target = new ScancodePushButton();
-                        break;
-                    case MenuButtonTypes.scancode_waitmsg:
-                        target = new ScancodeWaitmsgButton();
-                        break;
-                    case MenuButtonTypes.pic_sysphoto:
-                        target = new PicSysphotoButton();
-                        break;
-                    case MenuButtonTypes.pic_photo_or_album:
-                        target = new PicPhotoOrAlbumButton();
-                        break;
-                    case MenuButtonTypes.pic_weixin:
-                        target = new PicWeixinButton();
-                        break;
-                    case MenuButtonTypes.location_select:
-                        target = new LocationSelectButton();
-                        break;
-                    case MenuButtonTypes.media_id:
-                        target = new MediaIdButton();
-                        break;
-                    case MenuButtonTypes.view_limited:
-                        target = new ViewLimitedButton();
-                        break;
-                    default:
-                        throw new NotSupportedException("不支持此类型的菜单按钮：" + menuButtonType);
-                }
-
-                #endregion
-            }
-            else
+            var subButton = jObject.Property("sub_button");
+            if (subButton != null && subButton.Count > 0)
             {
                 target = new SubMenuButton();
                 target.Type = MenuButtonTypes.click;
             }
+            else
+            {
+                //获取type属性
+                var type = jObject.Property("type");
+                if ((type != null) && (type.Count > 0))
+                {
+                    var typeValue = type.Value.ToString();
+                    var menuButtonType = (MenuButtonTypes)Enum.Parse(typeof(MenuButtonTypes), typeValue);
+
+                    #region 根据类型返回相应菜单类型
+
+                    switch (menuButtonType)
+                    {
+                        case MenuButtonTypes.click:
+                            target = new ClickButton();
+                            break;
+                        case MenuButtonTypes.view:
+                            target = new ViewButton();
+                            break;
+                        case MenuButtonTypes.scancode_push:
+                            target = new ScancodePushButton();
+                            break;
+                        case MenuButtonTypes.scancode_waitmsg:
+                            target = new ScancodeWaitmsgButton();
+                            break;
+                        case MenuButtonTypes.pic_sysphoto:
+                            target = new PicSysphotoButton();
+                            break;
+                        case MenuButtonTypes.pic_photo_or_album:
+                            target = new PicPhotoOrAlbumButton();
+                            break;
+                        case MenuButtonTypes.pic_weixin:
+                            target = new PicWeixinButton();
+                            break;
+                        case MenuButtonTypes.location_select:
+                            target = new LocationSelectButton();
+                            break;
+                        case MenuButtonTypes.media_id:
+                            target = new MediaIdButton();
+                            break;
+                        case MenuButtonTypes.view_limited:
+                            target = new ViewLimitedButton();
+                            break;
+                        default:
+                            throw new NotSupportedException("不支持此类型的菜单按钮：" + menuButtonType);
+                    }
+
+                    #endregion
+                }
+            }
+            
             serializer.Populate(jObject.CreateReader(), target);
             return target;
         }
