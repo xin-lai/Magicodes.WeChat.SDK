@@ -47,9 +47,8 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 
                 var dictionary = PayUtil.GetAuthors(model);
                 model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
-                var dict = PayUtil.GetAuthors(model);
 
-                result = PostXML<EnterpriseResult>(url, dict, cer);
+                result = PostXML<EnterpriseResult>(url, model, cer);
             }
             catch (Exception ex)
             {

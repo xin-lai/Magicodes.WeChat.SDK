@@ -17,6 +17,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using Magicodes.Logger;
+using System.Web.Hosting;
 
 namespace Magicodes.WeChat.SDK.Pays.RedPackApi
 {
@@ -40,7 +41,7 @@ namespace Magicodes.WeChat.SDK.Pays.RedPackApi
                 model.WxAppId = WeChatConfig.AppId;
                 model.MchId = PayConfig.MchId;
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-                var cert = HttpContext.Current.Request.PhysicalApplicationPath + PayConfig.PayCertPath;
+                var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;
                 //私钥（在安装证书时设置）
                 var password = PayConfig.CertPassword;
 

@@ -70,6 +70,34 @@ namespace Magicodes.WeChat.SDK.Helper
         /// </summary>
         private int timeOut = 30000;
 
+        /// <summary>
+        /// 代理密码
+        /// </summary>
+        public string ProxyKey
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 代理地址
+        /// </summary>
+        public string ProxyAddress
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// 代理用户
+        /// </summary>
+        public string ProxyUser
+        {
+            get;
+            set;
+        }
+
         public CookieContainer Cookie
         {
             get { return cookie; }
@@ -180,21 +208,9 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="url"></param>
-        ///// <param name="obj"></param>
-        ///// <returns></returns>
-        //public T HttpPost<T>(string url, object obj, WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON, WebRequestDataTypes outDataType = WebRequestDataTypes.JSON)
-        //{
-        //    var resultStr = HttpPost(url, JsonConvert.SerializeObject(obj));
-        //    return JsonConvert.DeserializeObject<T>(resultStr);
-        //}
         public T HttpPost<T>(string url, object obj, out string result, Func<string, string> serializeStrFunc = null,
-            WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON,
-            WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
+                 WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON,
+                 WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
         {
             string postStr = null;
             switch (inputDataType)
@@ -214,7 +230,11 @@ namespace Magicodes.WeChat.SDK.Helper
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    return XmlHelper.DeserializeObject<T>(result);
+                    {
+                        if (!result.StartsWith("<?xml"))
+                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
+                        return XmlHelper.DeserializeObject<T>(result);
+                    }
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }
@@ -258,7 +278,11 @@ namespace Magicodes.WeChat.SDK.Helper
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    return XmlHelper.DeserializeObject<T>(result);
+                    {
+                        if (!result.StartsWith("<?xml"))
+                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
+                        return XmlHelper.DeserializeObject<T>(result);
+                    }
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }
@@ -292,11 +316,17 @@ namespace Magicodes.WeChat.SDK.Helper
             }
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
+            WeChatHelper.ApiLogger.Log(Logger.LoggerLevels.Debug, "postStrs" + postStr);
             result = HttpPost(url, postStr, cer);
+            WeChatHelper.ApiLogger.Log(Logger.LoggerLevels.Debug, "result" + result);
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    return XmlHelper.DeserializeObject<T>(result);
+                    {
+                        if (!result.StartsWith("<?xml"))
+                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
+                        return XmlHelper.DeserializeObject<T>(result);
+                    }
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }
@@ -352,7 +382,17 @@ namespace Magicodes.WeChat.SDK.Helper
         protected HttpWebRequest CreateWebRequest(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
-            //request.ContentType = "text/html;charset=UTF-8";
+            if (ProxyAddress != null && ProxyAddress != "")
+            {
+                WebProxy proxy = new WebProxy();
+                proxy.Address = new Uri(ProxyAddress);//按配置文件创建Proxy 地置
+                if (proxy.Address != null)//如果地址为空，则不需要代理服务器
+                {
+                    proxy.Credentials = new NetworkCredential(ProxyUser, ProxyKey);//从配置封装参数中创建
+                    request.Proxy = proxy;
+                }
+            }
+
             request.ContentType = ContentType;
             if (cookie != null)
                 request.CookieContainer = Cookie;

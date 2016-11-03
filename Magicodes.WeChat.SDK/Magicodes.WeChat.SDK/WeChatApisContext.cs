@@ -29,6 +29,7 @@ using Magicodes.WeChat.SDK.Pays.EnterprisePay;
 using Magicodes.WeChat.SDK.Pays.RedPackApi;
 using Magicodes.WeChat.SDK.Pays.TenPayV3;
 using Magicodes.WeChat.SDK.Apis.POI;
+using Magicodes.WeChat.SDK.Apis.Card;
 
 namespace Magicodes.WeChat.SDK
 {
@@ -120,5 +121,10 @@ namespace Magicodes.WeChat.SDK
         ///     门店相关接口
         /// </summary>
         public POIApi POIApi = new POIApi();
+
+        /// <summary>
+        ///     卡券相关接口
+        /// </summary>
+        public CardApi CardApi = new CardApi();
     }
 }

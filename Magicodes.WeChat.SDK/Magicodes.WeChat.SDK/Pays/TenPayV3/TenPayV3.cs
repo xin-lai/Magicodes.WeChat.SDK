@@ -18,6 +18,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Magicodes.WeChat.SDK.Helper;
+using Magicodes.WeChat.SDK.Pays.Refund;
+using System.Web.Hosting;
+using System.Security.Cryptography.X509Certificates;
+using Magicodes.Logger;
 
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
@@ -230,5 +234,42 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             request.ReturnMsg = errorMsg;
             return XmlHelper.SerializeObject(request);
         }
+
+        /// <summary>
+        /// 退款申请接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public RefundResult Refund(RefundRequest model)
+        {
+            var url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+            RefundResult result = null;
+            try
+            {
+                var wechatConfig = WeChatConfig;
+                model.AppId = wechatConfig.AppId;
+                model.Mch_Id = PayConfig.MchId;
+                
+                //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+                var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;
+                //私钥（在安装证书时设置）
+                var password = PayConfig.CertPassword;
+
+                //调用证书
+                var cer = new X509Certificate2(cert, password,
+                    X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+                var dictionary = PayUtil.GetAuthors(model);
+                model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+                result = PostXML<RefundResult>(url, model, cer);
+            }
+            catch (Exception ex)
+            {
+                WeChatHelper.PayLogger.Log(LoggerLevels.Error, ex);
+            }
+            return result;
+        }
+
     }
 }

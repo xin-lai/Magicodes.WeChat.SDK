@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Magicodes.WeChat.SDK.Apis.Card
 {
@@ -32,11 +33,27 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         public ApiResult Add(CardInfo cardInfo)
         {
             //获取api请求url
-            var url = GetAccessApiUrl("create", ApiName);
-            var result = Post<ApiResult>(url, cardInfo);
+            var url = GetAccessApiUrl("create", ApiName, "https://api.weixin.qq.com");
+            var data = new
+            {
+                card = cardInfo
+            };
+            var result = Post<ApiResult>(url, data);
             return result;
         }
 
+        /// <summary>
+        ///     上传卡券图片
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileStream">文件流</param>
+        /// <returns></returns>
+        public UploadImageApiResult UploadImage(string fileName, Stream fileStream)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("uploadimg", "media");
+            return Post<UploadImageApiResult>(url, fileName, fileStream);
+        }
 
     }
 }

@@ -20,8 +20,9 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 {
     [XmlRoot("xml")]
     [Serializable]
-    public class EnterpriseResult : Result
+    public class EnterpriseResult : PayResult
     {
+        public string result_code { get; set; }
         /// <summary>
         ///     商户订单号，需保持唯一性
         /// </summary>
