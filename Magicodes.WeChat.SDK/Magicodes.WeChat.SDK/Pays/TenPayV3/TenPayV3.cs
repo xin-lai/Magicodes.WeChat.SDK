@@ -22,6 +22,7 @@ using Magicodes.WeChat.SDK.Pays.Refund;
 using System.Web.Hosting;
 using System.Security.Cryptography.X509Certificates;
 using Magicodes.Logger;
+using Magicodes.WeChat.SDK.Pays.MicroPay;
 
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
@@ -188,6 +189,26 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
+        ///     刷卡支付
+        ///     提交被扫支付
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public MicropayResult MicroPay(MicropayRequest model)
+        {
+            var url = "https://api.mch.weixin.qq.com/pay/micropay";
+
+            MicropayResult result = null;
+            model.Appid = WeChatConfig.AppId;
+            model.Mch_id = PayConfig.MchId;
+            model.Nonce_str = PayUtil.GetNoncestr();
+            var dictionary = PayUtil.GetAuthors(model);
+            model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+            result = PostXML<MicropayResult>(url, model);
+            return result;
+        }
+
+        /// <summary>
         /// </summary>
         /// <param name="page"></param>
         /// <param name="inputStream"></param>
@@ -252,7 +273,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                 model.Mch_Id = PayConfig.MchId;
                 model.NonceStr = PayUtil.GetNoncestr();
                 model.Op_user_id = PayConfig.MchId;
-                
+
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;
                 //私钥（在安装证书时设置）
@@ -263,6 +284,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                     X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 var dictionary = PayUtil.GetAuthors(model);
+                WeChatHelper.PayLogger.Log(LoggerLevels.Error, model.Total_fee);
                 model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
                 result = PostXML<RefundResult>(url, model, cer);
             }
