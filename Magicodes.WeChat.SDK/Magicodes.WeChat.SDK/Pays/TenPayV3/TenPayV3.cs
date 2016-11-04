@@ -250,6 +250,8 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                 var wechatConfig = WeChatConfig;
                 model.AppId = wechatConfig.AppId;
                 model.Mch_Id = PayConfig.MchId;
+                model.NonceStr = PayUtil.GetNoncestr();
+                model.Op_user_id = PayConfig.MchId;
                 
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;

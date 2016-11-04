@@ -152,7 +152,7 @@ namespace Magicodes.WeChat.SDK.Pays
         /// <summary>
         ///     循环获取一个实体类每个字段的XmlAttribute属性的值
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T"><peparam>
         /// <returns></returns>
         public static Dictionary<string, string> GetAuthors<T>(T model)
         {
@@ -172,9 +172,8 @@ namespace Magicodes.WeChat.SDK.Pays
                         var auth = authAttr.ElementName;
 
                         var property = type.GetProperty(prop.Name);
-                        var value = (string) property.GetValue(model, null); //获取属性值
-
-                        _dict.Add(auth, value);
+                        var value = property.GetValue(model, null); //获取属性值
+                        _dict.Add(auth, value?.ToString());
                     }
                 }
             }
