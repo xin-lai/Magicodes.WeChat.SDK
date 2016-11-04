@@ -14,7 +14,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
     [Serializable]
     public class RefundResult : Result
     {
-        
+
 
         /// <summary>
         /// 微信订单号	是	String(28)	4007752501201407033233368018	微信订单号
@@ -194,6 +194,15 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// 是否成功
+        /// </summary>
+        /// <returns></returns>
+        public override bool IsSuccess()
+        {
+            return ReturnCode == "SUCCESS" && ResultCode == "SUCCESS";
         }
     }
 }

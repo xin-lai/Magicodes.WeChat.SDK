@@ -19,7 +19,8 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 卡券类型
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public CardTypes card_type { get; set; }
+        [JsonProperty("card_type")]
+        public CardTypes CardType { get; set; }
     }
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     {
         public Groupon()
         {
-            this.card_type = CardTypes.GROUPON;
+            this.CardType = CardTypes.GROUPON;
         }
         public class GrouponInfo
         {
@@ -83,6 +84,10 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// </summary>
     public class Cash : CardInfo
     {
+        public Cash()
+        {
+            this.CardType = CardTypes.CASH;
+        }
         public class CashInfo
         {
             public BaseInfo base_info { get; set; }
@@ -104,6 +109,10 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// </summary>
     public class Discount : CardInfo
     {
+        public Discount()
+        {
+            this.CardType = CardTypes.DISCOUNT;
+        }
         public class DiscountInfo
         {
             public BaseInfo base_info { get; set; }
@@ -119,6 +128,10 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// </summary>
     public class Gift : CardInfo
     {
+        public Gift()
+        {
+            this.CardType = CardTypes.GIFT;
+        }
         public class GiftInfo
         {
             public BaseInfo base_info { get; set; }
@@ -136,6 +149,10 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// </summary>
     public class GeneralCoupon : CardInfo
     {
+        public GeneralCoupon()
+        {
+            this.CardType = CardTypes.GENERAL_COUPON;
+        }
         public class GeneralCouponInfo
         {
             public BaseInfo base_info { get; set; }
