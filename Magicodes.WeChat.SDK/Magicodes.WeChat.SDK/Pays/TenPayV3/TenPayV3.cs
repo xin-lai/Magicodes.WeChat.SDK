@@ -23,6 +23,7 @@ using System.Web.Hosting;
 using System.Security.Cryptography.X509Certificates;
 using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Pays.MicroPay;
+using Magicodes.WeChat.SDK.Pays.OrderQuery;
 
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
@@ -38,11 +39,11 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 
             model.AppId = WeChatConfig.AppId;
             model.MchId = PayConfig.MchId;
+            model.NonceStr = PayUtil.GetNoncestr();
             if (model.NotifyUrl == null)
                 model.NotifyUrl = PayConfig.Notify;
             var dictionary = PayUtil.GetAuthors(model);
             model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
-            var dict = PayUtil.GetAuthors(model);
             result = PostXML<UnifiedorderResult>(url, model);
             return result;
         }
@@ -80,6 +81,25 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                 ms.Seek(0, SeekOrigin.Begin); //设置指针读取位置
                 return RequestUtility.HttpPost(urlFormat, null, ms);
             }
+        }
+
+        /// <summary>
+        ///     订单查询接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public  QueryResult OrderQuery(QueryRequest model)
+        {
+            var url = "https://api.mch.weixin.qq.com/pay/orderquery";
+            QueryResult result = null;
+
+            model.Appid = WeChatConfig.AppId;
+            model.Mch_id = PayConfig.MchId;
+            model.Nonce_str = PayUtil.GetNoncestr();
+            var dictionary = PayUtil.GetAuthors(model);
+            model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+            result = PostXML<QueryResult>(url, model);
+            return result;
         }
 
         /// <summary>

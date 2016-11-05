@@ -230,11 +230,7 @@ namespace Magicodes.WeChat.SDK.Helper
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    {
-                        if (!result.StartsWith("<?xml"))
-                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
-                        return XmlHelper.DeserializeObject<T>(result);
-                    }
+                    return XmlHelper.DeserializeObject<T>(result);
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }
@@ -278,11 +274,7 @@ namespace Magicodes.WeChat.SDK.Helper
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    {
-                        if (!result.StartsWith("<?xml"))
-                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
-                        return XmlHelper.DeserializeObject<T>(result);
-                    }
+                    return XmlHelper.DeserializeObject<T>(result);
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }
@@ -322,11 +314,7 @@ namespace Magicodes.WeChat.SDK.Helper
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
-                    {
-                        if (!result.StartsWith("<?xml"))
-                            result = @"<?xml version=""1.0"" encoding=""gb2312""?>" + result;
-                        return XmlHelper.DeserializeObject<T>(result);
-                    }
+                    return XmlHelper.DeserializeObject<T>(result);
                 default:
                     return JsonConvert.DeserializeObject<T>(result);
             }

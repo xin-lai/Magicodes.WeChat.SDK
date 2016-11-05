@@ -62,6 +62,8 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public static T DeserializeObject<T>(string input) where T : class
         {
+            if (!input.StartsWith("<?xml"))
+                input = @"<?xml version=""1.0"" encoding=""gb2312""?>" + input;
             using (var mem = new MemoryStream(Encoding.Default.GetBytes(input)))
             {
                 using (var reader = XmlReader.Create(mem))

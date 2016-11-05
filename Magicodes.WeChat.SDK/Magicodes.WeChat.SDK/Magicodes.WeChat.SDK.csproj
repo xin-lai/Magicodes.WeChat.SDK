@@ -173,6 +173,8 @@
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Pays\Micropay\MicropayRequest.cs" />
     <Compile Include="Pays\Micropay\MicropayResult.cs" />
+    <Compile Include="Pays\OrderQuery\QueryRequest.cs" />
+    <Compile Include="Pays\OrderQuery\QueryResult.cs" />
     <Compile Include="Pays\Refund\RefundRequest.cs" />
     <Compile Include="Pays\Refund\RefundResult.cs" />
     <Compile Include="WeChatHelper.cs" />
