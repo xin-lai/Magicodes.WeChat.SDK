@@ -31,22 +31,27 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// <summary>
         /// 团购券
         /// </summary>
+        [Display(Name = "团购券")]
         GROUPON,
         /// <summary>
         /// 代金券
         /// </summary>
+        [Display(Name = "代金券")]
         CASH,
         /// <summary>
         /// 折扣券
         /// </summary>
+        [Display(Name = "折扣券")]
         DISCOUNT,
         /// <summary>
         /// 兑换券
         /// </summary>
+        [Display(Name = "兑换券")]
         GIFT,
         /// <summary>
         /// 优惠券
         /// </summary>
+        [Display(Name = "优惠券")]
         GENERAL_COUPON
 
     }
