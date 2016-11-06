@@ -12,7 +12,6 @@ namespace Magicodes.WeChat.SDK.Pays.OrderQuery
     [XmlRoot("xml")]
     public class QueryResult : Result
     {
-        private string m_device_info;//设备号	否	String(32)	1.3467E+13	微信支付分配的终端设备号，
         private string m_openid;//用户标识	是	String(128)	oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	用户在商户appid下的唯一标识
         private string m_is_subscribe;//是否关注公众账号	否	String(1)	Y	用户是否关注公众账号，Y-关注，N-未关注，仅在公众账号类型支付有效
         private string m_trade_type;//交易类型	是	String(16)	JSAPI	调用接口提交的交易类型，取值如下：JSAPI，NATIVE，APP，MICROPAY，详细说明见参数规定
@@ -34,15 +33,7 @@ namespace Magicodes.WeChat.SDK.Pays.OrderQuery
         private string m_time_end;//支付完成时间	是	String(14)	2.0141E+13	订单支付时间，格式为yyyyMMddHHmmss，如2009年12月25日9点10分10秒表示为20091225091010。其他详见时间规则
         private string m_trade_state_desc;//交易状态描述	是	String(256)	支付失败，请重新下单支付	对当前查询订单状态的描述和下一步操作的指引
 
-        /// <summary>
-        /// 设备号	否	String(32)	1.3467E+13	微信支付分配的终端设备号，
-        /// </summary>
-        [XmlElement("device_info")]
-        public string Device_info
-        {
-            get { return m_device_info; }
-            set { m_device_info = value; }
-        }
+
 
         /// <summary>
         /// 用户标识	是	String(128)	oUpF8uMuAJO_M2pxb1Q9zNjWeS6o	用户在商户appid下的唯一标识
@@ -242,6 +233,15 @@ namespace Magicodes.WeChat.SDK.Pays.OrderQuery
         {
             get { return m_trade_state_desc; }
             set { m_trade_state_desc = value; }
+        }
+
+        /// <summary>
+        ///是否成功
+        /// </summary>
+        /// <returns></returns>
+        public override bool IsSuccess()
+        {
+            return ResultCode == "SUCCESS" && ReturnCode == "SUCCESS";
         }
     }
 }
