@@ -168,11 +168,25 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         ///     刷新配置
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="config"></param>
+        /// <param name="key">存储配置key</param>
+        /// <param name="config">微信配置</param>
         public void RefreshConfig(object key, IWeChatConfig config)
         {
             WeChatConfigs.AddOrUpdate(key, config, (tKey, existingVal) => { return config; });
+        }
+
+        /// <summary>
+        ///     刷新支付配置
+        /// </summary>
+        /// <param name="key">存储配置key</param>
+        /// <param name="config">支付配置，选填</param>
+        public void RefreshPayConfig(object key, IWeChatPayConfig config = null)
+        {
+            if (config == null)
+            {
+                config = GetPayConfig(key);
+            }
+            WeChatPayConfigs.AddOrUpdate(key, config, (tKey, existingVal) => { return config; });
         }
 
         /// <summary>
