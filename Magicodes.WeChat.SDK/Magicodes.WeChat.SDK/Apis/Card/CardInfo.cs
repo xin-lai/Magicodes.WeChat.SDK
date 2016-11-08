@@ -297,26 +297,32 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// <summary>
         /// 文本
         /// </summary>
+        [Display(Name = "文本")]
         CODE_TYPE_TEXT,
         /// <summary>
         /// 一维码
         /// </summary>
+        [Display(Name = "一维码")]
         CODE_TYPE_BARCODE,
         /// <summary>
         /// 二维码
         /// </summary>
+        [Display(Name = "二维码")]
         CODE_TYPE_QRCODE,
         /// <summary>
         /// 二维码无code显示
         /// </summary>
+        [Display(Name = "二维码无code显示")]
         CODE_TYPE_ONLY_QRCODE,
         /// <summary>
         /// 一维码无code显示
         /// </summary>
+        [Display(Name = "一维码无code显示")]
         CODE_TYPE_ONLY_BARCODE,
         /// <summary>
         /// 不显示code和条形码类型
         /// </summary>
+        [Display(Name = "不显示code和条形码类型")]
         CODE_TYPE_NONE
     }
 
@@ -432,52 +438,109 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// <summary>
         /// 表示固定日期区间
         /// </summary>
+        [Display(Name = "固定日期空间")]
         DATE_TYPE_FIX_TIME_RANGE = 1,
         /// <summary>
         /// 表示固定时长（自领取后按天算。）
         /// </summary>
+        [Display(Name = "自领取后固定天数")]
         DATE_TYPE_FIX_TERM = 2
     }
 
+    /// <summary>
+    /// 商品信息
+    /// </summary>
     public class Sku
     {
+        /// <summary>
+        /// 卡券库存的数量，上限为100000000
+        /// </summary>
         [Required]
         [JsonRequired]
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
     }
 
+    /// <summary>
+    /// 优惠券特有的高级字段
+    /// </summary>
     public class AdvancedInfo
     {
+        /// <summary>
+        /// 使用门槛（条件）字段，若不填写使用条件则在券面拼写：无最低消费限制，全场通用，不限品类；并在使用说明显示：可与其他优惠共享
+        /// </summary>
         [JsonProperty("use_condition")]
         public UseCondition UseCondition { get; set; }
 
-
+        /// <summary>
+        /// 封面摘要
+        /// </summary>
         [JsonProperty("abstract")]
         public Abstract Abstract { get; set; }
 
+        /// <summary>
+        /// 图文列表，显示在详情内页，优惠券券开发者须至少传入一组图文列表
+        /// </summary>
         [JsonProperty("text_image_list")]
         public TextImageList[] TextImageList { get; set; }
 
+        /// <summary>
+        /// 使用时段限制
+        /// </summary>
         [JsonProperty("time_limit")]
         public TimeLimit[] TimeLimit { get; set; }
 
+        /// <summary>
+        /// 商家服务类型：        
+        ///     BIZ_SERVICE_DELIVER 外卖服务；
+        ///     BIZ_SERVICE_FREE_PARK 停车位；
+        ///     BIZ_SERVICE_WITH_PET 可带宠物；
+        ///     BIZ_SERVICE_FREE_WIFI 免费wifi
+        /// ，可多选
+        /// </summary>
         [JsonProperty("business_service")]
         public string[] BusinessService { get; set; }
     }
 
+    /// <summary>
+    /// 使用门槛（条件）字段，若不填写使用条件则在券面拼写：无最低消费限制，全场通用，不限品类；并在使用说明显示：可与其他优惠共享
+    /// </summary>
     public class UseCondition
     {
+        /// <summary>
+        /// 指定可用的商品类目，仅用于代金券类型，填入后将在券面拼写适用于xxx
+        /// </summary>
         [JsonProperty("accept_category")]
         public string AcceptCategory { get; set; }
 
+        /// <summary>
+        /// 指定不可用的商品类目，仅用于代金券类型，填入后将在券面拼写不适用于xxxx
+        /// </summary>
         [JsonProperty("reject_category")]
         public string RejectCategory { get; set; }
 
+        /// <summary>
+        /// 满减门槛字段，可用于兑换券和代金券，填入后将在全面拼写消费满xx元可用。
+        /// </summary>
+        [JsonProperty("least_cost")]
+        public int LeastCost { get; set; }
+
+        /// <summary>
+        /// 购买xx可用类型门槛，仅用于兑换，填入后自动拼写购买xxx可用。
+        /// </summary>
+        [JsonProperty("object_use_for")]
+        public string ObjectUseFor { get; set; }
+
+        /// <summary>
+        /// 不可以与其他类型共享门槛，填写false时系统将在使用须知里拼写“不可与其他优惠共享”，填写true时系统将在使用须知里拼写“可与其他优惠共享”，默认为true
+        /// </summary>
         [JsonProperty("can_use_with_other_discount")]
         public bool CanUseWithOtherDiscount { get; set; }
     }
 
+    /// <summary>
+    /// 封面摘要
+    /// </summary>
     public class Abstract
     {
         /// <summary>
@@ -486,15 +549,26 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         [JsonProperty("abstract")]
         public string AbstractInfo { get; set; }
 
+        /// <summary>
+        /// 封面图片列表，仅支持填入一个封面图片链接，上传图片接口上传获取图片获得链接，填写非CDN链接会报错，并在此填入。建议图片尺寸像素850*350
+        /// </summary>
         [JsonProperty("icon_url_list")]
         public string[] IconUrlList { get; set; }
     }
-
+    /// <summary>
+    /// 图文列表，显示在详情内页，优惠券券开发者须至少传入一组图文列表
+    /// </summary>
     public class TextImageList
     {
+        /// <summary>
+        /// 图片链接，必须调用上传图片接口，上传图片获得链接，并在此填入，否则报错
+        /// </summary>
         [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
 
+        /// <summary>
+        /// 图文描述
+        /// </summary>
         [JsonProperty("text")]
         public string Text { get; set; }
     }
@@ -511,52 +585,75 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         [JsonProperty("type")]
         public TimeLimitTypes Type { get; set; }
 
+        /// <summary>
+        /// 当前type类型下的起始时间（小时），如当前结构体内填写了MONDAY，此处填写了10，则此处表示周一 10:00可用
+        /// </summary>
         [JsonProperty("begin_hour")]
         public int BeginHour { get; set; }
 
+        /// <summary>
+        /// 当前type类型下的结束时间（小时），如当前结构体内填写了MONDAY，此处填写了20，则此处表示周一 10:00-20:00可用
+        /// </summary>
         [JsonProperty("end_hour")]
         public int EndHour { get; set; }
 
+        /// <summary>
+        /// 当前type类型下的起始时间（分钟），如当前结构体内填写了MONDAY，begin_hour填写10，此处填写了59，则此处表示周一 10:59可用
+        /// </summary>
         [JsonProperty("begin_minute")]
         public int BeginMinute { get; set; }
 
+        /// <summary>
+        /// 当前type类型下的结束时间（分钟），如当前结构体内填写了MONDAY，begin_hour填写10，此处填写了59，则此处表示周一 10:59-00:59可用
+        /// </summary>
         [JsonProperty("end_minute")]
         public int EndMinute { get; set; }
     }
 
+    /// <summary>
+    /// 使用时段限制类型
+    /// </summary>
     public enum TimeLimitTypes
     {
         /// <summary>
         ///  周一
         /// </summary>
+        [Display(Name = "周一")]
         MONDAY,
         /// <summary>
         /// 周二
         /// </summary>
+        [Display(Name = "周二")]
         TUESDAY,
         /// <summary>
         /// 周三
         /// </summary>
+        [Display(Name = "周三")]
         WEDNESDAY,
         /// <summary>
         /// 周四
         /// </summary>
+        [Display(Name = "周四")]
         THURSDAY,
         /// <summary>
         /// 周五
         /// </summary>
+        [Display(Name = "周五")]
         FRIDAY,
         /// <summary>
         /// 周六
         /// </summary>
+        [Display(Name = "周六")]
         SATURDAY,
         /// <summary>
         /// 周日
         /// </summary>
+        [Display(Name = "周日")]
         SUNDAY,
         /// <summary>
         /// 节假日
         /// </summary>
+        [Display(Name = "节假日")]
         HOLIDAY
     }
 }
