@@ -61,6 +61,8 @@
     <Compile Include="Apis\ApiResult.cs" />
     <Compile Include="Apis\Card\CardApi.cs" />
     <Compile Include="Apis\Card\CardInfo.cs" />
+    <Compile Include="Apis\Card\CardInfoCustomConverter.cs" />
+    <Compile Include="Apis\Card\DateInfoCustomConverter.cs" />
     <Compile Include="Apis\Card\UploadImageApiResult.cs" />
     <Compile Include="Apis\CustomerService\CustomerServiceApi.cs" />
     <Compile Include="Apis\CustomerService\GetCustomerAccountListApiResult.cs" />

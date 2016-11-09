@@ -13,6 +13,7 @@
 //  
 // ======================================================================
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +28,9 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         private const string ApiName = "card";
 
         /// <summary>
-        ///     获取AccessToken
+        ///     添加卡券
         /// </summary>
+        /// <param name="cardInfo">卡券结构数据</param>
         /// <returns></returns>
         public ApiResult Add(CardInfo cardInfo)
         {
@@ -40,6 +42,25 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             };
             var result = Post<ApiResult>(url, data);
             return result;
+        }
+
+        /// <summary>
+        ///     添加卡券
+        /// </summary>
+        /// <param name="cardInfoJson">卡券JSON结构字符串</param>
+        /// <returns></returns>
+        public ApiResult AddByJson(string cardInfoJson)
+        {
+            return Add(GetCardInfoByJson(cardInfoJson));
+        }
+
+        /// <summary>
+        ///     根据卡券JSON结构字符串获取卡券信息
+        /// </summary>
+        /// <returns></returns>
+        public CardInfo GetCardInfoByJson(string cardInfoJson)
+        {
+           return JsonConvert.DeserializeObject<CardInfo>(cardInfoJson, new CardInfoCustomConverter(), new DateInfoCustomConverter());
         }
 
         /// <summary>

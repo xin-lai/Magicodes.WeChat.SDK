@@ -13,7 +13,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// <summary>
     /// 卡券信息
     /// </summary>
-    public abstract class CardInfo
+    public class CardInfo
     {
         /// <summary>
         /// 卡券类型
@@ -71,12 +71,6 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             /// </summary>
             [JsonProperty("base_info")]
             public BaseInfo BaseInfo { get; set; }
-
-            /// <summary>
-            /// 卡券高级信息
-            /// </summary>
-            [JsonProperty("advanced_info")]
-            public AdvancedInfo AdvancedInfo { get; set; }
 
             [JsonProperty("deal_detail")]
             public string DealDetail { get; set; }
@@ -329,7 +323,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     /// <summary>
     /// 使用日期，有效期的信息。
     /// </summary>
-    public abstract class DateInfo
+    public class DateInfo
     {
         /// <summary>
         /// 使用时间的类型
@@ -339,9 +333,6 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         [Required]
         [JsonRequired]
         public DateInfoTypes Type { get; internal set; }
-
-        
-
     }
     /// <summary>
     /// 表示固定日期区间
@@ -353,6 +344,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             this.Type = DateInfoTypes.DATE_TYPE_FIX_TIME_RANGE;
         }
         [JsonIgnore]
+        [JsonProperty("begin_time")]
         public DateTime? BeginTime { get; set; }
 
         [JsonProperty("begin_timestamp")]
@@ -370,6 +362,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 表示结束时间，建议设置为截止日期的23:59:59过期。（东八区时间,UTC+8）
         /// </summary>
         [JsonIgnore]
+        [JsonProperty("end_time")]
         public DateTime? EndTime { get; set; }
 
 
@@ -412,6 +405,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 可用于DATE_TYPE_FIX_TERM时间类型，表示卡券统一过期时间，建议设置为截止日期的23:59:59过期。（东八区时间,UTC+8，单位为秒），设置了fixed_term卡券，当时间达到end_timestamp时卡券统一过期
         /// </summary>
         [JsonIgnore]
+        [JsonProperty("end_time")]
         public DateTime? EndTime { get; set; }
 
 
