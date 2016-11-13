@@ -179,10 +179,10 @@
     <Compile Include="Pays\OrderQuery\QueryResult.cs" />
     <Compile Include="Pays\Refund\RefundRequest.cs" />
     <Compile Include="Pays\Refund\RefundResult.cs" />
-    <Compile Include="WeChatHelper.cs" />
-    <Compile Include="IWeChatConfig.cs" />
-    <Compile Include="IWeChatPayConfig.cs" />
-    <Compile Include="JSSDKConfigInfo.cs" />
+    <Compile Include="Helper\WeChatHelper.cs" />
+    <Compile Include="Config\IWeChatConfig.cs" />
+    <Compile Include="Config\IWeChatPayConfig.cs" />
+    <Compile Include="JSSDK\JSSDKConfigInfo.cs" />
     <Compile Include="Pays\EnterprisePay\EnterprisePayApi.cs" />
     <Compile Include="Pays\EnterprisePay\EnterpriseRequest.cs" />
     <Compile Include="Pays\EnterprisePay\EnterpriseResult.cs" />
@@ -205,19 +205,19 @@
     <Compile Include="ServerMessages\Message.cs" />
     <Compile Include="ServerMessages\Request.cs" />
     <Compile Include="WeChatApisContext.cs" />
-    <Compile Include="WeChatConfigManager.cs" />
-    <Compile Include="WeChatFrameworkFuncTypes.cs" />
-    <Compile Include="WeChatApiCallbackFuncArgInfo.cs" />
-    <Compile Include="WeChatFrameworkFuncsManager.cs" />
-    <Compile Include="WeChatPayCallbackFuncArgInfo.cs" />
+    <Compile Include="Config\WeChatConfigManager.cs" />
+    <Compile Include="Funcs\WeChatFrameworkFuncTypes.cs" />
+    <Compile Include="Funcs\WeChatApiCallbackFuncArgInfo.cs" />
+    <Compile Include="Funcs\WeChatFrameworkFuncsManager.cs" />
+    <Compile Include="Funcs\WeChatPayCallbackFuncArgInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

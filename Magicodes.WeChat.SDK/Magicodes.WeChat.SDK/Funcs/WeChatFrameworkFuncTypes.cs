@@ -21,7 +21,7 @@ namespace Magicodes.WeChat.SDK
     public enum WeChatFrameworkFuncTypes
     {
         /// <summary>
-        ///     根据Key获取微信配置
+        ///     根据Key获取公众号配置
         /// </summary>
         Config_GetWeChatConfigByKey = 0,
 
@@ -29,11 +29,6 @@ namespace Magicodes.WeChat.SDK
         ///     模板消息发送
         /// </summary>
         APIFunc_TemplateMessageApi_Create = 1,
-
-        /// <summary>
-        ///     创建二维码
-        /// </summary>
-        APIFunc_QRCodeApi_Create = 2,
 
         /// <summary>
         ///     获取微信支付信息

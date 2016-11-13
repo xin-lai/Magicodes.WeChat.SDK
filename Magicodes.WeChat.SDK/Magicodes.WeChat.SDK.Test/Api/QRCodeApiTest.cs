@@ -33,7 +33,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         {
             var result = weChatApi.CreateByNumberValue(new Random().Next(1, 100000));
             if (!result.IsSuccess())
-                Assert.Fail("创建二维码失败，返回结果如下：" + result.DetailResult);
+                Assert.Fail("创建二维码失败！错误消息：" + result.GetFriendlyMessage() + "\n返回结果如下：" + result.DetailResult);
         }
     }
 }

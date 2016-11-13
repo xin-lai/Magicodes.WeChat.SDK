@@ -79,12 +79,6 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                 };
                 result = Post<QRCodeCreateApiResult>(url, model);
             }
-            WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
-                new WeChatApiCallbackFuncArgInfo
-                {
-                    Api = this,
-                    Data = result
-                });
             return result;
         }
 
@@ -109,14 +103,7 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                     scene = new {scene_str = value}
                 }
             };
-            result = Post<QRCodeCreateApiResult>(url, model);
-            WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.APIFunc_QRCodeApi_Create,
-                new WeChatApiCallbackFuncArgInfo
-                {
-                    Api = this,
-                    Data = result
-                });
-            return result;
+            return Post<QRCodeCreateApiResult>(url, model);
         }
     }
 }

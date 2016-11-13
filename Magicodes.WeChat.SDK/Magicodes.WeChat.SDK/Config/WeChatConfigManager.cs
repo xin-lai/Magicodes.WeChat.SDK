@@ -30,6 +30,9 @@ namespace Magicodes.WeChat.SDK
         private static readonly Lazy<WeChatConfigManager> Lazy =
             new Lazy<WeChatConfigManager>(() => new WeChatConfigManager());
 
+        /// <summary>
+        ///     公众号配置信息
+        /// </summary>
         protected ConcurrentDictionary<object, IWeChatConfig> WeChatConfigs =
             new ConcurrentDictionary<object, IWeChatConfig>();
 
@@ -45,6 +48,9 @@ namespace Magicodes.WeChat.SDK
         internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
             new ConcurrentDictionary<string, TokenApiResult>();
 
+        /// <summary>
+        ///     凭证
+        /// </summary>
         internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
             new ConcurrentDictionary<string, TicketApiResult>();
 
