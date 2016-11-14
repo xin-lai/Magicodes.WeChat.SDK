@@ -61,20 +61,5 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             return ReturnCode.ToString();
         }
-
-        /// <summary>
-        ///     校验是否为正确的JSON格式
-        /// </summary>
-        /// <returns></returns>
-        public bool IsCorrectedJson()
-        {
-            if (!string.IsNullOrEmpty(DetailResult))
-            {
-                var json = JsonConvert.SerializeObject(DetailResult);
-                if (json == DetailResult)
-                    return true;
-            }
-            return false;
-        }
     }
 }

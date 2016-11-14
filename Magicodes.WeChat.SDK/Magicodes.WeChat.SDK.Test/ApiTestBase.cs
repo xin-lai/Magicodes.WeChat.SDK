@@ -18,6 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.IO;
 using Magicodes.Logger.DebugLogger;
+using Magicodes.WeChat.SDK.Builder;
 
 namespace Magicodes.WeChat.SDK.Test
 {
@@ -29,8 +30,11 @@ namespace Magicodes.WeChat.SDK.Test
 
         static ApiTestBase()
         {
-            WeChatHelper.ApiLogger = new DebugLogger("Api");
-            WeChatHelper.PayLogger = new DebugLogger("Pay");
+            //配置构造器
+            WeChatSDKBuilder.Create()
+                .WithApiLogger(new DebugLogger("Api"))
+                .WithPayLogger(new DebugLogger("Pay"))
+                .Build();
 
             //注册Key。这里用于单元测试，写死。在实际开发中，可以考虑使用Sesstion来存储
             WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.GetKey,

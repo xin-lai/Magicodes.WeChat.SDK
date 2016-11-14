@@ -42,8 +42,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
             var menuJson =
                 "{\"button\":[{\"type\":\"click\",\"name\":\"今日歌曲\",\"key\":\"V1001_TODAY_MUSIC\"},{\"name\":\"菜单\",\"sub_button\":[{\"type\":\"view\",\"name\":\"搜索\",\"url\":\"http://www.soso.com/\"},{\"type\":\"view\",\"name\":\"视频\",\"url\":\"http://v.qq.com/\"},{\"type\":\"click\",\"name\":\"赞一下我们\",\"key\":\"V1001_GOOD\"},{\"type\":\"media_id\",\"name\":\"Test\",\"media_id\":\"UBHDLvv3QW_IVxTqWq7EcIZOEuSlRxRgnKWIQJG_Q_U\"}]}]}";
 
-            var model = JsonConvert.DeserializeObject<MenuInfo>(menuJson);
-            var result = weChatApi.Create(model);
+            var result = weChatApi.CreateByJson(menuJson);
             if (!result.IsSuccess())
                 Assert.Fail("创建菜单数据失败，返回结果如下：" + result.DetailResult);
         }

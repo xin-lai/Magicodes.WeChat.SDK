@@ -16,6 +16,7 @@
 using System;
 using Magicodes.WeChat.SDK.Apis.User;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
@@ -30,10 +31,16 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void UserApiTest_ALL()
         {
+            #region 获取帐号的关注者列表
+            var openIdsResult = api.GetOpenIdList();
+            if (!openIdsResult.IsSuccess())
+                Assert.Fail("获取帐号的关注者列表失败，返回结果如下：" + openIdsResult.DetailResult);
+            #endregion
+
             //获取测试用户
-            var testUsersOpenIds = TestOpenIdList;
+            var testUsersOpenIds = openIdsResult.Data.OpenIds.ToList();
             if (testUsersOpenIds.Count == 0)
-                Assert.Fail("测试失败，必须设置测试账户，见WeiChat_User中的AllowTest！");
+                Assert.Fail("测试失败，没有可用于测试的用户！");
 
             #region 添加备注
 
@@ -70,13 +77,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
 
             #endregion;
 
-            #region 获取帐号的关注者列表
-
-            var openIdsResult = api.GetOpenIdList();
-            if (!openIdsResult.IsSuccess())
-                Assert.Fail("获取帐号的关注者列表失败，返回结果如下：" + openIdsResult.DetailResult);
-
-            #endregion
+            
         }
     }
 }

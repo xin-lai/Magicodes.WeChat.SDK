@@ -13,6 +13,8 @@
 //  
 // ======================================================================
 
+using Newtonsoft.Json;
+
 namespace Magicodes.WeChat.SDK.Apis.Menu
 {
     /// <summary>
@@ -33,6 +35,26 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
             //获取api请求url
             var url = GetAccessApiUrl("get", ApiName);
             return Get<MenuGetApiResult>(url, new MenuButtonsCustomConverter());
+        }
+
+        /// <summary>
+        ///     根据JSON字符串获取对象
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <returns></returns>
+        public MenuInfo GetMenusByJson(string jsonStr)
+        {
+            return JsonConvert.DeserializeObject<MenuInfo>(jsonStr, new MenuButtonsCustomConverter());
+        }
+
+        /// <summary>
+        ///     根据JSON字符串创建菜单
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <returns></returns>
+        public ApiResult CreateByJson(string jsonStr)
+        {
+            return Create(GetMenusByJson(jsonStr));
         }
 
         /// <summary>
@@ -92,7 +114,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         public ApiResult DelConditional(string menuId)
         {
             var url = GetAccessApiUrl("delconditional", ApiName);
-            var model = new {menuid = menuId};
+            var model = new { menuid = menuId };
             return Post<ApiResult>(url, model);
         }
 
@@ -105,7 +127,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         public MenuGetApiResult TryMatch(string userId)
         {
             var url = GetAccessApiUrl("trymatch", ApiName);
-            var model = new {user_id = userId};
+            var model = new { user_id = userId };
             return Post<MenuGetApiResult>(url, model);
         }
 
