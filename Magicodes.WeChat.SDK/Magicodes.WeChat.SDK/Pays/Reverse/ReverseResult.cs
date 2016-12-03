@@ -7,7 +7,9 @@ using System.Xml.Serialization;
 
 namespace Magicodes.WeChat.SDK.Pays.Reverse
 {
-   public class ReverseResult: PayResult
+    [Serializable]
+    [XmlRoot("xml")]
+    public class ReverseResult: PayResult
     {
         /// <summary>
         /// 公众账号ID是String(32)wx8888888888888888返回提交的公众账号ID

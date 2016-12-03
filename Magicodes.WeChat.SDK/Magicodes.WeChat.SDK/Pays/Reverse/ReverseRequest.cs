@@ -7,6 +7,8 @@ using System.Xml.Serialization;
 
 namespace Magicodes.WeChat.SDK.Pays.Reverse
 {
+    [Serializable]
+    [XmlRoot("xml")]
     public class ReverseRequest
     {
         /// <summary>
