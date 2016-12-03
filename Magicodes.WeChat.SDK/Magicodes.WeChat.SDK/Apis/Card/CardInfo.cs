@@ -52,7 +52,13 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 优惠券
         /// </summary>
         [Display(Name = "优惠券")]
-        GENERAL_COUPON
+        GENERAL_COUPON,
+
+        /// <summary>
+        /// 会员卡
+        /// </summary>
+        [Display(Name = "会员卡")]
+        MEMBER_CARD
 
     }
     /// <summary>
@@ -334,6 +340,19 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         [JsonRequired]
         public DateInfoTypes Type { get; internal set; }
     }
+
+    /// <summary>
+    /// 表示永久有效
+    /// </summary>
+    public class PermanentDateInfo : DateInfo
+    {
+        public PermanentDateInfo()
+        {
+            this.Type = DateInfoTypes.DATE_TYPE_PERMANENT;
+        }
+    }
+
+
     /// <summary>
     /// 表示固定日期区间
     /// </summary>
@@ -430,10 +449,17 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     public enum DateInfoTypes
     {
         /// <summary>
+        /// 永久有效
+        /// </summary>
+        [Display(Name = "永久有效")]
+        DATE_TYPE_PERMANENT,
+
+        /// <summary>
         /// 表示固定日期区间
         /// </summary>
         [Display(Name = "固定日期空间")]
         DATE_TYPE_FIX_TIME_RANGE = 1,
+
         /// <summary>
         /// 表示固定时长（自领取后按天算。）
         /// </summary>

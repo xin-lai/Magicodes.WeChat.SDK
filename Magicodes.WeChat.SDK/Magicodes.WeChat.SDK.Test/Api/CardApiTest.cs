@@ -14,6 +14,7 @@
 // ======================================================================
 
 using Magicodes.WeChat.SDK.Apis.Card;
+using Magicodes.WeChat.SDK.Apis.Card.Request;
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.POI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,9 +49,9 @@ namespace Magicodes.WeChat.SDK.Test.Api
                             LogoUrl = result.Url,
                             BrandName = "Test",
                             CodeType = CodeTypes.CODE_TYPE_TEXT,
-                            Title = "Test套餐",
+                            Title = "艾唯特会员",
                             Color = "Color010",
-                            Notice = "使用时向服务员出示此券",
+                            Notice = "使用时向服务员出示此卡",
                             ServicePhone = "020-88888888",
                             Description = "不可与其他优惠同享\n如需团购券发票，请在消费时向商户提出\n店内均可使用，仅限堂食",
                             DateInfo = new FixTimeRangeDateInfo()
@@ -60,23 +61,23 @@ namespace Magicodes.WeChat.SDK.Test.Api
                             },
                             Sku = new Sku()
                             {
-                                Quantity = 500000
+                                Quantity = 1000
                             },
-                            GetLimit = 3,
+                            GetLimit = 1,
                             UseCustomCode = false,
                             BindOpenId = false,
                             CanShare = true,
                             CanGiveFriend = true,
                             LocationIdList = new int[] { 123, 12321, 345345 },
-                            CenterTitle = "顶部居中按钮",
-                            CenterSubTitle = "按钮下方的wording",
-                            CenterUrl = "http://xin-lai.com",
+                            CenterTitle = "快速买单",
+                            CenterSubTitle = "点击按钮快速买单",
+                            CenterUrl = "http://i-wit.net",
                             CustomUrlName = "立即使用",
-                            CustomUrl = "http://xin-lai.com",
-                            CustomUrlSubTitle = "6个汉字tips",
+                            CustomUrl = "http://i-wit.net",
+                            CustomUrlSubTitle = "官网",
                             PromotionUrlName = "更多优惠",
-                            PromotionUrl = "http://xin-lai.com",
-                            Source = "美团"
+                            PromotionUrl = "http://i-wit.net",
+                            Source = "PDA"
                         },
                         //AdvancedInfo = new AdvancedInfo()
                         //{
@@ -243,6 +244,244 @@ namespace Magicodes.WeChat.SDK.Test.Api
 
             }
 
+        }
+
+        [TestMethod()]
+        public void AddMemberCard()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                CardInfo cardInfo = new MemberCardInfo()
+                {
+                    CardType = CardTypes.MEMBER_CARD,
+                    MemberCard = new MemberCard()
+                    {
+                        BackgroundPicUrl = result.Url,
+                        Baseinfo = new MemberBaseInfo()
+                        {
+                            Logo_url = result.Url,
+                            Brand_name = "VIP会员",
+                            Code_type = CodeTypes.CODE_TYPE_TEXT,
+                            Title = "艾唯特会员",
+                            Color = "Color010",
+                            Notice = "使用时向服务员出示此券",
+                            Service_phone = "020-88888888",
+                            Description = "不可与其他优惠同享\n如需团购券发票，请在消费时向商户提出\n店内均可使用，仅限堂食",
+                            Date_info = new FixTimeRangeDateInfo()
+                            {
+                                BeginTime = DateTime.Now,
+                                EndTime = DateTime.Now.AddMonths(1),
+                            },
+                            Sku = new Sku()
+                            {
+                                Quantity = 1000
+                            },
+                            GetLimit = 1,
+                            Use_custom_code = false,
+                            Bind_openid = false,
+                            Can_share = true,
+                            Can_give_friend = true,
+                            Location_id_list = new int[] { 123, 12321, 345345 },
+                            Center_title = "快速买单",
+                            Center_sub_title = "点击快速买单",
+                            Center_url = "http://i-wit.net",
+                            Custom_url_name = "立即使用",
+                            Custom_url = "http://i-wit.net",
+                            Custom_url_sub_title = "6个汉字tips",
+                            Promotion_url_name = "更多优惠",
+                            Promotion_url = "http://i-wit.net",
+                            Promotion_url_sub_title = "官网",
+                            Need_push_on_view = false
+                        },
+                        SupplyBonus = false,
+                        Prerogative = "测试会员卡",
+                        AutoActivate = true,
+                        ActivateUrl = "http://www.baidu.com",
+                        CustomCell1 = new CustomCell()
+                        {
+                            Name = "使用入口",
+                            Tips = "立即使用",
+                            Url = "http://www.baidu.com"
+                        },
+                        Discount = 10
+                    }
+
+                };
+                var cardResult = _weChatApi.Add(cardInfo);
+                if (!cardResult.IsSuccess())
+                {
+                    Assert.Fail("创建会员卡失败，返回结果如下：" + cardResult.DetailResult + "；Msg:" + cardResult.GetFriendlyMessage());
+                }
+                else
+                {
+                    Assert.Fail("创建会员卡成功，返回结果如下:" + cardResult.DetailResult + ";Msg:" + cardResult.GetFriendlyMessage());
+                }
+
+            }
+
+        }
+
+        [TestMethod()]
+        public void UpdateMemberCard()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                UpdateCardRequest cardInfo = new UpdateCardRequest()
+                {
+                    CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                    MemberCard = new MemberCardUpdate()
+                    {
+                        Background_pic_url = result.Url,
+                        UpdateBaseInfo = new UpdateBaseInfo()
+                        {
+                            Logo_url = result.Url,
+                            Color = "Color010",
+                            Notice = "使用时向服务员出示此券",
+                            Service_phone = "020-88888888",
+                            Description = "会员卡，到店消费请出示此卡！",
+                            //Date_info = new FixTimeRangeDateInfo()
+                            //{
+                            //    BeginTime = DateTime.Now,
+                            //    EndTime = DateTime.Now.AddYears(33),
+                            //},
+                            GetLimit = 1,
+                            Can_share = true,
+                            Can_give_friend = true,
+                            Location_id_list = "123,12321,345345",
+                            Center_title = "顶部居中按钮",
+                            Center_sub_title = "按钮下方的wording",
+                            Center_url = "http://xin-lai.com",
+                            Custom_url_name = "立即使用",
+                            Custom_url = "http://xin-lai.com",
+                            Custom_url_sub_title = "6个汉字tips",
+                            Promotion_url_name = "更多优惠",
+                            Promotion_url = "http://xin-lai.com",
+                            Promotion_url_sub_title = "美团"
+                        },
+                        CustomField1 = new CustomField()
+                        {
+                            NameType = NameTypes.FIELD_NAME_TYPE_LEVEL,
+                            Url = "http://www.baidu.com"
+                        },
+                        WxActivate = true,
+                        SupplyBonus = false,
+                        Prerogative = "测试会员卡",
+                        AutoActivate = true,
+                        //ActivateUrl = "http://www.baidu.com",
+                        CustomCell1 = new CustomCell()
+                        {
+                            Name = "使用入口",
+                            Tips = "立即使用",
+                            Url = "http://www.baidu.com"
+                        },
+                        Discount = 10
+                    }
+
+                };
+                var obj = JsonConvert.SerializeObject(cardInfo);
+                Console.Write(obj);
+                var cardResult = _weChatApi.UpdateMemberCard(cardInfo);
+                if (!cardResult.IsSuccess())
+                {
+                    Assert.Fail("修改会员卡失败，返回结果如下：" + cardResult.DetailResult + "；Msg:" + cardResult.GetFriendlyMessage());
+                }
+
+            }
+        }
+
+        [TestMethod()]
+        public void CreateQRCode()
+        {
+            var CreateQRCodeRequest = new CreareQRCodeRequest()
+            {
+                ActionName = "QR_CARD",
+                ActionInfo = new ActionInfo()
+                {
+                    CardInfo = new QRCardInfo()
+                    {
+                        CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                        Outer_str="test"
+                    }
+                }
+            };
+            var result = _weChatApi.CreateQRCode(CreateQRCodeRequest);
+            if (!result.IsSuccess())
+            {
+                Assert.Fail("创建二维码失败，返回结果如下：" + result.DetailResult + ";Msg:" + result.GetFriendlyMessage());
+            }
+        }
+
+
+        [TestMethod()]
+        public void CreateLandingPage()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                var PageRequest = new CreateLandingPageRequest()
+                {
+                    Banner = result.Url,
+                    PageTitle = "艾唯特优惠大放送",
+                    SceneTypes = SceneTypes.SCENE_MENU,
+                    CanShare = true,
+                    CardList = new List<SceneCardInfo>()
+                    {
+                        new SceneCardInfo()
+                        {
+                            CardId="p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                            ThumbUrl = result.Url
+                        }
+                    }
+                };
+                var obj = JsonConvert.SerializeObject(PageRequest);
+                var resultPageRequest = _weChatApi.CreateLandingPage(PageRequest);
+                if (!resultPageRequest.IsSuccess())
+                {
+                    Assert.Fail("创建货架失败，错误信息：" + resultPageRequest.DetailResult + ";Msg:" + resultPageRequest.GetFriendlyMessage());
+                }
+            }
+        }
+
+        [TestMethod()]
+        public void ModifyStock()
+        {
+            var ModifyInfo = new ModifyStockRequest()
+            {
+                CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                ReduceStockValue = 100
+            };
+            var result = _weChatApi.ModifyStock(ModifyInfo);
+            if (!result.IsSuccess())
+            {
+                Assert.Fail("修改库存失败，错误信息：" + result.DetailResult + ";Msg:" + result.GetFriendlyMessage());
+
+            }
+        }
+
+        [TestMethod()]
+        public void DepositCustomCode()
+        {
+            var list = new List<string>()
+           {
+               "111111",
+               "222222",
+               "333333",
+               "444444"
+           };
+            var result = _weChatApi.DepositCustomCode("p4vD1v3TpOqqPlPW2N4Hkq2ejx-c", list);
+            if (!result.IsSuccess())
+            {
+                Assert.Fail("修改库存失败，错误信息：" + result.DetailResult + ";Msg:" + result.GetFriendlyMessage());
+
+            }
         }
     }
 }

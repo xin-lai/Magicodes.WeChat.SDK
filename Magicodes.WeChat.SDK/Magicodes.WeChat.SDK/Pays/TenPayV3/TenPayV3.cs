@@ -24,6 +24,7 @@ using System.Security.Cryptography.X509Certificates;
 using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Pays.MicroPay;
 using Magicodes.WeChat.SDK.Pays.OrderQuery;
+using Magicodes.WeChat.SDK.Pays.Reverse;
 
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
@@ -88,7 +89,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public  QueryResult OrderQuery(QueryRequest model)
+        public QueryResult OrderQuery(QueryRequest model)
         {
             var url = "https://api.mch.weixin.qq.com/pay/orderquery";
             QueryResult result = null;
@@ -315,5 +316,44 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             return result;
         }
 
+        /// <summary>
+        /// 支付交易返回失败或支付系统超时，调用该接口撤销交易。如果此订单用户支付失败，微信支付系统会将此订单关闭；如果用户支付成功，微信支付系统会将此订单资金退还给用户。
+        /// 注意：7天以内的交易单可调用撤销，其他正常支付的单如需实现相同功能请调用申请退款API。提交支付交易后调用【查询订单API】，没有明确的支付结果再调用【撤销订单API】。
+        /// 调用支付接口后请勿立即调用撤销订单API，建议支付后至少15s后再调用撤销订单接口。 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ReverseResult Reverse(ReverseRequest model)
+        {
+            var url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+            ReverseResult result = null;
+            try
+            {
+                var wechatConfig = WeChatConfig;
+                model.Appid = wechatConfig.AppId;
+                model.Mch_id = PayConfig.MchId;
+                model.Nonce_str = PayUtil.GetNoncestr();
+                model.Mch_id = PayConfig.MchId;
+
+                //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+                var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;
+                //私钥（在安装证书时设置）
+                var password = PayConfig.CertPassword;
+
+                //调用证书
+                var cer = new X509Certificate2(cert, password,
+                    X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+                var dictionary = PayUtil.GetAuthors(model);
+                model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+                result = PostXML<ReverseResult>(url, model, cer);
+            }
+            catch (Exception ex)
+            {
+                WeChatHelper.PayLogger.Log(LoggerLevels.Error, ex);
+            }
+            return result;
+        }
     }
 }

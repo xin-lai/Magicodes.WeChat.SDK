@@ -24,7 +24,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
     ///     使用日期自定义对象创建转换器
     ///     根据日期类型自定义创建
     /// </summary>
-    public class CardInfoCustomConverter : CustomCreationConverter<CardInfo>
+    public class MemberCardCustomConverter : CustomCreationConverter<MemberCard>
     {
         /// <summary>
         ///     读取目标对象的JSON表示
@@ -39,34 +39,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         {
             if (reader.TokenType == JsonToken.Null) return null;
             var jObject = JObject.Load(reader);
-            CardInfo target = null;
-            //获取type属性
-            var type = jObject.Property("card_type");
-            if ((type != null) && (type.Count > 0))
-            {
-                var typeValue = type.Value.ToString();
-                var cardType = (CardTypes)Enum.Parse(typeof(CardTypes), typeValue);
-                switch (cardType)
-                {
-                    case CardTypes.GROUPON:
-                        target = new Groupon();
-                        break;
-                    case CardTypes.CASH:
-                        target = new Cash();
-                        break;
-                    case CardTypes.DISCOUNT:
-                        target = new Discount();
-                        break;
-                    case CardTypes.GIFT:
-                        target = new Gift();
-                        break;
-                    case CardTypes.GENERAL_COUPON:
-                        target = new GeneralCoupon();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            MemberCard target = new MemberCard();
             serializer.Populate(jObject.CreateReader(), target);
             return target;
         }
@@ -76,9 +49,9 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// </summary>
         /// <param name="objectType">对象类型</param>
         /// <returns>对象</returns>
-        public override CardInfo Create(Type objectType)
+        public override MemberCard Create(Type objectType)
         {
-            return new CardInfo();
+            return new MemberCard();
         }
     }
 }
