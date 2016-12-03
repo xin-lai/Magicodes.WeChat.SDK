@@ -88,7 +88,7 @@
     <Compile Include="Apis\Card\Request\UpdateUserRequest.cs" />
     <Compile Include="Apis\Card\RequiredForm.cs" />
     <Compile Include="Apis\Card\Result\ActivateMemberTempInfoResult.cs" />
-    <Compile Include="Apis\Card\Result\ActivateRequest.cs" />
+    <Compile Include="Apis\Card\Request\ActivateRequest.cs" />
     <Compile Include="Apis\Card\Result\CreateLandingPageResult.cs" />
     <Compile Include="Apis\Card\Result\CreateQRCodeResult.cs" />
     <Compile Include="Apis\Card\Result\DepositResult.cs" />

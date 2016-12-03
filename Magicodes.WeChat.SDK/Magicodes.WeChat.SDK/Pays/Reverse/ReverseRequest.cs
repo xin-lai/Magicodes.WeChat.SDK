@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Magicodes.WeChat.SDK.Pays.Reverse
 {
-  public  class ReverseRequest
+    public class ReverseRequest
     {
         /// <summary>
         /// 公众账号ID是String(32)wx8888888888888888微信分配的公众账号ID（企业号corpid即为此appId）
