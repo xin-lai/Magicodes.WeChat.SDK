@@ -80,6 +80,7 @@
     <Compile Include="Apis\Card\Request\ActivateMemberCardRequest.cs" />
     <Compile Include="Apis\Card\Request\ActivateMemberTempInfoRequest.cs" />
     <Compile Include="Apis\Card\Request\ActivateMemberUserformRequest.cs" />
+    <Compile Include="Apis\Card\Request\AddPayGiftMemberRequest.cs" />
     <Compile Include="Apis\Card\Request\CreareQRCodeRequest.cs" />
     <Compile Include="Apis\Card\Request\CreateLandingPageRequest.cs" />
     <Compile Include="Apis\Card\Request\GetUserInfoRequest.cs" />
@@ -89,10 +90,14 @@
     <Compile Include="Apis\Card\RequiredForm.cs" />
     <Compile Include="Apis\Card\Result\ActivateMemberTempInfoResult.cs" />
     <Compile Include="Apis\Card\Request\ActivateRequest.cs" />
+    <Compile Include="Apis\Card\Result\ActivateRequest.cs" />
+    <Compile Include="Apis\Card\Result\CardBizuinInfoResult.cs" />
+    <Compile Include="Apis\Card\Result\CodeStatusResult.cs" />
     <Compile Include="Apis\Card\Result\CreateLandingPageResult.cs" />
     <Compile Include="Apis\Card\Result\CreateQRCodeResult.cs" />
     <Compile Include="Apis\Card\Result\DepositResult.cs" />
     <Compile Include="Apis\Card\Result\GetUserInfoResult.cs" />
+    <Compile Include="Apis\Card\Result\PayGiftMemberResult.cs" />
     <Compile Include="Apis\Card\Result\UpdateUserResult.cs" />
     <Compile Include="Apis\Card\Result\UploadImageApiResult.cs" />
     <Compile Include="Apis\Card\RichField.cs" />
@@ -252,7 +257,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Apis\Card\Enums\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

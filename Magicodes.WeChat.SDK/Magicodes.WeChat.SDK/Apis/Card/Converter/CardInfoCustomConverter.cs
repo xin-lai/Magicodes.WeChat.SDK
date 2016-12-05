@@ -63,6 +63,9 @@ namespace Magicodes.WeChat.SDK.Apis.Card
                     case CardTypes.GENERAL_COUPON:
                         target = new GeneralCoupon();
                         break;
+                    case CardTypes.MEMBER_CARD:
+                        target = new MemberCardInfo();
+                        break;
                     default:
                         break;
                 }

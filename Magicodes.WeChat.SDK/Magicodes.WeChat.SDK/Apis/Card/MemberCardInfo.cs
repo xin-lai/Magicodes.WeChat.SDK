@@ -425,6 +425,18 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         public bool WxActivate { get; set; }
 
         /// <summary>
+        /// 是否设置跳转型一键激活
+        /// </summary>
+        [JsonProperty("wx_activate_after_submit")]
+        public bool WxActivateAfterSubmit { get; set; }
+
+        /// <summary>
+        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接  
+        /// </summary>
+        [JsonProperty("wx_activate_after_submit_url")]
+        public string WxActivateAfterSubmitUrl { get; set; }
+
+        /// <summary>
         /// 是 显示积分，填写true或false，如填写true，积分相关字段均为必填。
         /// 修改：是，需要提审
         /// </summary>

@@ -325,7 +325,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// <returns></returns>
         public ReverseResult Reverse(ReverseRequest model)
         {
-            var url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            var url = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
 
             ReverseResult result = null;
             try
@@ -334,8 +334,6 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                 model.Appid = wechatConfig.AppId;
                 model.Mch_id = PayConfig.MchId;
                 model.Nonce_str = PayUtil.GetNoncestr();
-                model.Mch_id = PayConfig.MchId;
-
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = HostingEnvironment.ApplicationPhysicalPath + PayConfig.PayCertPath;
                 //私钥（在安装证书时设置）
