@@ -90,6 +90,7 @@
     <Compile Include="Apis\Card\RequiredForm.cs" />
     <Compile Include="Apis\Card\Result\ActivateMemberTempInfoResult.cs" />
     <Compile Include="Apis\Card\Request\ActivateRequest.cs" />
+    <Compile Include="Apis\Card\Result\AddCardApiResult.cs" />
     <Compile Include="Apis\Card\Result\CardBizuinInfoResult.cs" />
     <Compile Include="Apis\Card\Result\CodeStatusResult.cs" />
     <Compile Include="Apis\Card\Result\CreateLandingPageResult.cs" />

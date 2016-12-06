@@ -49,7 +49,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// </summary>
         /// <param name="cardInfo">卡券结构数据</param>
         /// <returns></returns>
-        public ApiResult Add(CardInfo cardInfo)
+        public AddCardApiResult Add(CardInfo cardInfo)
         {
             //获取api请求url
             var url = GetAccessApiUrl("create", ApiName, "https://api.weixin.qq.com");
@@ -57,7 +57,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             {
                 card = cardInfo
             };
-            var result = Post<ApiResult>(url, data);
+            var result = Post<AddCardApiResult>(url, data);
             return result;
         }
 
@@ -66,7 +66,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// </summary>
         /// <param name="cardInfoJson">卡券JSON结构字符串</param>
         /// <returns></returns>
-        public ApiResult AddByJson(string cardInfoJson)
+        public AddCardApiResult AddByJson(string cardInfoJson)
         {
             return Add(GetCardInfoByJson(cardInfoJson));
         }

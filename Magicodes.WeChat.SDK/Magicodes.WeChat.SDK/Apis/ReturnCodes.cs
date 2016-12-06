@@ -146,6 +146,7 @@ namespace Magicodes.WeChat.SDK.Apis
         不合法的actioninfo = 40053,
         不合法的卡券类型 = 40071,
         不合法的编码方式 = 40072,
+        不合法的卡券Id = 40073,
         不合法的卡券状态 = 40078,
         不合法的时间 = 40079,
         不合法的CardExt = 40080,

@@ -34,9 +34,9 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void CardApiTest_Add()
         {
-            using (var fs = GetInputFile("MemberCard.jpg"))
+            using (var fs = GetInputFile("qrcode.jpg"))
             {
-                var result = _weChatApi.UploadImage("MemberCard.jpg", fs);
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
                 if (!result.IsSuccess())
                     Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
 
@@ -412,7 +412,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 {
                     CardInfo = new QRCardInfo()
                     {
-                        CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                        CardId = "pl0uwwXdAIetRFMDxLlsoqRlBJac",
                         Outer_str = "test"
                     }
                 }
@@ -443,12 +443,11 @@ namespace Magicodes.WeChat.SDK.Test.Api
                     {
                         new SceneCardInfo()
                         {
-                            CardId="p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                            CardId="pl0uwwXdAIetRFMDxLlsoqRlBJac",
                             ThumbUrl = result.Url
                         }
                     }
                 };
-                var obj = JsonConvert.SerializeObject(PageRequest);
                 var resultPageRequest = _weChatApi.CreateLandingPage(PageRequest);
                 if (!resultPageRequest.IsSuccess())
                 {
@@ -462,7 +461,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         {
             var ModifyInfo = new ModifyStockRequest()
             {
-                CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
+                CardId = "pl0uwwXdAIetRFMDxLlsoqRlBJac",
                 ReduceStockValue = 100
             };
             var result = _weChatApi.ModifyStock(ModifyInfo);
