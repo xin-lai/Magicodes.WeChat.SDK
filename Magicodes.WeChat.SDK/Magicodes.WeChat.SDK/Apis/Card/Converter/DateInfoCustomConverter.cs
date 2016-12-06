@@ -77,6 +77,12 @@ namespace Magicodes.WeChat.SDK.Apis.Card
                             target = fixTermDateInfo;
                         }
                         break;
+                    case DateInfoTypes.DATE_TYPE_PERMANENT:
+                        target = new DateInfo()
+                        {
+                            Type = DateInfoTypes.DATE_TYPE_PERMANENT
+                        };
+                        break;
                     default:
                         break;
                 }

@@ -75,8 +75,11 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         #region 核销卡券
 
+        #region 线下核销
         /// <summary>
         /// 查询Code接口
+        /// 1.固定时长有效期会根据用户实际领取时间转换，如用户2013年10月1日领取，固定时长有效期为90天，即有效时间为2013年10月1日-12月29日有效。
+        /// 2.无论check_consume填写的是true还是false,当code未被添加或者code被转赠领取是统一报错：invalid serial code
         /// </summary>
         /// <param name="cardId">卡券ID代表一类卡券。自定义code卡券必填。</param>
         /// <param name="code">单张卡券的唯一标准。</param>
@@ -95,7 +98,27 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             var result = Post<CodeStatusResult>(url, data);
             return result;
         }
+        /// <summary>
+        /// 核销卡卷
+        /// 注：
+        /// 1.仅支持核销有效状态的卡券，若卡券处于异常状态，均不可核销。（异常状态包括：卡券删除、未生效、过期、转赠中、转赠退回、失效）
+        /// 2.自定义Code码（use_custom_code为true）的优惠券，在code被核销时，必须调用此接口。用于将用户客户端的code状态变更。自定义code的卡券调用接口时， post数据中需包含card_id，否则报invalid serial code，非自定义code不需上报。
+        /// </summary>
+        /// <returns></returns>
+        public ConsumeCardResult ConsumeCard(string code, string cardId)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("consume", "card/code", "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId,
+                code = code
+            };
+            var result = Post<ConsumeCardResult>(url, data);
+            return result;
+        }
 
+        #endregion
 
 
         #endregion

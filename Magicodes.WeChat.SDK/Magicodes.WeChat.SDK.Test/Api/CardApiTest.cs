@@ -34,9 +34,9 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void CardApiTest_Add()
         {
-            using (var fs = GetInputFile("qrcode.jpg"))
+            using (var fs = GetInputFile("MemberCard.jpg"))
             {
-                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                var result = _weChatApi.UploadImage("MemberCard.jpg", fs);
                 if (!result.IsSuccess())
                     Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
 
@@ -215,8 +215,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
       ""least_cost"": 0,
       ""deal_detail"": ""Test""
     }
-}
-";
+}";
                 jsonStr = jsonStr.Replace("{logo_url}", result.Url);
                 var obj = _weChatApi.GetCardInfoByJson(jsonStr);
                 if (obj == null)
@@ -254,70 +253,78 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 var result = _weChatApi.UploadImage("qrcode.jpg", fs);
                 if (!result.IsSuccess())
                     Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
-                CardInfo cardInfo = new MemberCardInfo()
-                {
-                    CardType = CardTypes.MEMBER_CARD,
-                    MemberCard = new MemberCard()
-                    {
-                        BackgroundPicUrl = result.Url,
-                        Baseinfo = new MemberBaseInfo()
-                        {
-                            Logo_url = result.Url,
-                            Brand_name = "VIP会员",
-                            Code_type = CodeTypes.CODE_TYPE_TEXT,
-                            Title = "艾唯特会员",
-                            Color = "Color010",
-                            Notice = "使用时向服务员出示此券",
-                            Service_phone = "020-88888888",
-                            Description = "不可与其他优惠同享\n如需团购券发票，请在消费时向商户提出\n店内均可使用，仅限堂食",
-                            Date_info = new FixTimeRangeDateInfo()
-                            {
-                                BeginTime = DateTime.Now,
-                                EndTime = DateTime.Now.AddMonths(1),
-                            },
-                            Sku = new Sku()
-                            {
-                                Quantity = 1000
-                            },
-                            GetLimit = 1,
-                            Use_custom_code = false,
-                            Bind_openid = false,
-                            Can_share = true,
-                            Can_give_friend = true,
-                            Location_id_list = new int[] { 123, 12321, 345345 },
-                            Center_title = "快速买单",
-                            Center_sub_title = "点击快速买单",
-                            Center_url = "http://i-wit.net",
-                            Custom_url_name = "立即使用",
-                            Custom_url = "http://i-wit.net",
-                            Custom_url_sub_title = "6个汉字tips",
-                            Promotion_url_name = "更多优惠",
-                            Promotion_url = "http://i-wit.net",
-                            Promotion_url_sub_title = "官网",
-                            Need_push_on_view = false
-                        },
-                        SupplyBonus = false,
-                        Prerogative = "测试会员卡",
-                        AutoActivate = true,
-                        ActivateUrl = "http://www.baidu.com",
-                        CustomCell1 = new CustomCell()
-                        {
-                            Name = "使用入口",
-                            Tips = "立即使用",
-                            Url = "http://www.baidu.com"
-                        },
-                        Discount = 10
-                    }
-
-                };
-                var cardResult = _weChatApi.Add(cardInfo);
+                string jsonStr = @"{
+    ""card_type"": ""MEMBER_CARD"", 
+    ""member_card"": {
+                    ""background_pic_url"": """", 
+                ""base_info"": {
+                        ""logo_url"": ""http://mmbiz.qpic.cn/mmbiz_png/ibYHqnEqcOWHMPT9tHRLAdWzpUt0S4h177GbPILqickic5qufxVmzzUp6Laoiabw7DjfFba8ibCiatFh8BavibjNKnNKg/0"", 
+            ""brand_name"": ""哈哈商户名字"", 
+            ""code_type"": ""CODE_TYPE_QRCODE"", 
+            ""title"": ""哈哈测试会员卡"", 
+            ""color"": ""Color020"", 
+            ""notice"": ""哈哈，你不要使用会员卡"", 
+            ""service_phone"": ""028-908761872"", 
+            ""description"": ""哈哈记得出示会员卡哦"", 
+            ""date_info"": {
+                            ""type"": ""DATE_TYPE_PERMANENT"", 
+                ""begin_time"": """", 
+                ""end_time"": """", 
+                ""fixed_term"": """", 
+                ""fixed_begin"": """"
+            }, 
+            ""sku"": {
+                            ""quantity"": ""100""
+            }, 
+            ""get_limit"": ""1"", 
+            ""use_custom_code"": false, 
+            ""bind_openid"": false, 
+            ""can_share"": true, 
+            ""can_give_friend"": true, 
+            ""location_id_list"": [], 
+            ""center_title"": ""我是居中按钮"", 
+            ""center_sub_title"": ""点击居中按钮"", 
+            ""center_url"": ""http://www.baidu.com"", 
+            ""custom_url_name"": ""会员专区"", 
+            ""custom_url"": ""http://www.i-wit.net"", 
+            ""custom_url_sub_title"": ""点击进入"", 
+            ""promotion_url_name"": """", 
+            ""promotion_url"": """", 
+            ""promotion_url_sub_title"": """"
+        },
+     ""supply_bonus"":true,
+    ""supply_balance"":true,
+    ""wx_activate"": true, 
+    ""wx_activate_after_submit"": false, 
+    ""wx_activate_after_submit_url"": ""http://www.i-wit.net"", 
+    ""prerogative"": ""呜呜呜呜呜呜呜呜呜呜"", 
+    ""activate_url"": """", 
+    ""auto_activate"": false, 
+    ""custom_field1"": {
+        ""name_type"": ""FIELD_NAME_TYPE_LEVEL"", 
+        ""url"": ""http://www.baidu.com""
+    }, 
+    ""custom_cell1"": {
+        ""name"": ""abc"", 
+        ""tips"": ""www"", 
+        ""url"": ""www.baid.com""
+    }, 
+    ""bonus_rule"": {
+        ""cost_money_unit"": ""1"", 
+        ""increase_bonus"": ""1"", 
+        ""max_increase_bonus"": ""1000"", 
+        ""init_increase_bonus"": ""100"", 
+        ""cost_bonus_unit"": ""100"", 
+        ""reduce_money"": ""1"", 
+        ""least_money_to_use_bonus"": ""100"", 
+        ""max_reduce_bonus"": ""1000""
+    }, 
+    ""discount"": 10
+}}";
+                var cardResult = _weChatApi.Add(_weChatApi.GetCardInfoByJson(jsonStr));
                 if (!cardResult.IsSuccess())
                 {
                     Assert.Fail("创建会员卡失败，返回结果如下：" + cardResult.DetailResult + "；Msg:" + cardResult.GetFriendlyMessage());
-                }
-                else
-                {
-                    Assert.Fail("创建会员卡成功，返回结果如下:" + cardResult.DetailResult + ";Msg:" + cardResult.GetFriendlyMessage());
                 }
 
             }
@@ -406,7 +413,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
                     CardInfo = new QRCardInfo()
                     {
                         CardId = "p4vD1v3TpOqqPlPW2N4Hkq2ejx-c",
-                        Outer_str="test"
+                        Outer_str = "test"
                     }
                 }
             };

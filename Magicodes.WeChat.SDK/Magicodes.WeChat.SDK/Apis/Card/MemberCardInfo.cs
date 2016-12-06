@@ -162,6 +162,13 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             set;
         }
 
+
+        /// <summary>
+        /// 填入该字段后，自定义code卡券方可进行导入code并投放的动作。
+        /// </summary>
+        [JsonProperty("get_custom_code_mode")]
+        public string GetCustomCodeMode { get; set; }
+
         /// <summary>
         /// 否bool是否指定用户领取，填写true或false。默认为false
         /// 修改：否
@@ -397,17 +404,8 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 修改：是，不需要提审
         /// </summary>
         [MaxLength(3072)]
-        [Required]
-        [JsonRequired]
         [JsonProperty("prerogative")]
         public string Prerogative { get; set; }
-
-        /// <summary>
-        /// 填入该字段后，自定义code卡券方可进行导入code并投放的动作。
-        /// </summary>
-        [JsonProperty("get_custom_code_mode")]
-        public string GetCustomCodeMode { get; set; }
-
 
 
         /// <summary>
@@ -465,7 +463,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// </summary>
         [MaxLength(128)]
         [JsonProperty("balance_url")]
-        public string balance_url { get; set; }
+        public string BalanceUrl { get; set; }
 
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示,包含name_type(name)和url字段  

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Magicodes.WeChat.SDK.Apis.Card.Result
 {
+    /// <summary>
+    /// 查询卡卷状态返回数据实体
+    /// </summary>
     public class CodeStatusResult : ApiResult
     {
         /// <summary>
@@ -55,4 +58,21 @@ namespace Magicodes.WeChat.SDK.Apis.Card.Result
         [JsonProperty("end_time")]
         public long EndTime { get; set; }
     }
+    /// <summary>
+    /// 核销卡卷返回数据实体
+    /// </summary>
+    public class ConsumeCardResult : ApiResult
+    {
+        /// <summary>
+        /// 卡卷ID
+        /// </summary>
+        [JsonProperty("card_id")]
+        public string CardId { get; set; }
+        /// <summary>
+        /// 用户在该公众号内的唯一身份标识。
+        /// </summary>
+        [JsonProperty("openid")]
+        public string OpenId { get; set; }
+    }
+
 }
