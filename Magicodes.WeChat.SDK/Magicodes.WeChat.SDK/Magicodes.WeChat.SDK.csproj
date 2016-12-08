@@ -92,10 +92,12 @@
     <Compile Include="Apis\Card\Request\ActivateRequest.cs" />
     <Compile Include="Apis\Card\Result\AddCardApiResult.cs" />
     <Compile Include="Apis\Card\Result\CardBizuinInfoResult.cs" />
+    <Compile Include="Apis\Card\Result\CardDetailResult.cs" />
     <Compile Include="Apis\Card\Result\CodeStatusResult.cs" />
     <Compile Include="Apis\Card\Result\CreateLandingPageResult.cs" />
     <Compile Include="Apis\Card\Result\CreateQRCodeResult.cs" />
     <Compile Include="Apis\Card\Result\DepositResult.cs" />
+    <Compile Include="Apis\Card\Result\GetBatchCardListResult.cs" />
     <Compile Include="Apis\Card\Result\GetUserInfoResult.cs" />
     <Compile Include="Apis\Card\Result\PayGiftMemberResult.cs" />
     <Compile Include="Apis\Card\Result\UpdateUserResult.cs" />

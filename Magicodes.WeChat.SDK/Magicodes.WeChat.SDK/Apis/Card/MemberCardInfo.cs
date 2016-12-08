@@ -88,8 +88,6 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 修改：是，不需要提审
         /// </summary>
         [MaxLength(16)]
-        [Required]
-        [JsonRequired]
         [JsonProperty("color")]
         public string Color
         {
