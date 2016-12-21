@@ -63,9 +63,9 @@ namespace Magicodes.WeChat.SDK
         public MenuApi MenuApi = new MenuApi();
 
         /// <summary>
-        ///     多图文接口
+        ///     永久素材接口
         /// </summary>
-        public NewsApi NewsApi = new NewsApi();
+        public MaterialApi MaterialApi = new MaterialApi();
 
         /// <summary>
         ///     微信二维码

@@ -22,7 +22,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
     [TestClass]
     public class NewsApiTest : ApiTestBase
     {
-        private readonly NewsApi api = WeChatApisContext.Current.NewsApi;
+        private readonly MaterialApi api = WeChatApisContext.Current.MaterialApi;
 
         public NewsApiTest()
         {
@@ -46,7 +46,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsApiTest_Get()
         {
-            var result = api.Get();
+            var result = api.Get(Apis.Material.Enums.MaterialType.image);
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
         }
