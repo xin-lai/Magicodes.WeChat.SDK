@@ -52,20 +52,6 @@ namespace Magicodes.WeChat.SDK.Test.Api
             var result = api.Get(type,19,10);
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
-            else
-            {
-                if (type == Apis.Material.Enums.MaterialType.news)
-                {
-
-                }
-                else
-                {
-                    var resultInfo = (OtherMaterialResult)result;
-                    if (resultInfo.ItemCount < resultInfo.TotalCount)
-                    {
-                    }
-                }
-            }
         }
 
 
