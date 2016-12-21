@@ -19,7 +19,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
 {
     /// <summary>
     ///     自定义菜单接口
-    ///     http://mp.weixin.qq.com/wiki/10/0234e39a2025342c17a7d23595c6b40a.html
+    ///     http://mp.weixin.qq.com/wiki/10/0234e39a2025342c17a7d23595c6b40a.html 
     /// </summary>
     public class MenuApi : ApiBase
     {
@@ -88,7 +88,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         public SelfMenuGetApiResultModel GetCurrentSelfmenuInfo()
         {
             var url = GetAccessApiUrl(null, "get_current_selfmenu_info");
-            return Get<SelfMenuGetApiResultModel>(url, new MenuButtonsCustomConverter());
+            return Get<SelfMenuGetApiResultModel>(url);
         }
 
         #region 个性化菜单接口

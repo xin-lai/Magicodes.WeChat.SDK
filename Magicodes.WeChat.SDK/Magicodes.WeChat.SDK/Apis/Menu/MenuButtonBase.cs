@@ -29,8 +29,17 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         ///     菜单标题，不超过16个字节，子菜单不超过40个字节
         /// </summary>
         [MaxLength(20)]
-        [JsonProperty(PropertyName = "name", Required = Required.Always)]
+        [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
+
+        [JsonProperty(PropertyName = "media_id")]
+        public string MediaId { get; set; }
+
+        [JsonProperty(PropertyName = "sub_button")]
+        public CustomButton SubButton { get; set; }
+
+        [JsonProperty(PropertyName = "news_info")]
+        public List<NewsInfo> NewsInfo { get; set; }
 
         /// <summary>
         ///     菜单类型（菜单的响应动作类型）
@@ -47,14 +56,14 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
 
         [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
+    }
 
-        [JsonProperty(PropertyName = "media_id")]
-        public string MediaId { get; set; }
-
-        [JsonProperty(PropertyName = "sub_button")]
-        public List<MenuButtonBase> SubButton { get; set; }
-
-        [JsonProperty(PropertyName = "news_info")]
-        public List<NewsInfo> NewsInfo { get; set; }
+    public class CustomButton
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty(PropertyName = "list")]
+        public List<MenuButtonBase> List { get; set; }
     }
 }
