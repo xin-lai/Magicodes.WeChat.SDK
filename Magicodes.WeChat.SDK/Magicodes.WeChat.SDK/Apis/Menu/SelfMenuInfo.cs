@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Magicodes.WeChat.SDK.Apis.Menu
 {
@@ -23,10 +24,8 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
     /// </summary>
     public class SelfMenuInfo
     {
-        [JsonProperty(PropertyName = "name")]
-        public virtual string Name { get; set; }
 
-        [JsonProperty("sub_button")]
-        public List<MenuButtonBase> SubButton { get; set; }
+        [JsonProperty("button")]
+        public List<MenuButtonBase> Buttons { get; set; }
     }
 }

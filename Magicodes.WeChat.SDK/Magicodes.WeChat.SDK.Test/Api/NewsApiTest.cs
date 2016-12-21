@@ -16,13 +16,14 @@
 using System.Collections.Generic;
 using Magicodes.WeChat.SDK.Apis.Material;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
     [TestClass]
     public class NewsApiTest : ApiTestBase
     {
-        private readonly NewsApi api = WeChatApisContext.Current.NewsApi;
+        private readonly MaterialApi api = WeChatApisContext.Current.MaterialApi;
 
         public NewsApiTest()
         {
@@ -46,7 +47,9 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsApiTest_Get()
         {
-            var result = api.Get();
+            var type = Apis.Material.Enums.MaterialType.image;
+            //aa5fe50648fb489a8083cdd203370470.jpg
+            var result = api.Get(type,19,10);
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
         }

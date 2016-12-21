@@ -118,8 +118,9 @@
     <Compile Include="Apis\CustomMessage\VideoMessage.cs" />
     <Compile Include="Apis\CustomMessage\VoiceMessage.cs" />
     <Compile Include="Apis\CustomMessage\WxCardMessage.cs" />
-    <Compile Include="Apis\Material\NewsGetApiResult.cs" />
-    <Compile Include="Apis\Material\NewsApi.cs" />
+    <Compile Include="Apis\Material\Enums\MaterialType.cs" />
+    <Compile Include="Apis\Material\MaterialApi.cs" />
+    <Compile Include="Apis\Material\MaterialGetApiResult.cs" />
     <Compile Include="Apis\Material\NewsPostApiResult.cs" />
     <Compile Include="Apis\Material\NewsPostModel.cs" />
     <Compile Include="Apis\Menu\ClickButton.cs" />
