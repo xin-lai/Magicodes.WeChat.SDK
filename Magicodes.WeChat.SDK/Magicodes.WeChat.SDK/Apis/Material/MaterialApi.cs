@@ -25,11 +25,11 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         private const string ApiName = "material";
 
         /// <summary>
-        ///     获取多图文素材
+        ///   根据ID获取素材
         /// </summary>
         /// <param name="id">要获取的素材的media_id</param>
         /// <returns>图文消息结果</returns>
-        public NewsGetApiResult NewsGet(string id)
+        public T GetMaterialById<T>(string id) where T : ApiResult
         {
             //获取api请求url
             var url = GetAccessApiUrl("get_material", ApiName);
@@ -37,7 +37,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             {
                 media_id = id
             };
-            return Post<NewsGetApiResult>(url, data);
+            return Post<T>(url, data);
         }
 
         /// <summary>

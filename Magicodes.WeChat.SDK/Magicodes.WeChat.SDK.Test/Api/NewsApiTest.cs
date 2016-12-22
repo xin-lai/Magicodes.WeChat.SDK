@@ -17,6 +17,10 @@ using System.Collections.Generic;
 using Magicodes.WeChat.SDK.Apis.Material;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Magicodes.WeChat.SDK.Helper;
+using System.Drawing;
+using System.IO;
+using Magicodes.WeChat.SDK.Apis;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
@@ -47,11 +51,40 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsApiTest_Get()
         {
-            var type = Apis.Material.Enums.MaterialType.image;
+            var type = Apis.Material.Enums.MaterialType.video;
             //aa5fe50648fb489a8083cdd203370470.jpg
-            var result = api.Get(type,19,10);
+            var result = api.Get(type);
+            var tempResult = (OtherMaterialResult)result;
+            var wr = new WebRequestHelper();
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
+
+        }
+
+        [TestMethod]
+        public void NewsGet()
+        {
+            //string id = "8jBK8ujsrMrVlS1rn-SMirVwC9oIk-QbSbxxkORbK0s";
+            string id = "8jBK8ujsrMrVlS1rn-SMior82fEjXCJiq0IBK0GHOxo";
+            var result = api.GetMaterialById<GetVideoMaterialResult>(id);
+            if(!result.IsSuccess())
+                Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
+            else
+            {
+                WebRequestHelper wr = new WebRequestHelper();
+                var stream = wr.GetResponseImage(result.DownUrl);
+
+                using (var filestream = new FileStream("E:\\" + result.Title, FileMode.Create))
+                {
+                    byte[] arr = new byte[1024];
+                    int size = stream.Read(arr, 0, arr.Length);
+                    while (size > 0)
+                    {
+                        filestream.Write(arr, 0, size);
+                        size = stream.Read(arr, 0, arr.Length);
+                    }
+                }
+            }
         }
 
 
