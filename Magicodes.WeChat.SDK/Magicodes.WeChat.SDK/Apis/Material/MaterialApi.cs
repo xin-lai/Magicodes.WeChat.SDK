@@ -14,6 +14,8 @@
 // ======================================================================
 
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
+using Magicodes.WeChat.SDK.Helper;
+using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
@@ -28,7 +30,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         ///   根据ID获取素材
         /// </summary>
         /// <param name="id">要获取的素材的media_id</param>
-        /// <returns>图文消息结果</returns>
+        /// <returns>素材结果</returns>
         public T GetMaterialById<T>(string id) where T : ApiResult
         {
             //获取api请求url
@@ -38,6 +40,21 @@ namespace Magicodes.WeChat.SDK.Apis.Material
                 media_id = id
             };
             return Post<T>(url, data);
+        }
+
+        /// <summary>
+        /// 获取非图文、视频素材
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public byte[] GetOtherMaterialById(string id)
+        {
+            var url = GetAccessApiUrl("get_material", ApiName);
+            var data = new
+            {
+                media_id = id
+            };
+            return HttpBytesPost(url, data);
         }
 
         /// <summary>

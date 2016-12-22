@@ -175,6 +175,34 @@ namespace Magicodes.WeChat.SDK.Helper
                 }
             }
         }
+        /// <summary>
+        /// 处理POST请求
+        /// </summary>
+        /// <param name="url">请求地址</param>
+        /// <param name="postdata">请求数据</param>
+        /// <returns>byte数组</returns>
+        public byte[] HttpBytesPost(string url, string postdata)
+        {
+            var request = CreateWebRequest(url);
+            request.Method = "POST";
+            if (!string.IsNullOrWhiteSpace(postdata))
+            {
+                var bytesToPost = Encoding.UTF8.GetBytes(postdata);
+                request.ContentLength = bytesToPost.Length;
+                using (var requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(bytesToPost, 0, bytesToPost.Length);
+                    requestStream.Close();
+                }
+            }
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                Stream stream = response.GetResponseStream();
+                byte[] bytes = new byte[response.ContentLength];
+                stream.Read(bytes, 0, bytes.Length);
+                return bytes;
+            }
+        }
 
         /// <summary>
         ///     带证书的post请求
