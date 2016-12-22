@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
+    #region 获取素材列表
     /// <summary>
     /// 素材通用实体
     /// </summary>
@@ -123,6 +124,9 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         /// </summary>
         [JsonProperty("content_source_url")]
         public string ContentSourceUrl { get; set; }
+
+        [JsonProperty("thumb_url")]
+        public string ThumbUrl { get; set; }
     }
     #endregion
 
@@ -164,6 +168,49 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         /// </summary>
         [JsonProperty("url")]
         public string Url { get; set; }
-    } 
+    }
+    #endregion 
     #endregion
+
+    /// <summary>
+    /// 根据Id获取多图文返回实体
+    /// </summary>
+    public class GetNewsByMaterialResult : ApiResult
+    {
+        [JsonProperty("news_item")]
+        public List<ArticleInfo> List { get; set; }
+
+        [JsonProperty("create_time")]
+        public string CreateTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("update_time")]
+        public string UpdateTime { get; set; }
+    }
+    /// <summary>
+    /// 根据ID获取视频素材返回实体
+    /// </summary>
+    public class GetVideoMaterialResult : ApiResult
+    {
+        /// <summary>
+        /// 标题
+        /// </summary>
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 下载链接
+        /// </summary>
+        [JsonProperty("down_url")]
+        public string DownUrl { get; set; }
+    }
+
 }

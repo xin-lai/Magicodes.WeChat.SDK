@@ -19,6 +19,7 @@ using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
 using System.IO;
+using System.Net;
 
 namespace Magicodes.WeChat.SDK.Apis
 {
