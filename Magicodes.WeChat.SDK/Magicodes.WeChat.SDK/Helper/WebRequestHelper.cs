@@ -175,17 +175,6 @@ namespace Magicodes.WeChat.SDK.Helper
                 }
             }
         }
-        /// <summary>
-        /// 处理POST请求
-        /// </summary>
-        /// <param name="url">请求地址</param>
-        /// <param name="postdata">请求数据</param>
-        /// <returns>byte数组</returns>
-        public byte[] HttpBytesPost(string url, string postdata)
-        {
-            WebClient wb = new WebClient();
-            return wb.UploadData(url,"POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(postdata) ? "" : postdata));
-        }
 
         /// <summary>
         ///     带证书的post请求
