@@ -129,18 +129,6 @@ namespace Magicodes.WeChat.SDK.Apis
             RefreshAccessTokenWhenTimeOut(result);
             return result;
         }
-        /// <summary>
-        /// 获取响应Byte[]
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        protected byte[] HttpBytesPost(string url,object obj)
-        {
-            var wr = new WeChatApiWebRequestHelper();
-            var result = wr.HttpBytesPost(url, JsonConvert.SerializeObject(obj));
-            return result;
-        }
 
         private void RefreshAccessTokenWhenTimeOut<T>(T result) where T : ApiResult
         {

@@ -54,7 +54,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             {
                 media_id = id
             };
-            return HttpBytesPost(url, data);
+            return RequestUtility.HttpUploadData(url, JsonConvert.SerializeObject(data));
         }
 
         /// <summary>
