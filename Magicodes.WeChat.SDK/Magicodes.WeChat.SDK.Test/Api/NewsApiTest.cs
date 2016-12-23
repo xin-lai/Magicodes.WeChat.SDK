@@ -61,30 +61,10 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsGet()
         {
-            //string id = "8jBK8ujsrMrVlS1rn-SMirVwC9oIk-QbSbxxkORbK0s";
-            //string id = "8jBK8ujsrMrVlS1rn-SMior82fEjXCJiq0IBK0GHOxo";
-            string id = "8jBK8ujsrMrVlS1rn-SMiiiOYzlHCixOPV1tW2knPIw";
-            var stream = api.GetOtherMaterialById(id);
-            //if (!result.IsSuccess())
-            //    Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
-            //else
-            //{
-            //    WebRequestHelper wr = new WebRequestHelper();
-            //    var stream = wr.GetResponseImage(result.DownUrl);
+            string id = "8jBK8ujsrMrVlS1rn-SMikIjyhlnHczeS6SBbT8ledk";
+            var bytes = api.GetOtherMaterialById(id);
+            File.WriteAllBytes("E://Test.mp3", bytes);
 
-
-            //}
-            File.WriteAllBytes("E://Test.mp3", stream);
-            //using (var filestream = new File)
-            //{
-            //    //byte[] arr = new byte[1024];
-            //    //int size = stream.Read(arr, 0, arr.Length);
-            //    //while (size > 0)
-            //    //{
-            //    //    filestream.Write(arr, 0, size);
-            //    //    size = stream.Read(arr, 0, arr.Length);
-            //    //}
-            //}
         }
 
 
