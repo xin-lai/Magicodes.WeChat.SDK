@@ -26,6 +26,6 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
     {
 
         [JsonProperty("button")]
-        public List<MenuButtonBase> Buttons { get; set; }
+        public List<SelfMenuButtonBase> Buttons { get; set; }
     }
 }
