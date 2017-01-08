@@ -34,7 +34,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void CustomerServiceApiTest_CRUDCustomerAccount()
         {
-            var testAccountName = "Test";
+            var testAccountName = "Test001@weixin_iwit";
             _weChatApi.RemoveCustomerAccount(testAccountName);
             var result = _weChatApi.AddCustomerAccount(testAccountName, "Test", "111111");
             if (!result.IsSuccess())
@@ -49,6 +49,17 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 result = _weChatApi.RemoveCustomerAccount(testAccountName);
                 if (!result.IsSuccess())
                     Assert.Fail("删除客服账号失败，返回结果如下：" + result.DetailResult);
+            }
+        }
+
+        [TestMethod]
+        public void Inviteworker()
+        {
+            var testAccountName = "kf002@weixin_iwit";
+            var result = _weChatApi.Inviteworker(testAccountName, "li517451737");
+            if (!result.IsSuccess())
+            {
+                Assert.Fail("创建客服账号失败，返回结果如下：" + result.DetailResult);
             }
         }
     }

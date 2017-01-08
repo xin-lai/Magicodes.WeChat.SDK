@@ -16,6 +16,7 @@
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
@@ -90,6 +91,17 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             //获取api请求url
             var url = GetAccessApiUrl("add_news", ApiName);
             return Post<NewsPostApiResult>(url, news, inputStr => inputStr);
+        }
+
+        public string UploadForeverVideo(string file, string title,string introduction, int timeOut = 40000)
+        {
+            var url = GetAccessApiUrl("add_material", ApiName);
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
+
+            var result = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
+            return result;
         }
     }
 }

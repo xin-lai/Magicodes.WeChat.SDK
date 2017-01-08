@@ -48,14 +48,23 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsApiTest_Get()
         {
-            var type = Apis.Material.Enums.MaterialType.voice;
+            var type = Apis.Material.Enums.MaterialType.video;
             //aa5fe50648fb489a8083cdd203370470.jpg
             var result = api.Get(type);
             var tempResult = (OtherMaterialResult)result;
-            var wr = new WebRequestHelper();
+            var videoresult = api.GetMaterialById<GetVideoMaterialResult>(tempResult.Items[0].MediaId);
+            var bytes = RequestUtility.HttpUploadData(videoresult.DownUrl, tempResult.Items[0].MediaId);
+            File.WriteAllBytes("E://Test.mp4", bytes);
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
 
+        }
+
+        [TestMethod]
+        public void LoadVideo()
+        {
+            string file = @"C:\Users\艾唯特\Desktop\2D76ED44CD7AB4527C50B843E34D1782.mp4";
+           var result =  api.UploadForeverVideo(file, "测试", "测试");
         }
 
         [TestMethod]
