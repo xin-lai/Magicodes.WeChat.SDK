@@ -54,6 +54,12 @@ namespace Magicodes.WeChat.SDK
         internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
             new ConcurrentDictionary<string, TicketApiResult>();
 
+        /// <summary>
+        /// 卡券JSSDK访问凭证
+        /// </summary>
+        internal ConcurrentDictionary<string, TicketApiResult> CardTicketConcurrentDictionary =
+            new ConcurrentDictionary<string, TicketApiResult>();
+
         public static WeChatConfigManager Current => Lazy.Value;
 
         public object GetKey()
@@ -140,6 +146,22 @@ namespace Magicodes.WeChat.SDK
             };
             configInfo.Signature = JSSDKHelper.GetSignature(ticket, configInfo.NonceStr, configInfo.Timestamp,
                 HttpContext.Current.Request.Url.AbsoluteUri);
+            return configInfo;
+        }
+
+        /// <summary>
+        ///     获取当前页面卡券JS配置信息
+        /// </summary>
+        /// <returns></returns>
+        public JSSDKConfigInfo GetCardJSSDKConfigInfo()
+        {
+            var ticket = WeChatApisContext.Current.TicketApi.GetSafeCardAccessToken().Ticket;
+            var configInfo = new JSSDKConfigInfo
+            {
+                AppId = WeChatConfigManager.Current.GetConfig().AppId,
+                Timestamp = JSSDKHelper.GetTimestamp(),
+                NonceStr = JSSDKHelper.GetNoncestr()
+            };
             return configInfo;
         }
 

@@ -17,6 +17,7 @@ using Magicodes.WeChat.SDK.Apis.Card;
 using Magicodes.WeChat.SDK.Apis.Card.Request;
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.POI;
+using Magicodes.WeChat.SDK.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -488,6 +489,14 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 Assert.Fail("修改库存失败，错误信息：" + result.DetailResult + ";Msg:" + result.GetFriendlyMessage());
 
             }
+        }
+
+
+        [TestMethod()]
+        public void CardToken()
+        {
+            var str = JSSDKHelper.GetCardSign("wxaf360c577178e6f5", "E0o2-at6NcC2OsJiQTlwlItoDZDUC3mSRIioc86WqgnreSO101LzNoyvhzI27JfVgXRnNGI0nZOrjU-AurnynA",
+                "", "E555EBE0CE426F7F9B2BEF0706315E0C", "1489477344", "", "GROUPON");
         }
     }
 }

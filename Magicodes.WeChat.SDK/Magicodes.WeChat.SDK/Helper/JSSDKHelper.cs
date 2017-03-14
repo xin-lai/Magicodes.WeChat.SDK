@@ -71,14 +71,14 @@ namespace Magicodes.WeChat.SDK.Helper
         private static string CreateCardSha1(Hashtable parameters)
         {
             var sb = new StringBuilder();
-            var akeys = new ArrayList(parameters.Keys);
-            akeys.Sort();
+            //此处需要根据参数值进行排序
+            var aValues = new ArrayList(parameters.Values);
+            aValues.Sort();
 
-            foreach (var k in akeys)
-                if (parameters[k] != null)
+            foreach (var value in aValues)
+                if (value != null)
                 {
-                    var v = (string)parameters[k];
-                    sb.Append(v);
+                    sb.Append(value.ToString());
                 }
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
@@ -146,20 +146,20 @@ namespace Magicodes.WeChat.SDK.Helper
         ///     获取卡券签名CardSign
         /// </summary>
         /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
+        /// <param name="api_ticket"></param>
         /// <param name="locationId"></param>
         /// <param name="noncestr"></param>
         /// <param name="timestamp"></param>
         /// <param name="cardId"></param>
         /// <param name="cardType"></param>
         /// <returns></returns>
-        public static string GetCardSign(string appId, string appSecret, string locationId, string noncestr,
+        public static string GetCardSign(string appId, string api_ticket, string locationId, string noncestr,
             string timestamp, string cardId, string cardType)
         {
             var parameters = new Hashtable
             {
-                {"appId", appId},
-                {"appsecret", appSecret},
+                {"app_id", appId},
+                {"api_ticket", api_ticket},
                 {"location_id", locationId},
                 {"nonce_str", noncestr},
                 {"times_tamp", timestamp},
