@@ -495,8 +495,9 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod()]
         public void CardToken()
         {
-            var str = JSSDKHelper.GetCardSign("wxaf360c577178e6f5", "E0o2-at6NcC2OsJiQTlwlItoDZDUC3mSRIioc86WqgnreSO101LzNoyvhzI27JfVgXRnNGI0nZOrjU-AurnynA",
-                "", "E555EBE0CE426F7F9B2BEF0706315E0C", "1489477344", "", "GROUPON");
+            //var str = JSSDKHelper.GetCardSign("wxaf360c577178e6f5",
+            //    "E0o2-at6NcC2OsJiQTlwlItoDZDUC3mSRIioc86WqgmO6Ism26gvoC4jhpaXmRzFdwHWNfrM_D0xMEZ4kSx3Qw",
+            //    "", "677E09724F0E2DF9B6C000B75B5DA10D", "1489483098", "puR4PsxYgA2roTughF3y0gAVNdYk", "GROUPON");
         }
     }
 }
