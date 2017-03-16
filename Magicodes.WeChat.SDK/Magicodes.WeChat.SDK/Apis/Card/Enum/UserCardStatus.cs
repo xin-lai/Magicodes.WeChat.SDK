@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Magicodes.WeChat.SDK.Apis.Card
 {
     /// <summary>
-    /// 用户会员卡状态
+    /// 用户卡券状态
     /// </summary>
     public enum UserCardStatus
     {
@@ -52,6 +52,12 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 已失效
         /// </summary>
         [Display(Name = "已失效")]
-        UNAVAILABLE
+        UNAVAILABLE,
+
+        /// <summary>
+        /// 已核销
+        /// </summary>
+        [Display(Name = "已核销")]
+        CONSUMED
     }
 }
