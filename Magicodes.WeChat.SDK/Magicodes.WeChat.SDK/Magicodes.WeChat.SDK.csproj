@@ -108,6 +108,7 @@
     <Compile Include="Apis\CustomerService\CustomerServiceApi.cs" />
     <Compile Include="Apis\CustomerService\GetCustomerAccountListApiResult.cs" />
     <Compile Include="Apis\CustomMessage\CustomMessageApi.cs" />
+    <Compile Include="Apis\CustomMessage\CustomMessageCustomConverter.cs" />
     <Compile Include="Apis\CustomMessage\Customservice.cs" />
     <Compile Include="Apis\CustomMessage\ImageMessage.cs" />
     <Compile Include="Apis\CustomMessage\MessageTypes.cs" />
