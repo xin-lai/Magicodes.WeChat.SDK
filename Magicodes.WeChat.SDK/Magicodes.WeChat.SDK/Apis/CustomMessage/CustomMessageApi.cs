@@ -106,7 +106,7 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private ApiResult Send(CustomMessageSendApiResultBase model)
+        public ApiResult Send(CustomMessageSendApiResultBase model)
         {
             //获取api请求url
             var url = GetAccessApiUrl("send", ApiName);
