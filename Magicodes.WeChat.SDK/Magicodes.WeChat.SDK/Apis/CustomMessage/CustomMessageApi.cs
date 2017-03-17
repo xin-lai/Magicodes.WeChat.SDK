@@ -13,6 +13,8 @@
 //  
 // ======================================================================
 
+using Newtonsoft.Json;
+
 namespace Magicodes.WeChat.SDK.Apis.CustomMessage
 {
     /// <summary>
@@ -106,11 +108,22 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private ApiResult Send(CustomMessageSendApiResultBase model)
+        public ApiResult Send(CustomMessageSendApiResultBase model)
         {
             //获取api请求url
             var url = GetAccessApiUrl("send", ApiName);
             return Post<ApiResult>(url, model);
+        }
+
+        /// <summary>
+        ///     发送客服消息
+        /// </summary>
+        /// <param name="msgJson"></param>
+        /// <returns></returns>
+        public ApiResult SendByJson(string msgJson)
+        {
+            var msgObj = JsonConvert.DeserializeObject<CustomMessageSendApiResultBase>(msgJson, new CustomMessageCustomConverter());
+            return Send(msgObj);
         }
     }
 }

@@ -160,6 +160,22 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             var result = Post<CardDetailResult>(url, data);
             return result;
         }
+        /// <summary>
+        ///  Code解码接口
+        /// </summary>
+        /// <param name="encrypt_code">经过加密的Code码。</param>
+        /// <returns></returns>
+        public DecrCodeApiResult DecryptCode(string encrypt_code)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("code/decrypt", ApiName, "https://api.weixin.qq.com");
+            var data = new
+            {
+                encrypt_code = encrypt_code
+            };
+            var result = Post<DecrCodeApiResult>(url, data);
+            return result;
+        }
 
         #endregion
 
