@@ -147,6 +147,10 @@
     <Compile Include="Apis\Menu\SubMenuButton.cs" />
     <Compile Include="Apis\Menu\ViewButton.cs" />
     <Compile Include="Apis\Menu\ViewLimitedButton.cs" />
+    <Compile Include="Apis\Message\MessageApi.cs" />
+    <Compile Include="Apis\Message\Input\MessageTypes.cs" />
+    <Compile Include="Apis\Message\Input\SendInput.cs" />
+    <Compile Include="Apis\Message\Result\MessageApiResult.cs" />
     <Compile Include="Apis\OAuth\OAuthApi.cs" />
     <Compile Include="Apis\OAuth\OAuthScopes.cs" />
     <Compile Include="Apis\OAuth\OAuthTokenApiResult.cs" />

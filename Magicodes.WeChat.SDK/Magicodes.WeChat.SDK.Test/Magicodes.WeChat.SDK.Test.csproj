@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="ApiTestBase.cs" />
     <Compile Include="Api\CardApiTest.cs" />
+    <Compile Include="Api\MessageApiTest.cs" />
     <Compile Include="Api\POIApiTest.cs" />
     <Compile Include="Api\CustomerServiceApiTest.cs" />
     <Compile Include="Api\CustomMessageApiTest.cs" />
