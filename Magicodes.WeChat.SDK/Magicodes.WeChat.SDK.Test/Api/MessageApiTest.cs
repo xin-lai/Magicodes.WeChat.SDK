@@ -46,6 +46,15 @@ namespace Magicodes.WeChat.SDK.Test.Api
             if (!result.IsSuccess())
                 Assert.Fail("调用群发预览接口（OpenId）失败，返回结果如下：" + result.DetailResult);
 
+            
+            //var img = new PreviewImageInput()
+            //{
+            //    Image = new PreviewImageInput.ImageInfo()
+            //    {
+            //        //MediaId=
+            //    }
+            //};
+
             //TODO:其他类型
         }
 

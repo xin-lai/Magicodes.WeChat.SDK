@@ -96,10 +96,11 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         public string UploadForeverVideo(string file, string title,string introduction, int timeOut = 40000)
         {
             var url = GetAccessApiUrl("add_material", ApiName);
-            var fileDictionary = new Dictionary<string, string>();
-            fileDictionary["media"] = file;
-            fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
-
+            var fileDictionary = new Dictionary<string, string>
+            {
+                ["media"] = file,
+                ["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction)
+            };
             var result = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
             return result;
         }
