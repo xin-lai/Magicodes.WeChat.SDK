@@ -45,14 +45,7 @@ namespace Magicodes.WeChat.SDK.Apis
         /// <returns></returns>
         public virtual bool IsSuccess()
         {
-            return
-                ((Message == "ok") && (ReturnCode == ReturnCodes.请求成功)) ||
-                //为了应付微信神坑，返回{}
-                ((ReturnCode == ReturnCodes.请求成功) && (Message == null)) ||
-                //群发预览。。
-                ((ReturnCode == ReturnCodes.请求成功) && (Message == "preview success")) ||
-                //这字符串我也是醉了
-                ((Message == "no error") && (ReturnCode == ReturnCodes.请求成功));
+            return ReturnCode == ReturnCodes.请求成功;
         }
 
         /// <summary>
