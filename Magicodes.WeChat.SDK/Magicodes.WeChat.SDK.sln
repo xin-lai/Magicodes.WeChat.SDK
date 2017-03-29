@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.WeChat.SDK", "Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.csproj", "{1F6E23A6-CD4A-4181-8F91-9BB4A446D52E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.WeChat.SDK.Test", "Magicodes.WeChat.SDK.Test\Magicodes.WeChat.SDK.Test.csproj", "{912142A0-8ADE-4A88-A243-5C84F2814007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.WeChat.SDK.Core", "Magicodes.WeChat.SDK.Core\Magicodes.WeChat.SDK.Core.csproj", "{928667DB-851E-4FF5-B65F-E744C8D18C08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{912142A0-8ADE-4A88-A243-5C84F2814007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{912142A0-8ADE-4A88-A243-5C84F2814007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{912142A0-8ADE-4A88-A243-5C84F2814007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{928667DB-851E-4FF5-B65F-E744C8D18C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{928667DB-851E-4FF5-B65F-E744C8D18C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{928667DB-851E-4FF5-B65F-E744C8D18C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{928667DB-851E-4FF5-B65F-E744C8D18C08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
