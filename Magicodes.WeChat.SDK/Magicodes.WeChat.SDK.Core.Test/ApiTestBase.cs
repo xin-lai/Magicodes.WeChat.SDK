@@ -17,8 +17,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.IO;
-using Magicodes.Logger.DebugLogger;
 using Magicodes.WeChat.SDK.Builder;
+using System;
 
 namespace Magicodes.WeChat.SDK.Test
 {
@@ -30,18 +30,20 @@ namespace Magicodes.WeChat.SDK.Test
 
         static ApiTestBase()
         {
-            //配置构造器
             WeChatSDKBuilder.Create()
-                .WithApiLogger(new DebugLogger("Api"))
-                .WithPayLogger(new DebugLogger("Pay"))
-                .Build();
-
-            //注册Key。这里用于单元测试，写死。在实际开发中，可以考虑使用Sesstion来存储
-            WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.GetKey,
-                model => "wxa6eecd3e040a2d1e");
-
-            //注册获取配置函数：根据Key获取微信配置（加载一次后续将缓存）
-            WeChatFrameworkFuncsManager.Current.Register(WeChatFrameworkFuncTypes.Config_GetWeChatConfigByKey,
+                //设置日志记录
+                .WithLoggerAction((tag, message) =>
+                {
+                    Console.WriteLine(string.Format("Tag:{0}\tMessage:{1}", tag, message));
+                })
+                //注册Key。不再需要各个控制注册
+                .Register(WeChatFrameworkFuncTypes.GetKey, model =>
+                {
+                    return "wx9ff101863db7db9c";
+                }
+                )
+                //注册获取配置函数：根据Key获取微信配置（加载一次后续将缓存）
+                .Register(WeChatFrameworkFuncTypes.Config_GetWeChatConfigByKey,
                 model =>
                 {
                     var arg = model as WeChatApiCallbackFuncArgInfo;
@@ -52,7 +54,8 @@ namespace Magicodes.WeChat.SDK.Test
                         //AppId= "wxaf360c577178e6f5",
                         //AppSecret= "42b16416635613b8ca4dd30faaf21362"
                     };
-                });
+                })
+                .Build();
         }
 
         public static Stream GetInputFile(string filename)

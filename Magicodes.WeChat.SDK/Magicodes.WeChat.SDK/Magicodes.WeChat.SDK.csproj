@@ -167,6 +167,8 @@
     <Compile Include="Apis\QRCode\QRCodeCreateApiResult.cs" />
     <Compile Include="Apis\QRCode\QRCodeApi.cs" />
     <Compile Include="Apis\ReturnCodes.cs" />
+    <Compile Include="Apis\Shorturl\ShorturlApi.cs" />
+    <Compile Include="Apis\Shorturl\Result\ShortUrlApiResult.cs" />
     <Compile Include="Apis\Statistics\ArticlesummaryApiResult.cs" />
     <Compile Include="Apis\Statistics\ArticletotalApiResult.cs" />
     <Compile Include="Apis\Statistics\UserAnalysisModel.cs" />

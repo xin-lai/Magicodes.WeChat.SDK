@@ -27,6 +27,7 @@ using Magicodes.WeChat.SDK.Apis.User;
 using Magicodes.WeChat.SDK.Apis.UserGroup;
 using Magicodes.WeChat.SDK.Apis.POI;
 using Magicodes.WeChat.SDK.Apis.Message;
+using Magicodes.WeChat.SDK.Apis.Shorturl;
 
 namespace Magicodes.WeChat.SDK
 {
@@ -105,8 +106,13 @@ namespace Magicodes.WeChat.SDK
         public POIApi POIApi = new POIApi();
 
         /// <summary>
-        /// 群发消息接口
+        ///     群发消息接口
         /// </summary>
         public MessageApi MessageApi = new MessageApi();
+
+        /// <summary>
+        ///     长链接转短链接接口
+        /// </summary>
+        public ShorturlApi ShorturlApi = new ShorturlApi();
     }
 }

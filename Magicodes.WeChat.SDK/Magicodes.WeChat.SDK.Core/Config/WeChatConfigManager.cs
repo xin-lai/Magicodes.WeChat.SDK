@@ -78,6 +78,7 @@ namespace Magicodes.WeChat.SDK
                 key = GetKey();
             if (key == null)
                 throw new Exception("Key不能为NULL！");
+
             if (WeChatPayConfigs.ContainsKey(key))
                 return WeChatPayConfigs[key];
             var result =
@@ -104,8 +105,14 @@ namespace Magicodes.WeChat.SDK
                 key = GetKey();
             if (key == null)
                 throw new Exception("Key不能为NULL！");
+
+            IWeChatConfig weChatConfig = null;
             if (WeChatConfigs.ContainsKey(key))
-                return WeChatConfigs[key];
+                weChatConfig= WeChatConfigs[key];
+            if (weChatConfig!=null)
+            {
+                return weChatConfig;
+            }
             var result =
                 WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.Config_GetWeChatConfigByKey,
                     new WeChatApiCallbackFuncArgInfo
@@ -113,8 +120,7 @@ namespace Magicodes.WeChat.SDK
                         Api = null,
                         Data = key
                     });
-            if (result == null) throw new Exception(string.Format("通过Key：{0}获取Config失败！", key));
-            var weChatConfig = result as IWeChatConfig;
+            weChatConfig = result as IWeChatConfig ?? throw new Exception(string.Format("通过Key：{0}获取Config失败！", key));
             if (weChatConfig == null)
             {
                 throw new Exception("获取微信配置失败");
