@@ -53,9 +53,9 @@ namespace Magicodes.WeChat.SDK.Pays.RedPackApi
 
                 var dictionary = PayUtil.GetAuthors(model);
                 model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
-                var dict = PayUtil.GetAuthors(model);
+                //var dict = PayUtil.GetAuthors(model);
 
-                result = PostXML<NormalRedPackResult>(url, dict, cer);
+                result = PostXML<NormalRedPackResult>(url, model, cer);
             }
             catch (Exception ex)
             {
