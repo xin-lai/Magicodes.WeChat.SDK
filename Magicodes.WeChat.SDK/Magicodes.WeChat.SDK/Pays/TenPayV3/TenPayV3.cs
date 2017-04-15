@@ -238,7 +238,17 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         {
             NotifyResult result = null;
             var data = PayUtil.PostInput(inputStream);
-            result = XmlHelper.DeserializeObject<NotifyResult>(data);
+            try
+            {
+                result = XmlHelper.DeserializeObject<NotifyResult>(data);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LoggerLevels.Trace, "Notify反序列化请求出错：" + data);
+                Logger.Log(LoggerLevels.Error, ex.ToString());
+                Logger.Log(LoggerLevels.Error, "Notify反序列化请求出错：" + data);
+                throw ex;
+            }
             return result;
         }
 
