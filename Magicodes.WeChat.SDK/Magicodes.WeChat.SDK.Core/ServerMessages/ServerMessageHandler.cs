@@ -7,6 +7,9 @@ using Magicodes.WeChat.SDK.Helper;
 
 namespace Magicodes.WeChat.SDK.Core.ServerMessages
 {
+    /// <summary>
+    /// 服务器消息处理
+    /// </summary>
     public class ServerMessageHandler
     {
         protected object Key;

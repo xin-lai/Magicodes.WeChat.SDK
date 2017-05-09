@@ -10,8 +10,9 @@
     <RepositoryUrl>https://github.com/xin-lai</RepositoryUrl>
     <Company>湖南心莱信息科技有限公司</Company>
     <Authors>李文强</Authors>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <Version>1.1.0</Version>
+    <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
