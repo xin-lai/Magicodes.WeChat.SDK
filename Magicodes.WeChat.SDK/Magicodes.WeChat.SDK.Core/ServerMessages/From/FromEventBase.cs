@@ -6,8 +6,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
 {
     [XmlRoot("xml")]
     [Serializable]
-    public abstract class FromMessageBase: IFromMessage
+    public abstract class FromEventBase: IFromMessage
     {
+        protected FromEventBase()
+        {
+            Type = "event";
+        }
         /// <summary>
         /// 开发者微信号
         /// </summary>
@@ -30,12 +34,11 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
         /// 消息类型
         /// </summary>
         [XmlElement("MsgType")]
-        public FromMessageTypes Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
-        /// 消息id，64位整型
+        /// 事件类型，subscribe(订阅)、unsubscribe(取消订阅)
         /// </summary>
-        [XmlElement("MsgId")]
-        public string MessageId { get; set; }
+        public FromEventTypes Event { get; set; }
     }
 }

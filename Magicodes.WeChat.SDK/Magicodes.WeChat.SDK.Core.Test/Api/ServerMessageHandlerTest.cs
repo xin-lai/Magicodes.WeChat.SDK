@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Magicodes.WeChat.SDK.Core.ServerMessages;
+using Magicodes.WeChat.SDK.Core.ServerMessages.From;
 using Magicodes.WeChat.SDK.Core.ServerMessages.To;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,11 +19,16 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
         {
             var serverMessageHandler = new ServerMessageHandler(1)
             {
-                HandleTextMessage = message => new ToTextMessage()
+                HandleFuncs = new Dictionary<Type, Func<IFromMessage, ToMessageBase>>()
                 {
-                    Content = "Test",
-                    CreateDateTime = DateTime.Now,
-                    FromUserName = "Test",
+                    {
+                        typeof(FromTextMessage),
+                        message => new ToTextMessage()
+                        {
+                            Content = "Test",
+                            CreateDateTime = DateTime.Now,
+                        }
+                    }
                 }
             };
             var result = serverMessageHandler.HandleMessage(
@@ -38,7 +44,7 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
             {
                 Assert.Fail("时间格式错误");
             }
-            if (result.FromUserName != "Test")
+            if (result.ToUserName != "fromUser")
             {
                 Assert.Fail("错误！");
             }
@@ -72,7 +78,13 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
             };
             var serverMessageHandler = new ServerMessageHandler(1)
             {
-                HandleTextMessage = message => toMsg
+                HandleFuncs = new Dictionary<Type, Func<IFromMessage, ToMessageBase>>()
+                {
+                    {
+                        typeof(FromTextMessage),
+                        message => toMsg
+                    }
+                }
             };
             var result = serverMessageHandler.HandleMessage(
                 @"<xml>
@@ -89,7 +101,7 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
             {
                 Assert.Fail("图文格式有误!");
             }
-            
+
         }
     }
 }

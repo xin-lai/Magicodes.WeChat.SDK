@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Magicodes.WeChat.SDK.Core.ServerMessages.From;
@@ -21,40 +25,29 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         }
 
         /// <summary>
-        ///     接收并处理文本消息
+        /// 检查签名
         /// </summary>
-        public Func<FromTextMessage, ToMessageBase> HandleTextMessage { get; set; }
+        /// <returns>返回正确的签名</returns>
+        public bool CheckSignature(string signature, string timestamp, string nonce)
+        {
+            var token = WeChatConfigManager.Current.GetConfig(Key).Token;
+            var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
+            var arrString = string.Join("", arr);
+            var sha1 = SHA1.Create();
+            var sha1Arr = sha1.ComputeHash(Encoding.UTF8.GetBytes(arrString));
+            var enText = new StringBuilder();
+            foreach (var b in sha1Arr)
+            {
+                enText.AppendFormat("{0:x2}", b);
+            }
 
+            return enText.ToString() == signature;
+        }
         /// <summary>
-        ///     处理图片消息
+        /// 处理函数集合
         /// </summary>
-        public Func<FromImageMessage, ToMessageBase> HandleImageMessage { get; set; }
-
-        /// <summary>
-        ///     处理语音消息
-        /// </summary>
-        public Func<FromVoiceMessage, ToMessageBase> HandleVoiceMessage { get; set; }
-
-        /// <summary>
-        ///     处理链接消息
-        /// </summary>
-        public Func<FromLinkMessage, ToMessageBase> HandleLinkMessage { get; set; }
-
-        /// <summary>
-        ///     处理位置消息
-        /// </summary>
-        public Func<FromLocationMessage, ToMessageBase> HandleLocationMessage { get; set; }
-
-        /// <summary>
-        ///     处理短视频消息
-        /// </summary>
-        public Func<FromShortVideoMessage, ToMessageBase> HandleShortVideoMessage { get; set; }
-
-        /// <summary>
-        ///     处理视频消息
-        /// </summary>
-        public Func<FromVideoMessage, ToMessageBase> HandleVideoMessage { get; set; }
-
+        public Dictionary<Type, Func<IFromMessage, ToMessageBase>> HandleFuncs =
+            new Dictionary<Type, Func<IFromMessage, ToMessageBase>>();
 
         /// <summary>
         ///     处理消息
@@ -70,64 +63,80 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             var msgTypeElement = xmlElement.Element("MsgType");
             if (string.IsNullOrWhiteSpace(msgTypeElement?.Value)) throw new ApiArgumentException("消息类型不能为空");
             var msgType = msgTypeElement.Value.Trim().ToLower();
-            var fromMessageType = (FromMessageTypes) Enum.Parse(typeof(FromMessageTypes), msgType);
             //接收的消息
-            FromMessageBase formMsg = null;
-            switch (fromMessageType)
+            IFromMessage fromMessage = null;
+            //处理结果
+            Tuple<ToMessageBase, IFromMessage> resulTuple = null;
+            //处理事件消息
+            if (msgType == "event")
             {
-                case FromMessageTypes.text:
-                    if (HandleTextMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromTextMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleTextMessage.Invoke((FromTextMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.image:
-                    if (HandleImageMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromImageMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleImageMessage.Invoke((FromImageMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.voice:
-                    if (HandleVoiceMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromVoiceMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleVoiceMessage.Invoke((FromVoiceMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.video:
-                    if (HandleVideoMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromVideoMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleVideoMessage.Invoke((FromVideoMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.shortvideo:
-                    if (HandleShortVideoMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromShortVideoMessage>(xmlStr);
-                        toMessage = await Task.FromResult(
-                            HandleShortVideoMessage.Invoke((FromShortVideoMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.location:
-                    if (HandleLocationMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromLocationMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleLocationMessage.Invoke((FromLocationMessage) formMsg));
-                    }
-                    break;
-                case FromMessageTypes.link:
-                    if (HandleLinkMessage != null)
-                    {
-                        formMsg = XmlHelper.DeserializeObject<FromLinkMessage>(xmlStr);
-                        toMessage = await Task.FromResult(HandleLinkMessage.Invoke((FromLinkMessage) formMsg));
-                    }
-                    break;
-                default:
-                    throw new NotSupportedException("暂不支持类型为[" + msgType + "]的消息类型");
+                var fromEventTypeElement = xmlElement.Element("Event");
+                if (string.IsNullOrWhiteSpace(fromEventTypeElement?.Value)) throw new ApiArgumentException("事件类型不能为空");
+                var fromEvent = fromEventTypeElement.Value.Trim().ToLower();
+                var fromEventType = (FromEventTypes)Enum.Parse(typeof(FromEventTypes), fromEvent);
+                switch (fromEventType)
+                {
+                    case FromEventTypes.subscribe:
+                        resulTuple = await ExcuteHandleFunc<FromSubscribeEvent>(xmlStr);
+                        break;
+                    case FromEventTypes.unsubscribe:
+                        resulTuple = await ExcuteHandleFunc<FromUnsubscribeEvent>(xmlStr);
+                        break;
+                    case FromEventTypes.scan:
+                        resulTuple = await ExcuteHandleFunc<FromScanEvent>(xmlStr);
+                        break;
+                    case FromEventTypes.location:
+                        resulTuple = await ExcuteHandleFunc<FromLocationEvent>(xmlStr);
+                        break;
+                    case FromEventTypes.click:
+                        resulTuple = await ExcuteHandleFunc<FromClickEvent>(xmlStr);
+                        break;
+                    case FromEventTypes.view:
+                        resulTuple = await ExcuteHandleFunc<FromViewEvent>(xmlStr);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
             }
+            else
+            {
+                //处理会话消息
+                var fromMessageType = (FromMessageTypes)Enum.Parse(typeof(FromMessageTypes), msgType);
+                switch (fromMessageType)
+                {
+                    case FromMessageTypes.text:
+                        resulTuple = await ExcuteHandleFunc<FromTextMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.image:
+                        resulTuple = await ExcuteHandleFunc<FromImageMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.voice:
+                        resulTuple = await ExcuteHandleFunc<FromVoiceMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.video:
+                        resulTuple = await ExcuteHandleFunc<FromVideoMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.shortvideo:
+                        resulTuple = await ExcuteHandleFunc<FromShortVideoMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.location:
+                        resulTuple = await ExcuteHandleFunc<FromLocationMessage>(xmlStr);
+                        break;
+                    case FromMessageTypes.link:
+                        resulTuple = await ExcuteHandleFunc<FromLinkMessage>(xmlStr);
+                        break;
+                    default:
+                        throw new NotSupportedException("暂不支持类型为[" + msgType + "]的消息类型");
+                }
+            }
+
+            if (resulTuple != null)
+            {
+                fromMessage = resulTuple.Item2;
+                toMessage = resulTuple.Item1;
+            }
+            #region 验证多图文格式
             if (toMessage is ToNewsMessage)
             {
                 var news = toMessage as ToNewsMessage;
@@ -137,14 +146,37 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                     throw new ApiArgumentException("至少需要包含一条图文消息");
                 news.ArticleCount = news.Articles.Count;
             }
+            #endregion
+            #region 设置回复消息的时间戳等内容
             if (toMessage != null && toMessage.CreateTimestamp == default(long))
             {
                 //设置时间戳
                 toMessage.CreateTimestamp = toMessage.CreateDateTime.ConvertToTimeStamp();
-                toMessage.FromUserName = formMsg.ToUserName;
-                toMessage.ToUserName = formMsg.FromUserName;
-            }
+                toMessage.FromUserName = fromMessage.ToUserName;
+                toMessage.ToUserName = fromMessage.FromUserName;
+            } 
+            #endregion
             return await Task.FromResult(toMessage);
+        }
+
+        /// <summary>
+        /// 执行处理函数
+        /// </summary>
+        /// <typeparam name="T">接受类型</typeparam>
+        /// <param name="xmlStr">XML字符串</param>
+        /// <returns></returns>
+        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : IFromMessage
+        {
+            ToMessageBase toMessage = null;
+            FromMessageBase fromMessage = null;
+            if (HandleFuncs.ContainsKey(typeof(FromTextMessage)))
+            {
+                fromMessage = XmlHelper.DeserializeObject<FromTextMessage>(xmlStr);
+                if (fromMessage != null)
+                    toMessage = await Task.FromResult(HandleFuncs[typeof(FromTextMessage)]
+                        .Invoke(fromMessage));
+            }
+            return await Task.FromResult(new Tuple<ToMessageBase, IFromMessage>(toMessage, fromMessage));
         }
     }
 }
