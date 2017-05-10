@@ -57,7 +57,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         {
             ToMessageBase toMessage = null;
             //记录日志
-            WeChatHelper.LoggerAction?.Invoke("ServerMessageHandler", xmlStr);
+            WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), xmlStr);
 
             var xmlElement = XElement.Parse(xmlStr);
             var msgTypeElement = xmlElement.Element("MsgType");
@@ -70,9 +70,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             //处理事件消息
             if (msgType == "event")
             {
+                
                 var fromEventTypeElement = xmlElement.Element("Event");
                 if (string.IsNullOrWhiteSpace(fromEventTypeElement?.Value)) throw new ApiArgumentException("事件类型不能为空");
                 var fromEvent = fromEventTypeElement.Value.Trim().ToLower();
+                //记录日志
+                WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), "Event "+ fromEvent);
                 var fromEventType = (FromEventTypes)Enum.Parse(typeof(FromEventTypes), fromEvent);
                 switch (fromEventType)
                 {
@@ -101,6 +104,8 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             }
             else
             {
+                //记录日志
+                WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), msgType);
                 //处理会话消息
                 var fromMessageType = (FromMessageTypes)Enum.Parse(typeof(FromMessageTypes), msgType);
                 switch (fromMessageType)
@@ -154,7 +159,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 toMessage.CreateTimestamp = toMessage.CreateDateTime.ConvertToTimeStamp();
                 toMessage.FromUserName = fromMessage.ToUserName;
                 toMessage.ToUserName = fromMessage.FromUserName;
-            } 
+            }
             #endregion
             return await Task.FromResult(toMessage);
         }
@@ -165,16 +170,27 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         /// <typeparam name="T">接受类型</typeparam>
         /// <param name="xmlStr">XML字符串</param>
         /// <returns></returns>
-        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : IFromMessage
+        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : class , IFromMessage
         {
             ToMessageBase toMessage = null;
-            FromMessageBase fromMessage = null;
-            if (HandleFuncs.ContainsKey(typeof(FromTextMessage)))
+            IFromMessage fromMessage = null;
+            var type = typeof(T);
+            if (HandleFuncs.ContainsKey(type))
             {
-                fromMessage = XmlHelper.DeserializeObject<FromTextMessage>(xmlStr);
+                fromMessage = XmlHelper.DeserializeObject<T>(xmlStr);
                 if (fromMessage != null)
-                    toMessage = await Task.FromResult(HandleFuncs[typeof(FromTextMessage)]
+                    toMessage = await Task.FromResult(HandleFuncs[type]
                         .Invoke(fromMessage));
+                else
+                {
+                    WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler),
+                        string.Format("序列化类型【{0}】失败", type.FullName));
+                }
+            }
+            else
+            {
+                WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler),
+                    string.Format("没有找到类型为【{0}】的处理函数", type.FullName));
             }
             return await Task.FromResult(new Tuple<ToMessageBase, IFromMessage>(toMessage, fromMessage));
         }

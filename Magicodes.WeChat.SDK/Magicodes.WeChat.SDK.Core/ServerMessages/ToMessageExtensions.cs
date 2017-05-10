@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Magicodes.WeChat.SDK.Core.ServerMessages.To;
 using Magicodes.WeChat.SDK.Helper;
 
@@ -20,7 +21,8 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         /// <returns></returns>
         public static string ToXml(this ToMessageBase msg)
         {
-            return msg == null ? null : XmlHelper.SerializeObject(msg);
+            //移除定义和命名空间
+            return msg == null ? null : XElement.Parse(XmlHelper.SerializeObject(msg)).ToString();
         }
     }
 }

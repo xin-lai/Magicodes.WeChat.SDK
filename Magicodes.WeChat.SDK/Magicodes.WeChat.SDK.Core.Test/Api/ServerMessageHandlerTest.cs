@@ -26,7 +26,6 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
                         message => new ToTextMessage()
                         {
                             Content = "Test",
-                            CreateDateTime = DateTime.Now,
                         }
                     }
                 }
@@ -49,6 +48,7 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
                 Assert.Fail("错误！");
             }
             var xml = result.ToXml();
+            var xmlResult = XElement.Parse(xml).ToString();
             if (string.IsNullOrWhiteSpace(xml))
             {
                 Assert.Fail("序列化XML格式错误！");
