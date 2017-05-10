@@ -22,7 +22,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         public static string ToXml(this ToMessageBase msg)
         {
             //移除定义和命名空间
-            return msg == null ? null : XElement.Parse(XmlHelper.SerializeObject(msg)).ToString();
+            return msg == null ? null : XmlHelper.SerializeObjectWithoutNamespace(msg);
         }
     }
 }

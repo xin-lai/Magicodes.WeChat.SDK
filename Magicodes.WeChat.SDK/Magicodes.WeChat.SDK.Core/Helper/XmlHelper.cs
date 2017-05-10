@@ -41,6 +41,31 @@ namespace Magicodes.WeChat.SDK.Helper
                 }
             }
         }
+        /// <summary>
+        /// 序列化XML不带命名空间和定义
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SerializeObjectWithoutNamespace<T>(T obj)
+        {
+            var sb = new StringBuilder();
+            var settings = new XmlWriterSettings
+            {
+                Encoding = Encoding.UTF8,
+                Indent = false,
+                OmitXmlDeclaration = true
+            };
+            using (XmlWriter xmlWriter = XmlWriter.Create(sb, settings))
+            {
+                //去除默认命名空间xmlns:xsd和xmlns:xsi
+                var xmlSerializerNamespaces = new XmlSerializerNamespaces();
+                xmlSerializerNamespaces.Add(string.Empty, string.Empty);
+                var serializer = new XmlSerializer(obj.GetType());
+                serializer.Serialize(xmlWriter, obj, xmlSerializerNamespaces);
+            }
+            return sb.ToString();
+        }
 
         /// <summary>
         ///     反序列化
@@ -51,7 +76,7 @@ namespace Magicodes.WeChat.SDK.Helper
         public static T DeserializeObject<T>(Stream stream)
         {
             var xmlSerial = new XmlSerializer(typeof(T));
-            return (T) xmlSerial.Deserialize(stream);
+            return (T)xmlSerial.Deserialize(stream);
         }
 
         /// <summary>

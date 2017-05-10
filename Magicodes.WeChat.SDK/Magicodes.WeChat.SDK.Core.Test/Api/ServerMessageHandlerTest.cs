@@ -48,14 +48,13 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
                 Assert.Fail("错误！");
             }
             var xml = result.ToXml();
-            var xmlResult = XElement.Parse(xml).ToString();
             if (string.IsNullOrWhiteSpace(xml))
             {
                 Assert.Fail("序列化XML格式错误！");
             }
-            Assert.AreNotEqual(
-                "<?xml version=\"1.0\"?><xml xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"xin-lai.com\"><FromUserName>Test</FromUserName><MsgType>text</MsgType><Content>Test</Content></xml>",
-                xml);
+            //Assert.AreEqual(
+            //    "<xml><ToUserName>fromUser</ToUserName><FromUserName>toUser</FromUserName><CreateTime>1494409853</CreateTime><MsgType>text</MsgType><Content>Test</Content></xml",
+            //    xml);
         }
 
         [TestMethod]
