@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
@@ -127,6 +128,8 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
             var dataStr = dataSb.ToString();
             var list = new List<MessagesTemplateLogFuncModel>();
             var receiverIds = model.ReceiverIds.Split(';');
+            //去重
+            receiverIds = receiverIds.ToList().Distinct().ToArray();
             foreach (var receiverId in receiverIds)
             {
                 var data = string.Format(dataTpl, receiverId, model.MessagesTemplateNo, model.Url, dataStr);

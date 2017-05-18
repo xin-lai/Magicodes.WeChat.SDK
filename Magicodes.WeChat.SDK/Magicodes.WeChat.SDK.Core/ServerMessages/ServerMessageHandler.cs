@@ -70,12 +70,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             //处理事件消息
             if (msgType == "event")
             {
-                
+
                 var fromEventTypeElement = xmlElement.Element("Event");
                 if (string.IsNullOrWhiteSpace(fromEventTypeElement?.Value)) throw new ApiArgumentException("事件类型不能为空");
                 var fromEvent = fromEventTypeElement.Value.Trim().ToLower();
                 //记录日志
-                WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), "Event "+ fromEvent);
+                WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), "Event " + fromEvent);
                 var fromEventType = (FromEventTypes)Enum.Parse(typeof(FromEventTypes), fromEvent);
                 switch (fromEventType)
                 {
@@ -170,7 +170,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         /// <typeparam name="T">接受类型</typeparam>
         /// <param name="xmlStr">XML字符串</param>
         /// <returns></returns>
-        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : class , IFromMessage
+        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : class, IFromMessage
         {
             ToMessageBase toMessage = null;
             IFromMessage fromMessage = null;
