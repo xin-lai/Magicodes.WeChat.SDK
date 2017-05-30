@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Magicodes.Logger;
 
 namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
 {
@@ -36,7 +37,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
         {
             //获取api请求url
             var url = GetAccessApiUrl("api_add_template", "template");
-            var model = new {template_id_short = shortId};
+            var model = new { template_id_short = shortId };
             return Post<TemplateMessageAddTemplateAPIResult>(url, model);
         }
 
@@ -60,7 +61,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
         {
             //获取api请求url
             var url = GetAccessApiUrl("del_private_template", "template");
-            var model = new {template_id = templatId};
+            var model = new { template_id = templatId };
             return Post<ApiResult>(url, model);
         }
 
@@ -127,11 +128,17 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
             dataSb.Append("}");
             var dataStr = dataSb.ToString();
             var list = new List<MessagesTemplateLogFuncModel>();
+            Logger.Log(LoggerLevels.Debug, "准备发送模板消息:" + model.ReceiverIds);
             var receiverIds = model.ReceiverIds.Split(';');
             //去重
             receiverIds = receiverIds.ToList().Distinct().ToArray();
             foreach (var receiverId in receiverIds)
             {
+                if (string.IsNullOrWhiteSpace(receiverId))
+                {
+                    Logger.Log(LoggerLevels.Warn, "OpenId不能为空！Data：" + dataStr);
+                    continue;
+                }
                 var data = string.Format(dataTpl, receiverId, model.MessagesTemplateNo, model.Url, dataStr);
                 var log = new MessagesTemplateLogFuncModel
                 {
