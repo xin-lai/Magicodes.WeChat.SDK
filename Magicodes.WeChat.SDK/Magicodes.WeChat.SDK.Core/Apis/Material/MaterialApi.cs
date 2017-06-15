@@ -13,22 +13,22 @@
 //  
 // ======================================================================
 
+using System.Collections.Generic;
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
     /// <summary>
-    ///  永久素材接口
+    ///     永久素材接口
     /// </summary>
     public class MaterialApi : ApiBase
     {
         private const string ApiName = "material";
 
         /// <summary>
-        ///   根据ID获取素材
+        ///     根据ID获取素材
         /// </summary>
         /// <param name="id">要获取的素材的media_id</param>
         /// <returns>素材结果</returns>
@@ -44,7 +44,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
         /// <summary>
-        /// 获取非图文、视频素材
+        ///     获取非图文、视频素材
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -59,7 +59,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
         /// <summary>
-        /// 获取永久素材列表
+        ///     获取永久素材列表
         /// </summary>
         /// <param name="materialType">素材类型</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
@@ -76,13 +76,8 @@ namespace Magicodes.WeChat.SDK.Apis.Material
                 count
             };
             if (materialType == MaterialType.news)
-            {
                 return Post<NewsGetApiResult>(url, data);
-            }
-            else
-            {
-                return Post<OtherMaterialResult>(url, data);
-            }
+            return Post<OtherMaterialResult>(url, data);
         }
 
 
@@ -93,7 +88,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             return Post<NewsPostApiResult>(url, news, inputStr => inputStr);
         }
 
-        public string UploadForeverVideo(string file, string title,string introduction, int timeOut = 40000)
+        public string UploadForeverVideo(string file, string title, string introduction, int timeOut = 40000)
         {
             var url = GetAccessApiUrl("add_material", ApiName);
             var fileDictionary = new Dictionary<string, string>

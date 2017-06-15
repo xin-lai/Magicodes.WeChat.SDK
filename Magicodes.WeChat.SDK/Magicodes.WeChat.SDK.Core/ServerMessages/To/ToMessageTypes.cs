@@ -7,6 +7,6 @@
         voice = 2,
         video = 3,
         music = 4,
-        news = 5,
+        news = 5
     }
 }

@@ -92,13 +92,13 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
 
         [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
-
     }
+
     //二级菜单
     public class SubButton
     {
         /// <summary>
-        /// 二级菜单列表
+        ///     二级菜单列表
         /// </summary>
         [JsonProperty(PropertyName = "list")]
         public List<MenuButtonBase> List { get; set; }

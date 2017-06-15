@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magicodes.WeChat.SDK.Apis.CustomMessage
 {
@@ -19,12 +15,13 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
             var target = default(CustomMessageSendApiResultBase);
             //获取type属性
             var type = jObject.Property("msgtype");
-            if ((type != null) && (type.Count > 0))
+            if (type != null && type.Count > 0)
             {
                 var typeValue = type.Value.ToString();
-                var msgType = (MessageTypes)Enum.Parse(typeof(MessageTypes), typeValue);
+                var msgType = (MessageTypes) Enum.Parse(typeof(MessageTypes), typeValue);
 
                 #region 根据类型返回相应消息类型
+
                 switch (msgType)
                 {
                     case MessageTypes.text:
@@ -54,7 +51,6 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
                     default:
                         throw new NotSupportedException("不支持此类型：" + msgType);
                 }
-
 
                 #endregion
             }

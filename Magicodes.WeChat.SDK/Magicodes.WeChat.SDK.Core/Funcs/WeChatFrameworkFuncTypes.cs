@@ -43,6 +43,6 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         ///     获取Key
         /// </summary>
-        GetKey = 5,
+        GetKey = 5
     }
 }

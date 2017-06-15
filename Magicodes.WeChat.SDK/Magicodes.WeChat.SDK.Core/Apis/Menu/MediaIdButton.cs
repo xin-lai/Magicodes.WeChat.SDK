@@ -13,8 +13,6 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.Menu
 {
     /// <summary>

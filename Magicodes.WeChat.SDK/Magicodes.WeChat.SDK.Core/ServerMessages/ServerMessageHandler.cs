@@ -12,10 +12,16 @@ using Magicodes.WeChat.SDK.Helper;
 namespace Magicodes.WeChat.SDK.Core.ServerMessages
 {
     /// <summary>
-    /// 服务器消息处理
+    ///     服务器消息处理
     /// </summary>
     public class ServerMessageHandler
     {
+        /// <summary>
+        ///     处理函数集合
+        /// </summary>
+        public Dictionary<Type, Func<IFromMessage, ToMessageBase>> HandleFuncs =
+            new Dictionary<Type, Func<IFromMessage, ToMessageBase>>();
+
         protected object Key;
 
 
@@ -25,29 +31,22 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         }
 
         /// <summary>
-        /// 检查签名
+        ///     检查签名
         /// </summary>
         /// <returns>返回正确的签名</returns>
         public bool CheckSignature(string signature, string timestamp, string nonce)
         {
             var token = WeChatConfigManager.Current.GetConfig(Key).Token;
-            var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
+            var arr = new[] {token, timestamp, nonce}.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
             var sha1 = SHA1.Create();
             var sha1Arr = sha1.ComputeHash(Encoding.UTF8.GetBytes(arrString));
             var enText = new StringBuilder();
             foreach (var b in sha1Arr)
-            {
                 enText.AppendFormat("{0:x2}", b);
-            }
 
             return enText.ToString() == signature;
         }
-        /// <summary>
-        /// 处理函数集合
-        /// </summary>
-        public Dictionary<Type, Func<IFromMessage, ToMessageBase>> HandleFuncs =
-            new Dictionary<Type, Func<IFromMessage, ToMessageBase>>();
 
         /// <summary>
         ///     处理消息
@@ -70,13 +69,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             //处理事件消息
             if (msgType == "event")
             {
-
                 var fromEventTypeElement = xmlElement.Element("Event");
                 if (string.IsNullOrWhiteSpace(fromEventTypeElement?.Value)) throw new ApiArgumentException("事件类型不能为空");
                 var fromEvent = fromEventTypeElement.Value.Trim().ToLower();
                 //记录日志
                 WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), "Event " + fromEvent);
-                var fromEventType = (FromEventTypes)Enum.Parse(typeof(FromEventTypes), fromEvent);
+                var fromEventType = (FromEventTypes) Enum.Parse(typeof(FromEventTypes), fromEvent);
                 switch (fromEventType)
                 {
                     case FromEventTypes.subscribe:
@@ -100,14 +98,13 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
             }
             else
             {
                 //记录日志
                 WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), msgType);
                 //处理会话消息
-                var fromMessageType = (FromMessageTypes)Enum.Parse(typeof(FromMessageTypes), msgType);
+                var fromMessageType = (FromMessageTypes) Enum.Parse(typeof(FromMessageTypes), msgType);
                 switch (fromMessageType)
                 {
                     case FromMessageTypes.text:
@@ -141,7 +138,9 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 fromMessage = resulTuple.Item2;
                 toMessage = resulTuple.Item1;
             }
+
             #region 验证多图文格式
+
             if (toMessage is ToNewsMessage)
             {
                 var news = toMessage as ToNewsMessage;
@@ -151,8 +150,11 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                     throw new ApiArgumentException("至少需要包含一条图文消息");
                 news.ArticleCount = news.Articles.Count;
             }
+
             #endregion
+
             #region 设置回复消息的时间戳等内容
+
             if (toMessage != null && toMessage.CreateTimestamp == default(long))
             {
                 //设置时间戳
@@ -160,17 +162,20 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 toMessage.FromUserName = fromMessage.ToUserName;
                 toMessage.ToUserName = fromMessage.FromUserName;
             }
+
             #endregion
+
             return await Task.FromResult(toMessage);
         }
 
         /// <summary>
-        /// 执行处理函数
+        ///     执行处理函数
         /// </summary>
         /// <typeparam name="T">接受类型</typeparam>
         /// <param name="xmlStr">XML字符串</param>
         /// <returns></returns>
-        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr) where T : class, IFromMessage
+        private async Task<Tuple<ToMessageBase, IFromMessage>> ExcuteHandleFunc<T>(string xmlStr)
+            where T : class, IFromMessage
         {
             ToMessageBase toMessage = null;
             IFromMessage fromMessage = null;
@@ -182,10 +187,8 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                     toMessage = await Task.FromResult(HandleFuncs[type]
                         .Invoke(fromMessage));
                 else
-                {
                     WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler),
                         $"序列化类型【{type.FullName}】失败");
-                }
             }
             else
             {

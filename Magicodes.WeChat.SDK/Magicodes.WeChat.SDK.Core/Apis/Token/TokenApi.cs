@@ -45,9 +45,8 @@ namespace Magicodes.WeChat.SDK.Apis.Token
                 AppConfig.AppId, AppConfig.AppSecret);
             var result = Get<TokenApiResult>(url);
             if (!result.IsSuccess())
-            {
-                throw new ApiArgumentException("获取接口访问凭据失败：" + result.GetFriendlyMessage() + "（" + result.DetailResult + "）");
-            }
+                throw new ApiArgumentException("获取接口访问凭据失败：" + result.GetFriendlyMessage() + "（" + result.DetailResult +
+                                               "）");
             result.ExpiresTime = DateTime.Now.AddSeconds(result.Expires - 30);
             return result;
         }

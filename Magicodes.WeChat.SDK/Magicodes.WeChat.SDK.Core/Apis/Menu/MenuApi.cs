@@ -19,7 +19,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
 {
     /// <summary>
     ///     自定义菜单接口
-    ///     http://mp.weixin.qq.com/wiki/10/0234e39a2025342c17a7d23595c6b40a.html 
+    ///     http://mp.weixin.qq.com/wiki/10/0234e39a2025342c17a7d23595c6b40a.html
     /// </summary>
     public class MenuApi : ApiBase
     {
@@ -114,7 +114,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         public ApiResult DelConditional(string menuId)
         {
             var url = GetAccessApiUrl("delconditional", ApiName);
-            var model = new { menuid = menuId };
+            var model = new {menuid = menuId};
             return Post<ApiResult>(url, model);
         }
 
@@ -127,7 +127,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         public MenuGetApiResult TryMatch(string userId)
         {
             var url = GetAccessApiUrl("trymatch", ApiName);
-            var model = new { user_id = userId };
+            var model = new {user_id = userId};
             return Post<MenuGetApiResult>(url, model);
         }
 

@@ -15,7 +15,6 @@
 
 using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Web;
 
 namespace Magicodes.WeChat.SDK.Pays.RedPackApi
 {
@@ -57,7 +56,7 @@ namespace Magicodes.WeChat.SDK.Pays.RedPackApi
             }
             catch (Exception ex)
             {
-                WeChatHelper.LoggerAction?.Invoke(nameof(RedPackApi),ex.ToString());
+                WeChatHelper.LoggerAction?.Invoke(nameof(RedPackApi), ex.ToString());
             }
             return result;
         }

@@ -15,10 +15,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
-using System.IO;
-using System.Net;
 
 namespace Magicodes.WeChat.SDK.Apis
 {
@@ -34,21 +33,12 @@ namespace Magicodes.WeChat.SDK.Apis
         /// <summary>
         ///     接口访问凭据
         /// </summary>
-        protected string AccessToken
-        {
-            get
-            {
-                return WeChatConfigManager.Current.GetAccessToken(GetKey());
-            }
-        }
+        protected string AccessToken => WeChatConfigManager.Current.GetAccessToken(GetKey());
 
         /// <summary>
         ///     获取微信配置
         /// </summary>
-        public IWeChatConfig AppConfig
-        {
-            get { return WeChatConfigManager.Current.GetConfig(GetKey()); }
-        }
+        public IWeChatConfig AppConfig => WeChatConfigManager.Current.GetConfig(GetKey());
 
         public void SetKey(object key)
         {
@@ -72,7 +62,7 @@ namespace Magicodes.WeChat.SDK.Apis
             Dictionary<string, string> urlParams = null)
         {
             var paramsStr = string.Empty;
-            if ((urlParams != null) && (urlParams.Count > 0))
+            if (urlParams != null && urlParams.Count > 0)
                 foreach (var item in urlParams)
                     paramsStr += string.Format("&{0}={1}", item.Key, item.Value);
             var urlMain = string.IsNullOrEmpty(apiAction) ? apiName : string.Format("{0}/{1}", apiName, apiAction);
@@ -111,7 +101,8 @@ namespace Magicodes.WeChat.SDK.Apis
             return result;
         }
 
-        protected T Post<T>(string url, object obj, Stream fileStream, Func<string, string> serializeStrFunc = null) where T : ApiResult
+        protected T Post<T>(string url, object obj, Stream fileStream, Func<string, string> serializeStrFunc = null)
+            where T : ApiResult
         {
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
@@ -125,8 +116,8 @@ namespace Magicodes.WeChat.SDK.Apis
 
         private void RefreshAccessTokenWhenTimeOut<T>(T result) where T : ApiResult
         {
-            if ((result.ReturnCode == ReturnCodes.access_token超时) ||
-                (result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效))
+            if (result.ReturnCode == ReturnCodes.access_token超时 ||
+                result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效)
                 WeChatConfigManager.Current.RefreshAccessToken(Key);
         }
 
@@ -149,6 +140,7 @@ namespace Magicodes.WeChat.SDK.Apis
             RefreshAccessTokenWhenTimeOut(obj);
             return obj;
         }
+
         /// <summary>
         ///     POST提交请求，上传文件，返回ApiResult对象
         /// </summary>

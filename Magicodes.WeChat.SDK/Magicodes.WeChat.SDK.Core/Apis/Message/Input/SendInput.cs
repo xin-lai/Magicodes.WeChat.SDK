@@ -1,40 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magicodes.WeChat.SDK.Apis.Message.Input
 {
     public abstract class SendAllInputBase
     {
         /// <summary>
-        /// 用于设定图文消息的接收者
+        ///     用于设定图文消息的接收者
         /// </summary>
         [JsonProperty("filter")]
         public FilterInfo Filter { get; set; }
 
         /// <summary>
-        /// 群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
+        ///     群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
         /// </summary>
         [JsonProperty("msgtype")]
         [JsonConverter(typeof(StringEnumConverter))]
         public MessageTypes MessageType { get; internal set; }
 
         /// <summary>
-        /// 用于设定消息的接收者
+        ///     用于设定消息的接收者
         /// </summary>
         public class FilterInfo
         {
             /// <summary>
-            /// 用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户
+            ///     用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户
             /// </summary>
             [JsonProperty("is_to_all")]
             public bool IsToAll { get; set; }
+
             /// <summary>
-            /// 群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id
+            ///     群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id
             /// </summary>
             [JsonProperty("group_id")]
             public int GroupId { get; set; }
@@ -44,13 +41,13 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     public abstract class SendInputBase
     {
         /// <summary>
-        /// 填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个
+        ///     填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个
         /// </summary>
         [JsonProperty("touser")]
         public ICollection<string> ToUsers { get; set; }
 
         /// <summary>
-        /// 群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
+        ///     群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
         /// </summary>
         [JsonProperty("msgtype")]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -60,18 +57,19 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     public abstract class PreviewInputBase
     {
         /// <summary>
-        /// 填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个
+        ///     填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个
         /// </summary>
         [JsonProperty("touser", NullValueHandling = NullValueHandling.Ignore)]
         public string ToUser { get; set; }
+
         /// <summary>
-        /// 微信号（如果设置了此值，则ToUser设置无效）
+        ///     微信号（如果设置了此值，则ToUser设置无效）
         /// </summary>
         [JsonProperty("towxname", NullValueHandling = NullValueHandling.Ignore)]
         public string ToWXName { get; set; }
 
         /// <summary>
-        /// 群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
+        ///     群发的消息类型，图文消息为mpnews，文本消息为text，语音为voice，音乐为music，图片为image，视频为video，卡券为wxcard
         /// </summary>
         [JsonProperty("msgtype")]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -83,11 +81,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllTextInput()
         {
-            this.MessageType = MessageTypes.text;
+            MessageType = MessageTypes.text;
         }
 
         [JsonProperty("text")]
         public TextInfo Text { get; set; }
+
         public class TextInfo
         {
             [JsonProperty("content")]
@@ -99,11 +98,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllNewsInput()
         {
-            this.MessageType = MessageTypes.mpnews;
+            MessageType = MessageTypes.mpnews;
         }
 
         [JsonProperty("mpnews")]
         public NewsInfo News { get; set; }
+
         public class NewsInfo
         {
             [JsonProperty("media_id")]
@@ -115,11 +115,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllVoiceInput()
         {
-            this.MessageType = MessageTypes.voice;
+            MessageType = MessageTypes.voice;
         }
 
         [JsonProperty("voice")]
         public VoiceInfo Voice { get; set; }
+
         public class VoiceInfo
         {
             [JsonProperty("media_id")]
@@ -131,11 +132,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllImageInput()
         {
-            this.MessageType = MessageTypes.image;
+            MessageType = MessageTypes.image;
         }
 
         [JsonProperty("image")]
         public ImageInfo Image { get; set; }
+
         public class ImageInfo
         {
             [JsonProperty("media_id")]
@@ -147,11 +149,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllMPVideoInput()
         {
-            this.MessageType = MessageTypes.mpvideo;
+            MessageType = MessageTypes.mpvideo;
         }
 
         [JsonProperty("mpvideo")]
         public MPVideoInfo MPVideo { get; set; }
+
         public class MPVideoInfo
         {
             [JsonProperty("media_id")]
@@ -163,11 +166,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendAllWXCardInput()
         {
-            this.MessageType = MessageTypes.wxcard;
+            MessageType = MessageTypes.wxcard;
         }
 
         [JsonProperty("wxcard")]
         public WXCardInfo WXCard { get; set; }
+
         public class WXCardInfo
         {
             [JsonProperty("media_id")]
@@ -180,11 +184,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendTextInput()
         {
-            this.MessageType = MessageTypes.text;
+            MessageType = MessageTypes.text;
         }
 
         [JsonProperty("text")]
         public TextInfo Text { get; set; }
+
         public class TextInfo
         {
             [JsonProperty("content")]
@@ -196,11 +201,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendNewsInput()
         {
-            this.MessageType = MessageTypes.mpnews;
+            MessageType = MessageTypes.mpnews;
         }
 
         [JsonProperty("mpnews")]
         public NewsInfo News { get; set; }
+
         public class NewsInfo
         {
             [JsonProperty("media_id")]
@@ -212,11 +218,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendVoiceInput()
         {
-            this.MessageType = MessageTypes.voice;
+            MessageType = MessageTypes.voice;
         }
 
         [JsonProperty("voice")]
         public VoiceInfo Voice { get; set; }
+
         public class VoiceInfo
         {
             [JsonProperty("media_id")]
@@ -228,11 +235,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendImageInput()
         {
-            this.MessageType = MessageTypes.image;
+            MessageType = MessageTypes.image;
         }
 
         [JsonProperty("image")]
         public ImageInfo Image { get; set; }
+
         public class ImageInfo
         {
             [JsonProperty("media_id")]
@@ -244,11 +252,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendVideoInput()
         {
-            this.MessageType = MessageTypes.video;
+            MessageType = MessageTypes.video;
         }
 
         [JsonProperty("video")]
         public VideoInfo Video { get; set; }
+
         public class VideoInfo
         {
             [JsonProperty("media_id")]
@@ -260,11 +269,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public SendWXCardInput()
         {
-            this.MessageType = MessageTypes.wxcard;
+            MessageType = MessageTypes.wxcard;
         }
 
         [JsonProperty("wxcard")]
         public WXCardInfo WXCard { get; set; }
+
         public class WXCardInfo
         {
             [JsonProperty("media_id")]
@@ -277,11 +287,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewTextInput()
         {
-            this.MessageType = MessageTypes.text;
+            MessageType = MessageTypes.text;
         }
 
         [JsonProperty("text")]
         public TextInfo Text { get; set; }
+
         public class TextInfo
         {
             [JsonProperty("content")]
@@ -293,11 +304,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewNewsInput()
         {
-            this.MessageType = MessageTypes.mpnews;
+            MessageType = MessageTypes.mpnews;
         }
 
         [JsonProperty("mpnews")]
         public NewsInfo News { get; set; }
+
         public class NewsInfo
         {
             [JsonProperty("media_id")]
@@ -309,11 +321,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewVoiceInput()
         {
-            this.MessageType = MessageTypes.voice;
+            MessageType = MessageTypes.voice;
         }
 
         [JsonProperty("voice")]
         public VoiceInfo Voice { get; set; }
+
         public class VoiceInfo
         {
             [JsonProperty("media_id")]
@@ -325,11 +338,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewImageInput()
         {
-            this.MessageType = MessageTypes.image;
+            MessageType = MessageTypes.image;
         }
 
         [JsonProperty("image")]
         public ImageInfo Image { get; set; }
+
         public class ImageInfo
         {
             [JsonProperty("media_id")]
@@ -341,11 +355,12 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewMPVideoInput()
         {
-            this.MessageType = MessageTypes.mpvideo;
+            MessageType = MessageTypes.mpvideo;
         }
 
         [JsonProperty("mpvideo")]
         public MPVideoInfo MPVideo { get; set; }
+
         public class MPVideoInfo
         {
             [JsonProperty("media_id")]
@@ -357,16 +372,16 @@ namespace Magicodes.WeChat.SDK.Apis.Message.Input
     {
         public PreviewWXCardInput()
         {
-            this.MessageType = MessageTypes.wxcard;
+            MessageType = MessageTypes.wxcard;
         }
 
         [JsonProperty("wxcard")]
         public WXCardInfo WXCard { get; set; }
+
         public class WXCardInfo
         {
             [JsonProperty("media_id")]
             public string MediaId { get; set; }
         }
     }
-
 }

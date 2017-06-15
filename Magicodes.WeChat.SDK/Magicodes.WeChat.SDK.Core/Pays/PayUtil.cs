@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Xml.Serialization;
 using Magicodes.WeChat.SDK.Helper;
 
@@ -66,7 +65,7 @@ namespace Magicodes.WeChat.SDK.Pays
         public static string UrlEncode(string instr, string charset)
         {
             //return instr;
-            if ((instr == null) || (instr.Trim() == ""))
+            if (instr == null || instr.Trim() == "")
                 return "";
             var res = instr.UrlEncode();
             //try
@@ -90,9 +89,9 @@ namespace Magicodes.WeChat.SDK.Pays
         /// <returns></returns>
         public static string UrlDecode(string instr, string charset)
         {
-            if ((instr == null) || (instr.Trim() == ""))
+            if (instr == null || instr.Trim() == "")
                 return "";
-            string res = instr.UrlDecode();
+            var res = instr.UrlDecode();
             //try
             //{
             //    res = HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
@@ -149,8 +148,9 @@ namespace Magicodes.WeChat.SDK.Pays
         /// <summary>
         ///     循环获取一个实体类每个字段的XmlAttribute属性的值
         /// </summary>
-        /// <typeparam name="T"><peparam>
-        /// <returns></returns>
+        /// <typeparam name="T">
+        ///     <peparam>
+        ///         <returns></returns>
         public static Dictionary<string, string> GetAuthors<T>(T model)
         {
             var _dict = new Dictionary<string, string>();
@@ -199,8 +199,8 @@ namespace Magicodes.WeChat.SDK.Pays
             foreach (string k in akeys)
             {
                 var v = dict[k];
-                if ((null != v) && ("".CompareTo(v) != 0)
-                    && ("sign".CompareTo(k) != 0) && ("key".CompareTo(k) != 0))
+                if (null != v && "".CompareTo(v) != 0
+                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
                     sb.Append(k + "=" + v + "&");
             }
             sb.Append("key=" + value);

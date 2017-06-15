@@ -179,6 +179,5 @@ namespace Magicodes.WeChat.SDK.Apis
         自定义SN权限 = 43009,
         无储值权限 = 43010,
         不支持的图片格式 = 40137
-
     }
 }

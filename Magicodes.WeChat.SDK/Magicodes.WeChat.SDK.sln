@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magicodes.WeChat.SDK", "Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.csproj", "{1F6E23A6-CD4A-4181-8F91-9BB4A446D52E}"
 EndProject

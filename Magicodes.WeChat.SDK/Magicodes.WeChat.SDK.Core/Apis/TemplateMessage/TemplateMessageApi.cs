@@ -36,7 +36,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
         {
             //获取api请求url
             var url = GetAccessApiUrl("api_add_template", "template");
-            var model = new { template_id_short = shortId };
+            var model = new {template_id_short = shortId};
             return Post<TemplateMessageAddTemplateAPIResult>(url, model);
         }
 
@@ -60,7 +60,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
         {
             //获取api请求url
             var url = GetAccessApiUrl("del_private_template", "template");
-            var model = new { template_id = templatId };
+            var model = new {template_id = templatId};
             return Post<ApiResult>(url, model);
         }
 
@@ -127,7 +127,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
             dataSb.Append("}");
             var dataStr = dataSb.ToString();
             var list = new List<MessagesTemplateLogFuncModel>();
-           
+
             WeChatHelper.LoggerAction?.Invoke(nameof(TemplateMessageApi), "准备发送模板消息:" + model.ReceiverIds);
             var receiverIds = model.ReceiverIds.Split(';');
             //去重

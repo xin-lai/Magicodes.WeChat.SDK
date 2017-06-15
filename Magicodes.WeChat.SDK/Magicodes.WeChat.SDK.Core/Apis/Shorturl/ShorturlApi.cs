@@ -14,7 +14,6 @@
 // ======================================================================
 
 using Magicodes.WeChat.SDK.Apis.Shorturl.Result;
-using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.Shorturl
 {
@@ -35,9 +34,7 @@ namespace Magicodes.WeChat.SDK.Apis.Shorturl
         public ShortUrlApiResult GetShortUrl(string url)
         {
             var apiUrl = GetAccessApiUrl(null, ApiName);
-            return Post<ShortUrlApiResult>(apiUrl, new { action = "long2short", long_url = url });
+            return Post<ShortUrlApiResult>(apiUrl, new {action = "long2short", long_url = url});
         }
-
-
     }
 }

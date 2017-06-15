@@ -23,6 +23,7 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
     public class EnterpriseResult : PayResult
     {
         public string result_code { get; set; }
+
         /// <summary>
         ///     商户订单号，需保持唯一性
         /// </summary>

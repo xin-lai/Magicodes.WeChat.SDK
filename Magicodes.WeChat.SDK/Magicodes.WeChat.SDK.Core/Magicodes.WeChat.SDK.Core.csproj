@@ -14,6 +14,8 @@
     <Version>1.4.3</Version>
     <FileVersion>1.3.3.0</FileVersion>
     <PackageTags>Magicodes.WeChat.SDK.Core</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/xin-lai/Magicodes.WeChat.SDK</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

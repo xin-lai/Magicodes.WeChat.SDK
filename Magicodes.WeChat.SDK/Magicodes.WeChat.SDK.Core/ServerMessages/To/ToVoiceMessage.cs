@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Magicodes.WeChat.SDK.Core.ServerMessages.To
 {
     /// <summary>
-    /// 回复语音消息
+    ///     回复语音消息
     /// </summary>
     [XmlRoot(ElementName = "xml")]
     public class ToVoiceMessage : ToMessageBase
@@ -14,12 +14,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.To
             Type = ToMessageTypes.voice;
         }
 
+        public VoiceInfo Voice { get; set; }
+
         [Serializable]
         public class VoiceInfo
         {
             public string MediaId { get; set; }
         }
-
-        public VoiceInfo Voice { get; set; }
     }
 }

@@ -15,7 +15,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Web;
 using Magicodes.WeChat.SDK.Apis.Ticket;
 using Magicodes.WeChat.SDK.Apis.Token;
 using Magicodes.WeChat.SDK.Helper;
@@ -31,6 +30,24 @@ namespace Magicodes.WeChat.SDK
             new Lazy<WeChatConfigManager>(() => new WeChatConfigManager());
 
         /// <summary>
+        ///     访问凭据存储
+        /// </summary>
+        internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
+            new ConcurrentDictionary<string, TokenApiResult>();
+
+        /// <summary>
+        ///     卡券JSSDK访问凭证
+        /// </summary>
+        internal ConcurrentDictionary<string, TicketApiResult> CardTicketConcurrentDictionary =
+            new ConcurrentDictionary<string, TicketApiResult>();
+
+        /// <summary>
+        ///     凭证
+        /// </summary>
+        internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
+            new ConcurrentDictionary<string, TicketApiResult>();
+
+        /// <summary>
         ///     公众号配置信息
         /// </summary>
         protected ConcurrentDictionary<object, IWeChatConfig> WeChatConfigs =
@@ -42,29 +59,12 @@ namespace Magicodes.WeChat.SDK
         protected ConcurrentDictionary<object, IWeChatPayConfig> WeChatPayConfigs =
             new ConcurrentDictionary<object, IWeChatPayConfig>();
 
-        /// <summary>
-        ///     访问凭据存储
-        /// </summary>
-        internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
-            new ConcurrentDictionary<string, TokenApiResult>();
-
-        /// <summary>
-        ///     凭证
-        /// </summary>
-        internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
-            new ConcurrentDictionary<string, TicketApiResult>();
-
-        /// <summary>
-        /// 卡券JSSDK访问凭证
-        /// </summary>
-        internal ConcurrentDictionary<string, TicketApiResult> CardTicketConcurrentDictionary =
-            new ConcurrentDictionary<string, TicketApiResult>();
-
         public static WeChatConfigManager Current => Lazy.Value;
 
         public object GetKey()
         {
-            return WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.GetKey, new WeChatApiCallbackFuncArgInfo());
+            return WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.GetKey,
+                new WeChatApiCallbackFuncArgInfo());
         }
 
         /// <summary>
@@ -108,11 +108,9 @@ namespace Magicodes.WeChat.SDK
 
             IWeChatConfig weChatConfig = null;
             if (WeChatConfigs.ContainsKey(key))
-                weChatConfig= WeChatConfigs[key];
-            if (weChatConfig!=null)
-            {
+                weChatConfig = WeChatConfigs[key];
+            if (weChatConfig != null)
                 return weChatConfig;
-            }
             var result =
                 WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.Config_GetWeChatConfigByKey,
                     new WeChatApiCallbackFuncArgInfo
@@ -122,17 +120,11 @@ namespace Magicodes.WeChat.SDK
                     });
             weChatConfig = result as IWeChatConfig ?? throw new Exception(string.Format("通过Key：{0}获取Config失败！", key));
             if (weChatConfig == null)
-            {
                 throw new Exception("获取微信配置失败");
-            }
             if (string.IsNullOrWhiteSpace(weChatConfig.AppId))
-            {
                 throw new ApiArgumentException("微信配置错误，参数不能为空", "AppId");
-            }
             if (string.IsNullOrWhiteSpace(weChatConfig.AppSecret))
-            {
                 throw new ApiArgumentException("微信配置错误，参数不能为空", "AppSecret");
-            }
             WeChatConfigs.AddOrUpdate(key, weChatConfig, (tKey, existingVal) => weChatConfig);
             return weChatConfig;
         }
@@ -146,7 +138,7 @@ namespace Magicodes.WeChat.SDK
             var ticket = WeChatApisContext.Current.TicketApi.SafeGet().Ticket;
             var configInfo = new JSSDKConfigInfo
             {
-                AppId = WeChatConfigManager.Current.GetConfig().AppId,
+                AppId = Current.GetConfig().AppId,
                 Timestamp = JSSDKHelper.GetTimestamp(),
                 NonceStr = JSSDKHelper.GetNoncestr()
             };
@@ -164,7 +156,7 @@ namespace Magicodes.WeChat.SDK
             var ticket = WeChatApisContext.Current.TicketApi.GetSafeCardAccessToken().Ticket;
             var configInfo = new JSSDKConfigInfo
             {
-                AppId = WeChatConfigManager.Current.GetConfig().AppId,
+                AppId = Current.GetConfig().AppId,
                 Timestamp = JSSDKHelper.GetTimestamp(),
                 NonceStr = JSSDKHelper.GetNoncestr()
             };
@@ -217,9 +209,7 @@ namespace Magicodes.WeChat.SDK
         public void RefreshPayConfig(object key, IWeChatPayConfig config = null)
         {
             if (config == null)
-            {
                 config = GetPayConfig(key);
-            }
             WeChatPayConfigs.AddOrUpdate(key, config, (tKey, existingVal) => { return config; });
         }
 

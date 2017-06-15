@@ -18,16 +18,16 @@ using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.CustomMessage;
 using Magicodes.WeChat.SDK.Apis.Material;
 using Magicodes.WeChat.SDK.Apis.Menu;
+using Magicodes.WeChat.SDK.Apis.Message;
+using Magicodes.WeChat.SDK.Apis.POI;
 using Magicodes.WeChat.SDK.Apis.QRCode;
+using Magicodes.WeChat.SDK.Apis.Shorturl;
 using Magicodes.WeChat.SDK.Apis.Statistics;
 using Magicodes.WeChat.SDK.Apis.TemplateMessage;
 using Magicodes.WeChat.SDK.Apis.Ticket;
 using Magicodes.WeChat.SDK.Apis.Token;
 using Magicodes.WeChat.SDK.Apis.User;
 using Magicodes.WeChat.SDK.Apis.UserGroup;
-using Magicodes.WeChat.SDK.Apis.POI;
-using Magicodes.WeChat.SDK.Apis.Message;
-using Magicodes.WeChat.SDK.Apis.Shorturl;
 
 namespace Magicodes.WeChat.SDK
 {
@@ -38,7 +38,6 @@ namespace Magicodes.WeChat.SDK
     {
         private static readonly Lazy<WeChatApisContext> Lazy =
             new Lazy<WeChatApisContext>(() => new WeChatApisContext());
-        public static WeChatApisContext Current => Lazy.Value;
 
         /// <summary>
         ///     多客服接口
@@ -51,19 +50,39 @@ namespace Magicodes.WeChat.SDK
         public CustomMessageApi CustomMessageApi = new CustomMessageApi();
 
         /// <summary>
-        ///     自定义菜单接口
-        /// </summary>
-        public MenuApi MenuApi = new MenuApi();
-
-        /// <summary>
         ///     永久素材接口
         /// </summary>
         public MaterialApi MaterialApi = new MaterialApi();
 
         /// <summary>
+        ///     自定义菜单接口
+        /// </summary>
+        public MenuApi MenuApi = new MenuApi();
+
+        /// <summary>
+        ///     群发消息接口
+        /// </summary>
+        public MessageApi MessageApi = new MessageApi();
+
+        /// <summary>
+        ///     OAUTH验证接口
+        /// </summary>
+        public OAuthApi OAuthApi = new OAuthApi();
+
+        /// <summary>
+        ///     门店相关接口
+        /// </summary>
+        public POIApi POIApi = new POIApi();
+
+        /// <summary>
         ///     微信二维码
         /// </summary>
         public QRCodeApi QrCodeApi = new QRCodeApi();
+
+        /// <summary>
+        ///     长链接转短链接接口
+        /// </summary>
+        public ShorturlApi ShorturlApi = new ShorturlApi();
 
         /// <summary>
         ///     数据统计API
@@ -95,24 +114,6 @@ namespace Magicodes.WeChat.SDK
         /// </summary>
         public UserGroupApi UserGroupApi = new UserGroupApi();
 
-        /// <summary>
-        ///     OAUTH验证接口
-        /// </summary>
-        public OAuthApi OAuthApi = new OAuthApi();
-
-        /// <summary>
-        ///     门店相关接口
-        /// </summary>
-        public POIApi POIApi = new POIApi();
-
-        /// <summary>
-        ///     群发消息接口
-        /// </summary>
-        public MessageApi MessageApi = new MessageApi();
-
-        /// <summary>
-        ///     长链接转短链接接口
-        /// </summary>
-        public ShorturlApi ShorturlApi = new ShorturlApi();
+        public static WeChatApisContext Current => Lazy.Value;
     }
 }

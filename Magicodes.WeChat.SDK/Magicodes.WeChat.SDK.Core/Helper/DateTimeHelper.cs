@@ -31,7 +31,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public static long ConvertToTimeStamp(this DateTime time)
         {
-            return (time.ToUniversalTime().Ticks - STANDARD_TIME_STAMP)/10000000;
+            return (time.ToUniversalTime().Ticks - STANDARD_TIME_STAMP) / 10000000;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public static DateTime ConvertToDateTime(this long timestamp)
         {
-            return new DateTime(timestamp*10000000 + STANDARD_TIME_STAMP).ToLocalTime();
+            return new DateTime(timestamp * 10000000 + STANDARD_TIME_STAMP).ToLocalTime();
         }
     }
 }

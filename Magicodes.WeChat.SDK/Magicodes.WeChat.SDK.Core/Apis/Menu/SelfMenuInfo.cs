@@ -15,7 +15,6 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Magicodes.WeChat.SDK.Apis.Menu
 {
@@ -24,7 +23,6 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
     /// </summary>
     public class SelfMenuInfo
     {
-
         [JsonProperty("button")]
         public List<SelfMenuButtonBase> Buttons { get; set; }
     }

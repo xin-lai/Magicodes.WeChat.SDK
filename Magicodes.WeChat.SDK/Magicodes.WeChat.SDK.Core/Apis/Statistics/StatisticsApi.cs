@@ -24,6 +24,7 @@ namespace Magicodes.WeChat.SDK.Apis.Statistics
     public class StatisticsApi : ApiBase
     {
         private const string ApiName = "datacube";
+
         //因为微信获取数据统计的接口url和其他的url有点不同，在qq.com后面不是cgi-bin 而是datacube
         private const string StatisticsApiRoot = "https://api.weixin.qq.com";
 
@@ -49,11 +50,11 @@ namespace Magicodes.WeChat.SDK.Apis.Statistics
             return Post<T>(url, jsondata);
         }
 
-        //protected T Get<T>(string url) where T : ApiResult
+        ///// 获取用户增减数据
 
         ///// <summary>
 
-        ///// 获取用户增减数据
+        //protected T Get<T>(string url) where T : ApiResult
         ///// </summary>
         ///// <returns>返回结果</returns>
         //public UserSummaryAnalyisResult GetUserSummaryInfo(DateTime begindate,DateTime enddate)

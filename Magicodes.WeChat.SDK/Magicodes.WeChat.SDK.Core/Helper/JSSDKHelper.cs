@@ -54,7 +54,7 @@ namespace Magicodes.WeChat.SDK.Helper
             foreach (var k in akeys)
                 if (parameters[k] != null)
                 {
-                    var v = (string)parameters[k];
+                    var v = (string) parameters[k];
 
                     if (sb.Length == 0)
                         sb.Append(k + "=" + v);
@@ -77,9 +77,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
             foreach (var value in aValues)
                 if (value != null)
-                {
-                    sb.Append(value.ToString());
-                }
+                    sb.Append(value);
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
@@ -129,7 +127,8 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetAddrSign(string accessToken, string appId, string appSecret, string noncestr, string timestamp, string url)
+        public static string GetAddrSign(string accessToken, string appId, string appSecret, string noncestr,
+            string timestamp, string url)
         {
             var parameters = new Hashtable
             {

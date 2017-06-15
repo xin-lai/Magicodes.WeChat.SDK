@@ -13,9 +13,7 @@
 //  
 // ======================================================================
 
-using System;
 using System.Net;
-using System.Web;
 
 namespace Magicodes.WeChat.SDK.Apis.QRCode
 {
@@ -50,7 +48,7 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
         /// <returns></returns>
         public QRCodeCreateApiResult CreateByNumberValue(int value, int expireSeconds = 2592000)
         {
-            if ((value > 100000) || (value < 1))
+            if (value > 100000 || value < 1)
                 throw new ApiArgumentException("值只支持1~100000", "value");
             if (expireSeconds > 2592000)
                 throw new ApiArgumentException("过期时间不得大于2592000秒（即30天）", "expireSeconds");
@@ -93,11 +91,11 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
         /// <returns></returns>
         public QRCodeCreateApiResult CreateByStringValue(string value)
         {
-            if ((value.Length > 64) || (value.Length < 1))
+            if (value.Length > 64 || value.Length < 1)
                 throw new ApiArgumentException("值长度只支持1~64", "value");
             //获取api请求url
             var url = GetAccessApiUrl("create", ApiName);
-            
+
             var model = new
             {
                 action_name = "QR_LIMIT_STR_SCENE",

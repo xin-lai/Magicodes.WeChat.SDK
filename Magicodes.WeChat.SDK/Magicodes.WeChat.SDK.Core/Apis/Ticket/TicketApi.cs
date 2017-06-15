@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace Magicodes.WeChat.SDK.Apis.Ticket
 {
     /// <summary>
-    ///  获取AccessToken
+    ///     获取AccessToken
     /// </summary>
     public class TicketApi : ApiBase
     {
@@ -65,7 +65,7 @@ namespace Magicodes.WeChat.SDK.Apis.Ticket
         }
 
         /// <summary>
-        /// 获取JSSDK卡券Ticket
+        ///     获取JSSDK卡券Ticket
         /// </summary>
         /// <returns></returns>
         public TicketApiResult GetCardAccessToken()
@@ -80,7 +80,7 @@ namespace Magicodes.WeChat.SDK.Apis.Ticket
         }
 
         /// <summary>
-        /// 卡券访问接口票据
+        ///     卡券访问接口票据
         /// </summary>
         /// <returns></returns>
         public TicketApiResult GetSafeCardAccessToken()

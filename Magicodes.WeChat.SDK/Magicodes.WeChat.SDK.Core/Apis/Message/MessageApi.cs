@@ -15,7 +15,6 @@
 
 using Magicodes.WeChat.SDK.Apis.Message.Input;
 using Magicodes.WeChat.SDK.Apis.Message.Result;
-using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.Message
 {
@@ -60,7 +59,7 @@ namespace Magicodes.WeChat.SDK.Apis.Message
         public ApiResult Delete(string messageId)
         {
             var url = GetAccessApiUrl("mass/delete", ApiName);
-            return Post<MessageApiResult>(url, new { msg_id = messageId });
+            return Post<MessageApiResult>(url, new {msg_id = messageId});
         }
 
         /// <summary>

@@ -20,12 +20,14 @@ using System.Collections.Generic;
 namespace Magicodes.WeChat.SDK.Builder
 {
     /// <summary>
-    /// WeChatSDK构造函数类
+    ///     WeChatSDK构造函数类
     /// </summary>
     public class WeChatSDKBuilder
     {
-        Action<string, string> LoggerAction { get; set; }
-        Dictionary<WeChatFrameworkFuncTypes, Func<object, object>> FuncDics = new Dictionary<WeChatFrameworkFuncTypes, Func<object, object>>();
+        private readonly Dictionary<WeChatFrameworkFuncTypes, Func<object, object>> FuncDics =
+            new Dictionary<WeChatFrameworkFuncTypes, Func<object, object>>();
+
+        private Action<string, string> LoggerAction { get; set; }
 
         /// <summary>
         ///     创建实例
@@ -52,19 +54,16 @@ namespace Magicodes.WeChat.SDK.Builder
             FuncDics.Add(type, func);
             return this;
         }
+
         /// <summary>
         ///     确定设置
         /// </summary>
         public void Build()
         {
             if (LoggerAction != null)
-            {
                 WeChatHelper.LoggerAction = LoggerAction;
-            }
             foreach (var item in FuncDics)
-            {
                 WeChatFrameworkFuncsManager.Current.Register(item.Key, item.Value);
-            }
         }
     }
 }

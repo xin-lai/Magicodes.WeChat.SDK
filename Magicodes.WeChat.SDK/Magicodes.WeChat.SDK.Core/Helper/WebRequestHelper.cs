@@ -71,37 +71,25 @@ namespace Magicodes.WeChat.SDK.Helper
         private int timeOut = 30000;
 
         /// <summary>
-        /// 代理密码
+        ///     代理密码
         /// </summary>
-        public string ProxyKey
-        {
-            get;
-            set;
-        }
+        public string ProxyKey { get; set; }
 
         /// <summary>
-        /// 代理地址
+        ///     代理地址
         /// </summary>
-        public string ProxyAddress
-        {
-            get;
-            set;
-        }
+        public string ProxyAddress { get; set; }
 
 
         /// <summary>
-        /// 代理用户
+        ///     代理用户
         /// </summary>
-        public string ProxyUser
-        {
-            get;
-            set;
-        }
+        public string ProxyUser { get; set; }
 
         public CookieContainer Cookie
         {
-            get { return cookie; }
-            set { cookie = value; }
+            get => cookie;
+            set => cookie = value;
         }
 
         /// <summary>
@@ -109,8 +97,8 @@ namespace Magicodes.WeChat.SDK.Helper
         /// </summary>
         public bool AllowAutoRedirect
         {
-            get { return allowAutoRedirect; }
-            set { allowAutoRedirect = value; }
+            get => allowAutoRedirect;
+            set => allowAutoRedirect = value;
         }
 
         /// <summary>
@@ -118,8 +106,8 @@ namespace Magicodes.WeChat.SDK.Helper
         /// </summary>
         public string ContentType
         {
-            get { return contentType; }
-            set { contentType = value; }
+            get => contentType;
+            set => contentType = value;
         }
 
         /// <summary>
@@ -127,14 +115,14 @@ namespace Magicodes.WeChat.SDK.Helper
         /// </summary>
         public string Accept
         {
-            get { return accept; }
-            set { accept = value; }
+            get => accept;
+            set => accept = value;
         }
 
         public int TimeOut
         {
-            get { return timeOut; }
-            set { timeOut = value; }
+            get => timeOut;
+            set => timeOut = value;
         }
 
         /// <summary>
@@ -166,7 +154,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse) request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -198,7 +186,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse) request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -209,8 +197,8 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         public T HttpPost<T>(string url, object obj, out string result, Func<string, string> serializeStrFunc = null,
-                 WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON,
-                 WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
+            WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON,
+            WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
         {
             string postStr = null;
             switch (inputDataType)
@@ -235,7 +223,9 @@ namespace Magicodes.WeChat.SDK.Helper
                     return JsonConvert.DeserializeObject<T>(result);
             }
         }
-        public T HttpPost<T>(string url, string fileName, Stream fileStream, out string result, WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
+
+        public T HttpPost<T>(string url, string fileName, Stream fileStream, out string result,
+            WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
         {
             var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
             var boundarybytes = Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
@@ -252,7 +242,7 @@ namespace Magicodes.WeChat.SDK.Helper
             using (var requestStream = request.GetRequestStream())
             {
                 var headerTemplate =
-                   "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                    "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 var buffer = new byte[4096];
                 var bytesRead = 0;
                 requestStream.Write(boundarybytes, 0, boundarybytes.Length);
@@ -264,7 +254,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
                 requestStream.Write(endbytes, 0, endbytes.Length);
             }
-            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse) request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -329,7 +319,7 @@ namespace Magicodes.WeChat.SDK.Helper
         public string HttpPost(string url, Dictionary<string, string> postdata)
         {
             string postDataStr = null;
-            if ((postdata != null) && (postdata.Count > 0))
+            if (postdata != null && postdata.Count > 0)
                 postDataStr = string.Join("&", postdata.Select(it => it.Key + "=" + it.Value));
             return HttpPost(url, postdata);
         }
@@ -342,7 +332,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public string HttpGet(string url, Dictionary<string, string> querydata)
         {
-            if ((querydata != null) && (querydata.Count > 0))
+            if (querydata != null && querydata.Count > 0)
                 url += "?" + string.Join("&", querydata.Select(it => it.Key + "=" + it.Value));
             return HttpGet(url);
         }
@@ -357,7 +347,7 @@ namespace Magicodes.WeChat.SDK.Helper
             var request = CreateWebRequest(url);
             request.Method = "GET";
             // response.Cookies = cookie.GetCookies(response.ResponseUri);
-            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse) request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")))
                 {
@@ -369,14 +359,14 @@ namespace Magicodes.WeChat.SDK.Helper
 
         protected HttpWebRequest CreateWebRequest(string url)
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest) WebRequest.Create(url);
             if (ProxyAddress != null && ProxyAddress != "")
             {
-                WebProxy proxy = new WebProxy();
-                proxy.Address = new Uri(ProxyAddress);//按配置文件创建Proxy 地置
-                if (proxy.Address != null)//如果地址为空，则不需要代理服务器
+                var proxy = new WebProxy();
+                proxy.Address = new Uri(ProxyAddress); //按配置文件创建Proxy 地置
+                if (proxy.Address != null) //如果地址为空，则不需要代理服务器
                 {
-                    proxy.Credentials = new NetworkCredential(ProxyUser, ProxyKey);//从配置封装参数中创建
+                    proxy.Credentials = new NetworkCredential(ProxyUser, ProxyKey); //从配置封装参数中创建
                     request.Proxy = proxy;
                 }
             }
@@ -420,7 +410,7 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public string HttpUploadFile(string url, string file, Dictionary<string, string> postdata, Encoding encoding)
         {
-            return HttpUploadFile(url, new[] { file }, postdata, encoding);
+            return HttpUploadFile(url, new[] {file}, postdata, encoding);
         }
 
         /// <summary>
@@ -495,7 +485,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 stream.Write(endbytes, 0, endbytes.Length);
             }
             //2.WebResponse
-            var response = (HttpWebResponse)request.GetResponse();
+            var response = (HttpWebResponse) request.GetResponse();
             using (var stream = new StreamReader(response.GetResponseStream()))
             {
                 return stream.ReadToEnd();
@@ -516,7 +506,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 var request = CreateWebRequest(url);
                 request.KeepAlive = true;
                 request.Method = "GET";
-                var res = (HttpWebResponse)request.GetResponse();
+                var res = (HttpWebResponse) request.GetResponse();
                 stream = res.GetResponseStream();
                 return stream;
             }

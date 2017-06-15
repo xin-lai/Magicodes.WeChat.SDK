@@ -33,7 +33,7 @@ namespace Magicodes.WeChat.SDK.Apis.User
 
         public override bool IsSuccess()
         {
-            return (UserInfoList != null) && (UserInfoList.Count > 0);
+            return UserInfoList != null && UserInfoList.Count > 0;
         }
 
         /// <summary>
@@ -104,10 +104,9 @@ namespace Magicodes.WeChat.SDK.Apis.User
             /// <summary>
             ///     用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
             /// </summary>
-            public DateTime SubscribeTime
-            {
-                get { return Subscribe_Time > 0 ? Subscribe_Time.ConvertToDateTime() : default(DateTime); }
-            }
+            public DateTime SubscribeTime => Subscribe_Time > 0
+                ? Subscribe_Time.ConvertToDateTime()
+                : default(DateTime);
 
             /// <summary>
             ///     只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：获取用户个人信息（UnionID机制）

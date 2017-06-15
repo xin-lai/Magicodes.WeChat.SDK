@@ -94,13 +94,14 @@ namespace Magicodes.WeChat.SDK.Apis.CustomerService
             var url = GetAccessApiUrl("kfaccount/del", ApiName, CustomerServiceApiRoot, urlParams);
             return Get<ApiResult>(url);
         }
+
         /// <summary>
-        /// 邀请绑定客服帐号
+        ///     邀请绑定客服帐号
         /// </summary>
         /// <param name="kfAccount">客户账号</param>
         /// <param name="InviteWx">被邀请的微信号</param>
         /// <returns></returns>
-        public ApiResult Inviteworker(string kfAccount,string inviteWx)
+        public ApiResult Inviteworker(string kfAccount, string inviteWx)
         {
             var url = GetAccessApiUrl("kfaccount/inviteworker", ApiName, CustomerServiceApiRoot);
             var model = new

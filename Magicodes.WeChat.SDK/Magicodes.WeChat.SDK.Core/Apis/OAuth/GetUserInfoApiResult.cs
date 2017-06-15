@@ -13,9 +13,7 @@
 //  
 // ======================================================================
 
-using System;
 using Magicodes.WeChat.SDK.Apis.User;
-using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.OAuth
@@ -74,7 +72,7 @@ namespace Magicodes.WeChat.SDK.Apis.OAuth
         public string Unionid { get; set; }
 
         /// <summary>
-        /// 用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+        ///     用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
         /// </summary>
         [JsonProperty("privilege")]
         public string[] Privileges { get; set; }

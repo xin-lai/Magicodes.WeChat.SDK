@@ -122,7 +122,9 @@ namespace Magicodes.WeChat.SDK.Apis.CustomMessage
         /// <returns></returns>
         public ApiResult SendByJson(string msgJson)
         {
-            var msgObj = JsonConvert.DeserializeObject<CustomMessageSendApiResultBase>(msgJson, new CustomMessageCustomConverter());
+            var msgObj =
+                JsonConvert.DeserializeObject<CustomMessageSendApiResultBase>(msgJson,
+                    new CustomMessageCustomConverter());
             return Send(msgObj);
         }
     }

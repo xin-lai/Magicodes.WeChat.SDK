@@ -63,7 +63,7 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 
         public override bool IsSuccess()
         {
-            return (ReturnCode == "SUCCESS") && (ResultCode == "SUCCESS");
+            return ReturnCode == "SUCCESS" && ResultCode == "SUCCESS";
         }
     }
 }

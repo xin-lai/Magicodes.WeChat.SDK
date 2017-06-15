@@ -50,10 +50,10 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
             {
                 //获取type属性
                 var type = jObject.Property("type");
-                if ((type != null) && (type.Count > 0))
+                if (type != null && type.Count > 0)
                 {
                     var typeValue = type.Value.ToString();
-                    var menuButtonType = (MenuButtonTypes)Enum.Parse(typeof(MenuButtonTypes), typeValue);
+                    var menuButtonType = (MenuButtonTypes) Enum.Parse(typeof(MenuButtonTypes), typeValue);
 
                     #region 根据类型返回相应菜单类型
 
@@ -96,7 +96,7 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
                     #endregion
                 }
             }
-            
+
             serializer.Populate(jObject.CreateReader(), target);
             return target;
         }
