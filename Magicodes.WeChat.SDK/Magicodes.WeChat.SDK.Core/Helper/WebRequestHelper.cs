@@ -224,9 +224,9 @@ namespace Magicodes.WeChat.SDK.Helper
             }
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
-            WeChatHelper.LoggerAction("api", string.Format("Pre POST Url:{0},Data:{1}", url, postStr));
+            WeChatHelper.LoggerAction?.Invoke("api", string.Format("Pre POST Url:{0},Data:{1}", url, postStr));
             result = HttpPost(url, postStr);
-            WeChatHelper.LoggerAction("api", string.Format("POST Url:{0},result:{1}", url, result));
+            WeChatHelper.LoggerAction?.Invoke("api", string.Format("POST Url:{0},result:{1}", url, result));
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
@@ -308,9 +308,9 @@ namespace Magicodes.WeChat.SDK.Helper
             }
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
-            WeChatHelper.LoggerAction("api", "postStrs:" + postStr);
+            WeChatHelper.LoggerAction?.Invoke("api", "postStrs:" + postStr);
             result = HttpPost(url, postStr, cer);
-            WeChatHelper.LoggerAction("api", "result:" + result);
+            WeChatHelper.LoggerAction?.Invoke("api", "result:" + result);
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:

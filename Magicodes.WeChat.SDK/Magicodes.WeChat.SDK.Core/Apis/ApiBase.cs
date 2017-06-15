@@ -86,10 +86,10 @@ namespace Magicodes.WeChat.SDK.Apis
         /// <returns>JSON字符串</returns>
         private string Get(string url)
         {
-            WeChatHelper.LoggerAction("api", string.Format("pre Get{1}url:{0}", url, Environment.NewLine));
+            WeChatHelper.LoggerAction?.Invoke("api", string.Format("pre Get{1}url:{0}", url, Environment.NewLine));
             var wr = new WeChatApiWebRequestHelper();
             var result = wr.HttpGet(url);
-            WeChatHelper.LoggerAction("api", string.Format("Get success {2}url:{0}{2}result:{1}", url, result,
+            WeChatHelper.LoggerAction?.Invoke("api", string.Format("Get success {2}url:{0}{2}result:{1}", url, result,
                 Environment.NewLine));
             return result;
         }
@@ -141,7 +141,7 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             var wr = new WeChatApiWebRequestHelper();
 
-            WeChatHelper.LoggerAction("api", string.Format("Pre POST Url:{0}；JSON：{1}；", url, jsonData));
+            WeChatHelper.LoggerAction?.Invoke("api", string.Format("Pre POST Url:{0}；JSON：{1}；", url, jsonData));
             var result = wr.HttpPost(url, jsonData);
             var obj = JsonConvert.DeserializeObject<T>(result);
             if (obj != null)

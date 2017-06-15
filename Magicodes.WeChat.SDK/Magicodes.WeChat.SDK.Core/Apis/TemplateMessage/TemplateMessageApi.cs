@@ -127,7 +127,8 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
             dataSb.Append("}");
             var dataStr = dataSb.ToString();
             var list = new List<MessagesTemplateLogFuncModel>();
-            Logger.Log(LoggerLevels.Debug, "准备发送模板消息:" + model.ReceiverIds);
+           
+            WeChatHelper.LoggerAction?.Invoke(nameof(TemplateMessageApi), "准备发送模板消息:" + model.ReceiverIds);
             var receiverIds = model.ReceiverIds.Split(';');
             //去重
             receiverIds = receiverIds.ToList().Distinct().ToArray();
@@ -135,7 +136,7 @@ namespace Magicodes.WeChat.SDK.Apis.TemplateMessage
             {
                 if (string.IsNullOrWhiteSpace(receiverId))
                 {
-                    Logger.Log(LoggerLevels.Warn, "OpenId不能为空！Data：" + dataStr);
+                    WeChatHelper.LoggerAction?.Invoke(nameof(TemplateMessageApi), "OpenId不能为空！Data：" + dataStr);
                     continue;
                 }
                 var data = string.Format(dataTpl, receiverId, model.MessagesTemplateNo, model.Url, dataStr);

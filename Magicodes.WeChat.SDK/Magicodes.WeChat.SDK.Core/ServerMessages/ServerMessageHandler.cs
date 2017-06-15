@@ -184,13 +184,13 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 else
                 {
                     WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler),
-                        string.Format("序列化类型【{0}】失败", type.FullName));
+                        $"序列化类型【{type.FullName}】失败");
                 }
             }
             else
             {
                 WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler),
-                    string.Format("没有找到类型为【{0}】的处理函数", type.FullName));
+                    $"没有找到类型为【{type.FullName}】的处理函数");
             }
             return await Task.FromResult(new Tuple<ToMessageBase, IFromMessage>(toMessage, fromMessage));
         }
