@@ -28,6 +28,9 @@ using Magicodes.WeChat.SDK.Apis.Ticket;
 using Magicodes.WeChat.SDK.Apis.Token;
 using Magicodes.WeChat.SDK.Apis.User;
 using Magicodes.WeChat.SDK.Apis.UserGroup;
+using Magicodes.WeChat.SDK.Pays.EnterprisePay;
+using Magicodes.WeChat.SDK.Pays.RedPackApi;
+using Magicodes.WeChat.SDK.Pays.TenPayV3;
 
 namespace Magicodes.WeChat.SDK
 {
@@ -113,6 +116,25 @@ namespace Magicodes.WeChat.SDK
         ///     用户组相关操作API
         /// </summary>
         public UserGroupApi UserGroupApi = new UserGroupApi();
+
+        #region 支付相关接口
+        /// <summary>
+        ///     微信支付接口
+        /// </summary>
+        public TenPayV3 TenPayV3Api = new TenPayV3();
+
+        /// <summary>
+        ///     微信企业付款
+        /// </summary>
+        public EnterprisePayApi EnterprisePayApi = new EnterprisePayApi();
+
+        /// <summary>
+        ///     微信红包
+        /// </summary>
+        public RedPackApi RedPackApi = new RedPackApi(); 
+        #endregion
+
+
 
         public static WeChatApisContext Current => Lazy.Value;
     }
