@@ -261,8 +261,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             Action<NotifyResult> failAction, string successMsg = "OK", string errorMsg = "FAIL", bool isSync = true)
         {
             var result = Notify(inputStream);
-            var request = new NotifyRequest();
-            request.ReturnCode = "FAIL";
+            var request = new NotifyRequest {ReturnCode = "FAIL"};
             if (result.IsSuccess())
             {
                 if (isSync)

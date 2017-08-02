@@ -13,6 +13,7 @@
 //  
 // ======================================================================
 
+using System;
 using System.Net;
 
 namespace Magicodes.WeChat.SDK.Apis.QRCode
@@ -85,26 +86,43 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
 
         /// <summary>
         ///     创建字符串二维码
-        ///     永久二维码，是无过期时间的，但数量较少（目前为最多10万个）。永久二维码主要用于适用于帐号绑定、用户来源统计等场景。
+        ///     临时二维码，是有过期时间的，最长可以设置为在二维码生成后的30天（即2592000秒）后过期，但能够生成较多数量。临时二维码主要用于帐号绑定等不要求二维码永久保存的业务场景
+        ///     永久二维码（expireSeconds=0）：是无过期时间的，但数量较少（目前为最多10万个）。永久二维码主要用于适用于帐号绑定、用户来源统计等场景。
         /// </summary>
         /// <param name="value">值（长度为1~64）</param>
+        /// <param name="expireSeconds">过期时间，默认为30天（为0表示永久）</param>
         /// <returns></returns>
-        public QRCodeCreateApiResult CreateByStringValue(string value)
+        public QRCodeCreateApiResult CreateByStringValue(string value, int expireSeconds = 2592000)
         {
             if (value.Length > 64 || value.Length < 1)
                 throw new ApiArgumentException("值长度只支持1~64", "value");
             //获取api请求url
             var url = GetAccessApiUrl("create", ApiName);
-
-            var model = new
+            if (expireSeconds <= 0)
             {
-                action_name = "QR_LIMIT_STR_SCENE",
-                action_info = new
+                var model = new
                 {
-                    scene = new {scene_str = value}
-                }
-            };
-            return Post<QRCodeCreateApiResult>(url, model);
+                    action_name = "QR_LIMIT_STR_SCENE",
+                    action_info = new
+                    {
+                        scene = new { scene_str = value }
+                    }
+                };
+                return Post<QRCodeCreateApiResult>(url, model);
+            }
+            else
+            {
+                var model = new
+                {
+                    expire_seconds = expireSeconds,
+                    action_name = "QR_STR_SCENE",
+                    action_info = new
+                    {
+                        scene = new { scene_str = value }
+                    }
+                };
+                return Post<QRCodeCreateApiResult>(url, model);
+            }
         }
     }
 }
