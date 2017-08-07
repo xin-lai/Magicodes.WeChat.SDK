@@ -1,8 +1,11 @@
-﻿namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
+﻿using System.Xml.Serialization;
+
+namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
 {
     /// <summary>
     ///     关注事件
     /// </summary>
+    [XmlRoot("xml")]
     public class FromSubscribeEvent : FromEventBase
     {
         public FromSubscribeEvent()
@@ -35,6 +38,7 @@
     /// <summary>
     ///     扫描带参数二维码事件
     /// </summary>
+    [XmlRoot("xml")]
     public class FromScanEvent : FromEventBase
     {
         public FromScanEvent()

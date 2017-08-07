@@ -37,7 +37,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         public bool CheckSignature(string signature, string timestamp, string nonce)
         {
             var token = WeChatConfigManager.Current.GetConfig(Key).Token;
-            var arr = new[] {token, timestamp, nonce}.OrderBy(z => z).ToArray();
+            var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
             var sha1 = SHA1.Create();
             var sha1Arr = sha1.ComputeHash(Encoding.UTF8.GetBytes(arrString));
@@ -70,11 +70,14 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
             if (msgType == "event")
             {
                 var fromEventTypeElement = xmlElement.Element("Event");
+
                 if (string.IsNullOrWhiteSpace(fromEventTypeElement?.Value)) throw new ApiArgumentException("事件类型不能为空");
                 var fromEvent = fromEventTypeElement.Value.Trim().ToLower();
                 //记录日志
                 WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), "Event " + fromEvent);
-                var fromEventType = (FromEventTypes) Enum.Parse(typeof(FromEventTypes), fromEvent);
+                //处理微信服务器事件Key大小写不一致的问题
+                xmlStr = xmlStr.Replace("<Event><![CDATA[" + fromEventTypeElement.Value + "]]></Event>", "<Event><![CDATA[" + fromEvent + "]]></Event>");
+                var fromEventType = (FromEventTypes)Enum.Parse(typeof(FromEventTypes), fromEvent);
                 switch (fromEventType)
                 {
                     case FromEventTypes.subscribe:
@@ -104,7 +107,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 //记录日志
                 WeChatHelper.LoggerAction?.Invoke(nameof(ServerMessageHandler), msgType);
                 //处理会话消息
-                var fromMessageType = (FromMessageTypes) Enum.Parse(typeof(FromMessageTypes), msgType);
+                var fromMessageType = (FromMessageTypes)Enum.Parse(typeof(FromMessageTypes), msgType);
                 switch (fromMessageType)
                 {
                     case FromMessageTypes.text:

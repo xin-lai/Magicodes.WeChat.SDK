@@ -90,13 +90,14 @@ namespace Magicodes.WeChat.SDK.Helper
         {
             if (!input.StartsWith("<?xml"))
                 input = @"<?xml version=""1.0"" encoding=""gb2312""?>" + input;
-            using (var mem = new MemoryStream(Encoding.Default.GetBytes(input)))
+            using (var memoryStream = new MemoryStream(Encoding.Default.GetBytes(input)))
             {
-                using (var reader = XmlReader.Create(mem))
-                {
-                    var formatter = new XmlSerializer(typeof(T));
-                    return formatter.Deserialize(reader) as T;
-                }
+                return DeserializeObject<T>(memoryStream);
+                //using (var reader = XmlReader.Create(mem))
+                //{
+                //    var formatter = new XmlSerializer(typeof(T));
+                //    return formatter.Deserialize(reader) as T;
+                //}
             }
         }
     }
