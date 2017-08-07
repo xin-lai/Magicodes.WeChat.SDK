@@ -63,7 +63,7 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                     action_name = "QR_LIMIT_SCENE",
                     action_info = new
                     {
-                        scene = new {scene_id = value}
+                        scene = new { scene_id = value }
                     }
                 };
                 result = Post<QRCodeCreateApiResult>(url, model);
@@ -76,7 +76,7 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
                     action_name = "QR_SCENE",
                     action_info = new
                     {
-                        scene = new {scene_id = value}
+                        scene = new { scene_id = value }
                     }
                 };
                 result = Post<QRCodeCreateApiResult>(url, model);
@@ -95,7 +95,7 @@ namespace Magicodes.WeChat.SDK.Apis.QRCode
         public QRCodeCreateApiResult CreateByStringValue(string value, int expireSeconds = 2592000)
         {
             if (value.Length > 64 || value.Length < 1)
-                throw new ApiArgumentException("值长度只支持1~64", "value");
+                throw new ApiArgumentException("值长度只支持1~64:" + value, "value");
             //获取api请求url
             var url = GetAccessApiUrl("create", ApiName);
             if (expireSeconds <= 0)
