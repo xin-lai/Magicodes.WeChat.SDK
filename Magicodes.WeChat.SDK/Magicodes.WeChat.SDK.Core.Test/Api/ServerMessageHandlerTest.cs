@@ -58,6 +58,45 @@ namespace Magicodes.WeChat.SDK.Core.Test.Api
         }
 
         [TestMethod]
+        public void ServerMessageHandlerTest_FromSubscribeEvent_HandleMessageTest()
+        {
+            var serverMessageHandler = new ServerMessageHandler(1)
+            {
+                HandleFuncs = new Dictionary<Type, Func<IFromMessage, ToMessageBase>>()
+                {
+                    {
+                        typeof(FromSubscribeEvent),
+                        message => new ToTextMessage()
+                        {
+                            Content = "Test",
+                        }
+                    }
+                }
+            };
+            var result = serverMessageHandler.HandleMessage(
+                 @"<xml><ToUserName><![CDATA[gh_44ab71bac0b5]]></ToUserName>
+<FromUserName><![CDATA[owQ_nw9_ZA8uGdqWYp1ckdFQ6aeo]]></FromUserName>
+<CreateTime>1504084003</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>").Result;
+            if (result.CreateDateTime == default(DateTime))
+            {
+                Assert.Fail("时间格式错误");
+            }
+            
+            var xml = result.ToXml();
+            if (string.IsNullOrWhiteSpace(xml))
+            {
+                Assert.Fail("序列化XML格式错误！");
+            }
+            //Assert.AreEqual(
+            //    "<xml><ToUserName>fromUser</ToUserName><FromUserName>toUser</FromUserName><CreateTime>1494409853</CreateTime><MsgType>text</MsgType><Content>Test</Content></xml",
+            //    xml);
+        }
+
+        [TestMethod]
         public void ServerMessageHandlerTest_ToMessageXmlTest()
         {
             var toMsg = new ToNewsMessage()

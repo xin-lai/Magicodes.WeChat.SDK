@@ -23,6 +23,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
         /// <summary>
         ///     事件字典值
         /// </summary>
+        [XmlIgnore]
         public Dictionary<string, string> Data
         {
             get
@@ -44,6 +45,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
     /// <summary>
     ///     取消关注事件
     /// </summary>
+    [XmlRoot("xml")]
     public class FromUnsubscribeEvent : FromEventBase
     {
         public FromUnsubscribeEvent()
@@ -76,6 +78,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
         /// <summary>
         ///     事件字典值
         /// </summary>
+        [XmlIgnore]
         public Dictionary<string, string> Data
         {
             get
@@ -92,6 +95,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
     /// <summary>
     ///     上报地理位置事件
     /// </summary>
+    [XmlRoot("xml")]
     public class FromLocationEvent : FromEventBase
     {
         public FromLocationEvent()
@@ -119,6 +123,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
     ///     点击菜单拉取消息时的事件推送
     ///     用户点击自定义菜单后，微信会把点击事件推送给开发者，请注意，点击菜单弹出子菜单，不会产生上报。
     /// </summary>
+    [XmlRoot("xml")]
     public class FromClickEvent : FromEventBase
     {
         public FromClickEvent()
@@ -135,6 +140,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
     /// <summary>
     ///     点击菜单跳转链接时的事件推送
     /// </summary>
+    [XmlRoot("xml")]
     public class FromViewEvent : FromEventBase
     {
         public FromViewEvent()
