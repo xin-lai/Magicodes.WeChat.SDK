@@ -98,6 +98,9 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                     case FromEventTypes.view:
                         resulTuple = await ExcuteHandleFunc<FromViewEvent>(xmlStr);
                         break;
+                    case FromEventTypes.templatesendjobfinish:
+                        resulTuple = await ExcuteHandleFunc<FromTemplateSendJobFinishEvent>(xmlStr);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

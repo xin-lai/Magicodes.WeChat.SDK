@@ -41,6 +41,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
         ///     点击菜单跳转链接时的事件推送
         /// </summary>
         [XmlEnum(Name = "view")]
-        view = 5
+        view = 5,
+
+        /// <summary>
+        /// 模板消息发送完成
+        /// </summary>
+        [XmlEnum(Name = "templatesendjobfinish")]
+        templatesendjobfinish =6
     }
 }

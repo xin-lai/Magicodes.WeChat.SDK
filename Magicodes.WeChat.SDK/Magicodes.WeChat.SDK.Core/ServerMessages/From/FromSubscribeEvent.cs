@@ -153,4 +153,26 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages.From
         /// </summary>
         public string EventKey { get; set; }
     }
+
+    /// <summary>
+    ///     模板消息推送成功的事件推送
+    /// </summary>
+    [XmlRoot("xml")]
+    public class FromTemplateSendJobFinishEvent : FromEventBase
+    {
+        public FromTemplateSendJobFinishEvent()
+        {
+            Event = FromEventTypes.templatesendjobfinish;
+        }
+
+        /// <summary>
+        ///     消息id
+        /// </summary>
+        public string MsgID { get; set; }
+
+        /// <summary>
+        ///     发送状态为成功
+        /// </summary>
+        public string Status { get; set; }
+    }
 }
