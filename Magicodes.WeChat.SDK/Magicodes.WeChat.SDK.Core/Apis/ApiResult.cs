@@ -29,13 +29,13 @@ namespace Magicodes.WeChat.SDK.Apis
         public ReturnCodes ReturnCode { get; set; }
 
         /// <summary>
-        ///     消息
+        ///     错误消息
         /// </summary>
         [JsonProperty("errmsg")]
         public string Message { get; set; }
 
         /// <summary>
-        ///     详细内容
+        ///     请求详情（一般请忽略）
         /// </summary>
         public string DetailResult { get; set; }
 

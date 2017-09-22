@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net461\.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net461\Magicodes.WeChat.SDK.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

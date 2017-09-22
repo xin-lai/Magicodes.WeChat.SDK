@@ -81,12 +81,6 @@
     <Compile Include="WeChatConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.csproj">
-      <Project>{1f6e23a6-cd4a-4181-8f91-9bb4a446d52e}</Project>
-      <Name>Magicodes.WeChat.SDK</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
