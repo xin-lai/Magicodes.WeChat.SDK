@@ -118,7 +118,10 @@ namespace Magicodes.WeChat.SDK.Apis
         {
             if (result.ReturnCode == ReturnCodes.access_token超时 ||
                 result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效)
+            {
+                WeChatHelper.LoggerAction?.Invoke("RefreshAccessTokenWhenTimeOut", ReturnCodes.获取access_token时AppSecret错误或者access_token无效.ToString() + "  Key:" + Key);
                 WeChatConfigManager.Current.RefreshAccessToken(Key);
+            }
         }
 
         /// <summary>

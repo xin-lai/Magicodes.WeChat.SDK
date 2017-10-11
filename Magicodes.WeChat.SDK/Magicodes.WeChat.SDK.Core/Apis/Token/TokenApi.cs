@@ -41,14 +41,7 @@ namespace Magicodes.WeChat.SDK.Apis.Token
                     }) as TokenApiResult;
                 return accesstoken;
             }
-            var url = string.Format("{0}/{1}?grant_type=client_credential&appid={2}&secret={3}", ApiRoot, ApiName,
-                AppConfig.AppId, AppConfig.AppSecret);
-            var result = Get<TokenApiResult>(url);
-            if (!result.IsSuccess())
-                throw new ApiArgumentException("获取接口访问凭据失败：" + result.GetFriendlyMessage() + "（" + result.DetailResult +
-                                               "）");
-            result.ExpiresTime = DateTime.Now.AddSeconds(result.Expires - 30);
-            return result;
+            return GetByCustomConfig(AppConfig);
         }
 
         /// <summary>
@@ -74,6 +67,24 @@ namespace Magicodes.WeChat.SDK.Apis.Token
                 (tKey, existingVal) => token);
             return token;
         }
+
+        /// <summary>
+        /// 根据自定义配置获取Token
+        /// </summary>
+        /// <param name="appConfig"></param>
+        /// <returns></returns>
+        public TokenApiResult GetByCustomConfig(IWeChatConfig appConfig)
+        {
+            var url = string.Format("{0}/{1}?grant_type=client_credential&appid={2}&secret={3}", ApiRoot, ApiName,
+                appConfig.AppId, appConfig.AppSecret);
+            var result = Get<TokenApiResult>(url);
+            if (!result.IsSuccess())
+                throw new ApiArgumentException("获取接口访问凭据失败：" + result.GetFriendlyMessage() + "（" + result.DetailResult +
+                                               "）");
+            result.ExpiresTime = DateTime.Now.AddSeconds(result.Expires - 30);
+            return result;
+        }
+
 
         public void Update()
         {
