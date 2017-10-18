@@ -43,12 +43,13 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             model.NonceStr = PayUtil.GetNoncestr();
             if (model.NotifyUrl == null)
                 model.NotifyUrl = PayConfig.Notify;
-            var dictionary = PayUtil.GetAuthors(model);
-            model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
             if (sceneInfo != null)
             {
                 model.SceneInfo = JsonConvert.SerializeObject(sceneInfo);
             }
+            var dictionary = PayUtil.GetAuthors(model);
+            model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+            
             result = PostXML<UnifiedorderResult>(url, model);
             return result;
         }

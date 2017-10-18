@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Magicodes.WeChat.SDK.Core.Pays.TenPayV3
         /// H5支付信息
         /// </summary>
         [XmlElement("h5_info")]
+        [JsonProperty("h5_info")]
         public H5Info H5Info { get; set; }
     }
 }

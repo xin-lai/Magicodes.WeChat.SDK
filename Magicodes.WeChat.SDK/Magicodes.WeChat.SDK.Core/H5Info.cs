@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Xml.Serialization;
 
 namespace Magicodes.WeChat.SDK.Core.Pays.TenPayV3
 {
@@ -12,6 +13,7 @@ namespace Magicodes.WeChat.SDK.Core.Pays.TenPayV3
         /// 场景类型
         /// </summary>
         [XmlElement("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
     }
 }

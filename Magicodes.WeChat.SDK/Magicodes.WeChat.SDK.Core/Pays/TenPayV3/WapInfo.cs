@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,14 @@ namespace Magicodes.WeChat.SDK.Core.Pays.TenPayV3
         /// WAP网站URL地址
         /// </summary>
         [XmlElement("wap_url")]
+        [JsonProperty("wap_url")]
         public string WapUrl { get; set; }
 
         /// <summary>
         /// WAP 网站名
         /// </summary>
         [XmlElement("wap_name")]
+        [JsonProperty("wap_name")]
         public string WapName { get; set; }
     }
 }
