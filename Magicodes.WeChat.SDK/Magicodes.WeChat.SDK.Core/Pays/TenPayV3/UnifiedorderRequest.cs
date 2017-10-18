@@ -13,6 +13,7 @@
 //  
 // ======================================================================
 
+using Magicodes.WeChat.SDK.Core.Pays.TenPayV3;
 using System;
 using System.Xml.Serialization;
 
@@ -135,5 +136,11 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// </summary>
         [XmlElement("limit_pay")]
         public string LimitPay { get; set; }
+
+        /// <summary>
+        /// 支付的场景信息
+        /// </summary>
+        [XmlElement("scene_info")]
+        public SceneInfo SceneInfo { get; set; }
     }
 }

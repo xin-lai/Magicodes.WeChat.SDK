@@ -39,5 +39,11 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// </summary>
         [XmlElement("code_url")]
         public string CodeUrl { get; set; }
+
+        /// <summary>
+        /// mweb_url为拉起微信支付收银台的中间页面，可通过访问该url来拉起微信客户端，完成支付,mweb_url的有效期为5分钟。
+        /// </summary>
+        [XmlElement("mweb_url")]
+        public string MWebUrl { get; set; }
     }
 }
