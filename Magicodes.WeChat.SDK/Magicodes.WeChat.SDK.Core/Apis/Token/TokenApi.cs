@@ -37,7 +37,7 @@ namespace Magicodes.WeChat.SDK.Apis.Token
                     WeChatFrameworkFuncTypes.APIFunc_GetAccessToken, new WeChatApiCallbackFuncArgInfo
                     {
                         Api = this,
-                        Data = Key
+                        Data = AppConfig
                     }) as TokenApiResult;
                 return accesstoken;
             }
