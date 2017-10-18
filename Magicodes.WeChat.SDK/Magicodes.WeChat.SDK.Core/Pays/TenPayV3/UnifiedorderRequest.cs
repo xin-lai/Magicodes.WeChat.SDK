@@ -141,6 +141,6 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// 支付的场景信息
         /// </summary>
         [XmlElement("scene_info")]
-        public SceneInfo SceneInfo { get; set; }
+        public string SceneInfo { get; set; }
     }
 }

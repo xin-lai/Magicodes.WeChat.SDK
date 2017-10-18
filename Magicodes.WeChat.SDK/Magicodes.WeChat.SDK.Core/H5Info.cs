@@ -5,6 +5,7 @@ namespace Magicodes.WeChat.SDK.Core.Pays.TenPayV3
     /// <summary>
     /// H5支付信息
     /// </summary>
+    [XmlInclude(typeof(WapInfo))]
     public abstract class H5Info
     {
         /// <summary>

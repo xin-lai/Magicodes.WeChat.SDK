@@ -23,6 +23,8 @@ using Magicodes.WeChat.SDK.Pays.MicroPay;
 using Magicodes.WeChat.SDK.Pays.OrderQuery;
 using Magicodes.WeChat.SDK.Pays.Refund;
 using Magicodes.WeChat.SDK.Pays.Reverse;
+using Magicodes.WeChat.SDK.Core.Pays.TenPayV3;
+using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
@@ -31,7 +33,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
     /// </summary>
     public class TenPayV3 : PayBase
     {
-        public UnifiedorderResult Unifiedorder(UnifiedorderRequest model)
+        public UnifiedorderResult Unifiedorder(UnifiedorderRequest model, SceneInfo sceneInfo = null)
         {
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             UnifiedorderResult result = null;
@@ -43,6 +45,10 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
                 model.NotifyUrl = PayConfig.Notify;
             var dictionary = PayUtil.GetAuthors(model);
             model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
+            if (sceneInfo != null)
+            {
+                model.SceneInfo = JsonConvert.SerializeObject(sceneInfo);
+            }
             result = PostXML<UnifiedorderResult>(url, model);
             return result;
         }
@@ -261,7 +267,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             Action<NotifyResult> failAction, string successMsg = "OK", string errorMsg = "FAIL", bool isSync = true)
         {
             var result = Notify(inputStream);
-            var request = new NotifyRequest {ReturnCode = "FAIL"};
+            var request = new NotifyRequest { ReturnCode = "FAIL" };
             if (result.IsSuccess())
             {
                 if (isSync)
