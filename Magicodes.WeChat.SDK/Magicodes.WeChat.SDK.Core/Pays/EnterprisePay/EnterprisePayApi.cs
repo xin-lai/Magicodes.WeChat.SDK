@@ -36,8 +36,9 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
                 model.MchId = PayConfig.MchId;
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = PayConfig.PayCertPath;
-                //私钥（在安装证书时设置）
-                var password = PayConfig.CertPassword;
+
+                //商户证书调用或安装都需要使用到密码，该密码的值为微信商户号（mch_id）
+                var password = PayConfig.MchId;
 
                 //调用证书
                 var cer = new X509Certificate2(cert, password,

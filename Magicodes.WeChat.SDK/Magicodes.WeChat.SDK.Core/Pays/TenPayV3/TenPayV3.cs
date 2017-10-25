@@ -126,23 +126,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             }
         }
 
-        //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
-        ///// <summary>
-        ///// 退款申请接口
-        ///// </summary>
-        ///// <param name="data"></param>
-        ///// <returns></returns>
-        //public static string Refund(string data)
-        //{
-        //    var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-
-        //    var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-        //    MemoryStream ms = new MemoryStream();
-        //    ms.Write(formDataBytes, 0, formDataBytes.Length);
-        //    ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
-        //}
-
+        
         /// <summary>
         ///     退款查询接口
         /// </summary>
@@ -308,8 +292,9 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 
                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
                 var cert = PayConfig.PayCertPath;
-                //私钥（在安装证书时设置）
-                var password = PayConfig.CertPassword;
+
+                //商户证书调用或安装都需要使用到密码，该密码的值为微信商户号（mch_id）
+                var password = PayConfig.MchId;
 
                 //调用证书
                 var cer = new X509Certificate2(cert, password,
