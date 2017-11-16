@@ -23,6 +23,11 @@ namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
     /// </summary>
     public class EnterprisePayApi : PayBase
     {
+        /// <summary>
+        /// 企业转账
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public EnterpriseResult EnterprisePayment(EnterpriseRequest model)
         {
             //发红包接口地址
