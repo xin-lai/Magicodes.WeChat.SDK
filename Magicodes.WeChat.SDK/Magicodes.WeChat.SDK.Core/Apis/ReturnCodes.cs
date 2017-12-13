@@ -182,6 +182,7 @@ namespace Magicodes.WeChat.SDK.Apis
         /// <summary>
         /// 网页授权凭证只能使用一次
         /// </summary>
-        OAUTH授权码已被使用= 40163
+        OAUTH授权码已被使用= 40163,
+        当前IP不在白名单内= 40164
     }
 }
