@@ -14,6 +14,7 @@
 // ======================================================================
 
 using System.Collections.Generic;
+using System.IO;
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
@@ -88,6 +89,14 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             return Post<NewsPostApiResult>(url, news, inputStr => inputStr);
         }
 
+        /// <summary>
+        /// 上传永久视频
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="title"></param>
+        /// <param name="introduction"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public string UploadForeverVideo(string file, string title, string introduction, int timeOut = 40000)
         {
             var url = GetAccessApiUrl("add_material", ApiName);
@@ -98,6 +107,20 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             };
             var result = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
             return result;
+        }
+
+        /// <summary>
+        /// 上传图文消息内的图片获取URL
+        /// 本接口所上传的图片不占用公众号的素材库中图片数量的5000个的限制。图片仅支持jpg/png格式，大小必须在1MB以下。
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileStream">文件流</param>
+        /// <returns></returns>
+        public UploadImageApiResult UploadImage(string fileName, Stream fileStream)
+        {
+            //获取api请求url
+            var url = GetAccessApiUrl("uploadimg", "media");
+            return Post<UploadImageApiResult>(url, fileName, fileStream);
         }
     }
 }

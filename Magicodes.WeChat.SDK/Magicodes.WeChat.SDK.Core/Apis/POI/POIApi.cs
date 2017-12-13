@@ -13,6 +13,7 @@
 //  
 // ======================================================================
 
+using Magicodes.WeChat.SDK.Apis.Material;
 using System.IO;
 
 namespace Magicodes.WeChat.SDK.Apis.POI
