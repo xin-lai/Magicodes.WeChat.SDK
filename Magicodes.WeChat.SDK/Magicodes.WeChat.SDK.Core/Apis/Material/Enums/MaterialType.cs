@@ -22,6 +22,11 @@ namespace Magicodes.WeChat.SDK.Apis.Material.Enums
         /// <summary>
         ///     图文
         /// </summary>
-        [Display(Name = "图文")] news = 4
+        [Display(Name = "图文")] news = 4,
+
+        /// <summary>
+        ///     缩略图
+        /// </summary>
+        [Display(Name = "缩略图")] thumb = 4
     }
 }

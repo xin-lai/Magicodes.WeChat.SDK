@@ -11,7 +11,7 @@
     <Company>湖南心莱信息科技有限公司</Company>
     <Authors>李文强</Authors>
     <AssemblyVersion>1.4.5.0</AssemblyVersion>
-    <Version>1.5.8</Version>
+    <Version>1.5.9</Version>
     <FileVersion>1.4.5.0</FileVersion>
     <PackageTags>Magicodes.WeChat.SDK.Core</PackageTags>
     <RepositoryType>git</RepositoryType>
@@ -31,6 +31,10 @@
     <Reference Include="System.Net.Http">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Apis\Material\Input\" />
   </ItemGroup>
 
 </Project>

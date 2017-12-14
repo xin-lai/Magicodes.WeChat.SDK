@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
-    public class NewsPostModel
+    public class NewsPostInput
     {
         /// <summary>
         ///     文章列表

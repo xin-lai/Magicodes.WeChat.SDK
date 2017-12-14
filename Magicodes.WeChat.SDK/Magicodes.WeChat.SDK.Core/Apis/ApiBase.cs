@@ -114,7 +114,12 @@ namespace Magicodes.WeChat.SDK.Apis
             return result;
         }
 
-        private void RefreshAccessTokenWhenTimeOut<T>(T result) where T : ApiResult
+        /// <summary>
+        /// Token超时时自动刷新Token
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="result"></param>
+        protected void RefreshAccessTokenWhenTimeOut<T>(T result) where T : ApiResult
         {
             if (result.ReturnCode == ReturnCodes.access_token超时 ||
                 result.ReturnCode == ReturnCodes.获取access_token时AppSecret错误或者access_token无效)

@@ -16,6 +16,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
+using Magicodes.WeChat.SDK.Core.Apis.Material;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
 
@@ -82,7 +83,12 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
 
-        public NewsPostApiResult Post(NewsPostModel news)
+        /// <summary>
+        /// 新增永久图文素材
+        /// </summary>
+        /// <param name="news"></param>
+        /// <returns></returns>
+        public NewsPostApiResult AddNews(NewsPostInput news)
         {
             //获取api请求url
             var url = GetAccessApiUrl("add_news", ApiName);
@@ -90,22 +96,42 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
         /// <summary>
-        /// 上传永久视频
+        /// 上传永久素材（图片（image）、语音（voice）、视频（video）和缩略图（thumb））
         /// </summary>
         /// <param name="file"></param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
+        /// <param name="materialType"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public string UploadForeverVideo(string file, string title, string introduction, int timeOut = 40000)
+        public UploadForeverMaterialApiResult UploadForeverMaterial(string file, string title, string introduction, MaterialType materialType, int timeOut = 40000)
         {
-            var url = GetAccessApiUrl("add_material", ApiName);
-            var fileDictionary = new Dictionary<string, string>
+            var url = GetAccessApiUrl("add_material", ApiName, urlParams: new Dictionary<string, string>() {
+                {"type",materialType.ToString() }
+            });
+            Dictionary<string, string> fileDictionary = null;
+            if (materialType == MaterialType.video)
             {
-                ["media"] = file,
-                ["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction)
-            };
-            var result = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
+                fileDictionary = new Dictionary<string, string>
+                {
+                    ["media"] = file,
+                    ["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction)
+                };
+            }
+            else
+            {
+                fileDictionary = new Dictionary<string, string>
+                {
+                    ["media"] = file,
+                    ["introduction"] = introduction,
+                    ["title"] = title,
+                };
+            }
+            var resultStr = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
+            var result = JsonConvert.DeserializeObject<UploadForeverMaterialApiResult>(resultStr);
+            if (result != null)
+                result.DetailResult = resultStr;
+            RefreshAccessTokenWhenTimeOut(result);
             return result;
         }
 
