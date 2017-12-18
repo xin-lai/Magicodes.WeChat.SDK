@@ -13,6 +13,7 @@
 //  
 // ======================================================================
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -177,7 +178,7 @@ namespace Magicodes.WeChat.SDK.Helper
         public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null,
             int timeOut = 30000)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -185,7 +186,7 @@ namespace Magicodes.WeChat.SDK.Helper
             if (cookieContainer != null)
                 request.CookieContainer = cookieContainer;
 
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -213,6 +214,96 @@ namespace Magicodes.WeChat.SDK.Helper
             return HttpPost(url, cookieContainer, ms, null, null, encoding, timeOut);
         }
 
+        public static HttpWebRequest CreateWebRequest(
+            string url,
+            string contentType = null,
+            string acceptLanguage = null,
+            string accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            string userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36",
+            int timeOut = 30000,
+            CookieContainer cookieContainer = null)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+
+            request.ContentType = contentType;
+            if (cookieContainer != null)
+                request.CookieContainer = cookieContainer;
+            if (string.IsNullOrEmpty(acceptLanguage))
+            {
+                var myWebHeaderCollection = request.Headers;
+                myWebHeaderCollection.Add("Accept-Language", acceptLanguage);
+            }
+            request.Accept = accept;
+            request.UseDefaultCredentials = true;
+            request.UserAgent = userAgent;
+            request.Timeout = timeOut;
+            return request;
+        }
+
+        /// <summary>
+        ///     POST文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="files">文件路径</param>
+        /// <param name="postdata">参数</param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string HttpUploadFile(string url, Dictionary<string, string> postdata, Encoding encoding, params string[] files)
+        {
+            var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            var boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+            var endbytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+
+
+            var request = CreateWebRequest(url);
+            request.ContentType = "multipart/form-data; boundary=" + boundary;
+            request.Method = "POST";
+            request.KeepAlive = true;
+            request.Credentials = CredentialCache.DefaultCredentials;
+
+            using (var stream = request.GetRequestStream())
+            {
+                //1.1 key/value
+                var formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+                if (postdata != null)
+                    foreach (var key in postdata.Keys)
+                    {
+                        stream.Write(boundarybytes, 0, boundarybytes.Length);
+                        var formitem = string.Format(formdataTemplate, key, postdata[key]);
+                        var formitembytes = encoding.GetBytes(formitem);
+                        stream.Write(formitembytes, 0, formitembytes.Length);
+                    }
+
+                //1.2 file
+                var headerTemplate =
+                    "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                var buffer = new byte[4096];
+                var bytesRead = 0;
+                for (var i = 0; i < files.Length; i++)
+                {
+                    stream.Write(boundarybytes, 0, boundarybytes.Length);
+                    var header = string.Format(headerTemplate, "file" + i, Path.GetFileName(files[i]));
+                    var headerbytes = encoding.GetBytes(header);
+                    stream.Write(headerbytes, 0, headerbytes.Length);
+                    using (var fileStream = new FileStream(files[i], FileMode.Open, FileAccess.Read))
+                    {
+                        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                            stream.Write(buffer, 0, bytesRead);
+                    }
+                }
+
+                //1.3 form end
+                stream.Write(endbytes, 0, endbytes.Length);
+            }
+            //2.WebResponse
+            var response = (HttpWebResponse)request.GetResponse();
+            using (var stream = new StreamReader(response.GetResponseStream()))
+            {
+                return stream.ReadToEnd();
+            }
+        }
+
+
         /// <summary>
         ///     使用Post方法获取字符串结果
         /// </summary>
@@ -229,52 +320,107 @@ namespace Magicodes.WeChat.SDK.Helper
             Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
             int timeOut = 30000, bool checkValidationResult = false)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = CreateWebRequest(url, timeOut: timeOut, cookieContainer: cookieContainer);
             request.Method = "POST";
-            request.Timeout = timeOut;
             request.Proxy = _webproxy;
 
             if (checkValidationResult)
                 ServicePointManager.ServerCertificateValidationCallback =
                     CheckValidationResult;
 
-            request.ContentLength = postStream == null ? 0 : postStream.Length;
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.KeepAlive = true;
 
             if (!string.IsNullOrEmpty(refererUrl))
                 request.Referer = refererUrl;
-            request.UserAgent =
-                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
 
-            if (cookieContainer != null)
-                request.CookieContainer = cookieContainer;
+            #region 处理Form表单文件上传
+            var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
+            if (formUploadFile)
+            {
 
+                //通过表单上传文件
+                string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+
+                postStream = postStream ?? new MemoryStream();
+                //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+                string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                string dataFormdataTemplate = "\r\n--" + boundary +
+                                                "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+
+
+                foreach (var file in fileDictionary)
+                {
+                    try
+                    {
+                        var fileName = file.Value;
+                        //准备文件流
+                        using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                        {
+
+                            string formdata = null;
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                formdata = string.Format(dataFormdataTemplate, file.Key, file.Value);
+                            }
+
+                            //统一处理
+                            var formdataBytes = Encoding.UTF8.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
+                            postStream.Write(formdataBytes, 0, formdataBytes.Length);
+
+                            //写入文件
+                            if (fileStream != null)
+                            {
+                                byte[] buffer = new byte[1024];
+                                int bytesRead = 0;
+                                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                                {
+                                    postStream.Write(buffer, 0, bytesRead);
+                                }
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                //结尾
+                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                postStream.Write(footer, 0, footer.Length);
+
+                request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+            }
+            else
+            {
+                request.ContentType = "application/x-www-form-urlencoded";
+            }
+            #endregion
+            request.ContentLength = postStream != null ? postStream.Length : 0;
             #region 输入二进制流
-
             if (postStream != null)
             {
                 postStream.Position = 0;
 
                 //直接写入流
-                var requestStream = request.GetRequestStream();
+                Stream requestStream = request.GetRequestStream();
 
-                var buffer = new byte[1024];
-                var bytesRead = 0;
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
                 while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
+                {
                     requestStream.Write(buffer, 0, bytesRead);
-
-                //debug
-                //postStream.Seek(0, SeekOrigin.Begin);
-                //StreamReader sr = new StreamReader(postStream);
-                //var postStr = sr.ReadToEnd();
-
-                postStream.Close(); //关闭文件访问
+                }
+                postStream.Close();//关闭文件访问
             }
-
             #endregion
-
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -338,7 +484,7 @@ namespace Magicodes.WeChat.SDK.Helper
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null,
             Encoding encoding = null, int timeOut = 30000)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -346,7 +492,7 @@ namespace Magicodes.WeChat.SDK.Helper
             if (cookieContainer != null)
                 request.CookieContainer = cookieContainer;
 
-            var response = (HttpWebResponse) await request.GetResponseAsync();
+            var response = (HttpWebResponse)await request.GetResponseAsync();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
@@ -390,7 +536,7 @@ namespace Magicodes.WeChat.SDK.Helper
             Stream postStream = null, string refererUrl = null,
             Encoding encoding = null, int timeOut = 30000, bool checkValidationResult = false)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
@@ -436,7 +582,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
             #endregion
 
-            var response = (HttpWebResponse) await request.GetResponseAsync();
+            var response = (HttpWebResponse)await request.GetResponseAsync();
 
             if (cookieContainer != null)
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);

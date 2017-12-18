@@ -127,7 +127,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
         /// <summary>
         /// </summary>
-        public string UserAgent { get; set; }
+        public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
 
         /// <summary>
         ///     接受的语言

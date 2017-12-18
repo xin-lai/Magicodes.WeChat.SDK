@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Magicodes.WeChat.SDK.Apis.Material.Enums;
 using Magicodes.WeChat.SDK.Core.Apis.Material;
 using Magicodes.WeChat.SDK.Helper;
@@ -109,25 +110,14 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             var url = GetAccessApiUrl("add_material", ApiName, urlParams: new Dictionary<string, string>() {
                 {"type",materialType.ToString() }
             });
-            Dictionary<string, string> fileDictionary = null;
-            if (materialType == MaterialType.video)
-            {
-                fileDictionary = new Dictionary<string, string>
+            var resultStr = RequestUtility.HttpPost(
+                url,
+                null,
+                null,
+                new Dictionary<string, string>
                 {
                     ["media"] = file,
-                    ["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction)
-                };
-            }
-            else
-            {
-                fileDictionary = new Dictionary<string, string>
-                {
-                    ["media"] = file,
-                    ["introduction"] = introduction,
-                    ["title"] = title,
-                };
-            }
-            var resultStr = RequestUtility.HttpPost(url, null, fileDictionary, null, timeOut);
+                }, encoding: Encoding.UTF8);
             var result = JsonConvert.DeserializeObject<UploadForeverMaterialApiResult>(resultStr);
             if (result != null)
                 result.DetailResult = resultStr;
@@ -140,13 +130,16 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         /// 本接口所上传的图片不占用公众号的素材库中图片数量的5000个的限制。图片仅支持jpg/png格式，大小必须在1MB以下。
         /// </summary>
         /// <param name="fileName">文件名</param>
-        /// <param name="fileStream">文件流</param>
         /// <returns></returns>
-        public UploadImageApiResult UploadImage(string fileName, Stream fileStream)
+        public UploadImageApiResult UploadImage(string fileName)
         {
             //获取api请求url
             var url = GetAccessApiUrl("uploadimg", "media");
-            return Post<UploadImageApiResult>(url, fileName, fileStream);
+            using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                return Post<UploadImageApiResult>(url, fileName, fileStream);
+            }
+
         }
     }
 }
