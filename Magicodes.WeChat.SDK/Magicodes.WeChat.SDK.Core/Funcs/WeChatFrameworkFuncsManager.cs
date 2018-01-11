@@ -35,13 +35,23 @@ namespace Magicodes.WeChat.SDK
         public static WeChatFrameworkFuncsManager Current => Lazy.Value;
 
         /// <summary>
+        /// 是否已注册
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <returns></returns>
+        public bool IsRegister(WeChatFrameworkFuncTypes eventType)
+        {
+            return Funcs.ContainsKey(eventType);
+        }
+
+        /// <summary>
         ///     注册函数
         /// </summary>
         /// <param name="eventType"></param>
         /// <param name="func"></param>
         public void Register(WeChatFrameworkFuncTypes eventType, Func<object, object> func)
         {
-            if (Funcs.ContainsKey(eventType))
+            if (IsRegister(eventType))
                 throw new Exception(string.Format("{0}已经注册，不能重复注册！", eventType));
             Funcs.AddOrUpdate(eventType, func, (tKey, existingVal) => { return func; });
         }
@@ -53,7 +63,7 @@ namespace Magicodes.WeChat.SDK
         /// <returns></returns>
         public Func<object, object> GetFunc(WeChatFrameworkFuncTypes eventType)
         {
-            if (Funcs.ContainsKey(eventType))
+            if (IsRegister(eventType))
                 return Funcs[eventType];
             return null;
         }
