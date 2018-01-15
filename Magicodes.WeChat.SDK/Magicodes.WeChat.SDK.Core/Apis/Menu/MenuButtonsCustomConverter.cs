@@ -89,6 +89,9 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
                         case MenuButtonTypes.view_limited:
                             target = new ViewLimitedButton();
                             break;
+                        case MenuButtonTypes.miniprogram:
+                            target = new MiniprogramButton();
+                            break;
                         default:
                             throw new NotSupportedException("不支持此类型的菜单按钮：" + menuButtonType);
                     }

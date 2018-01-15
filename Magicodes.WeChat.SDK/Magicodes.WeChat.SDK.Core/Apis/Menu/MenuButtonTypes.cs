@@ -68,6 +68,11 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// <summary>
         ///     跳转图文消息URL
         /// </summary>
-        view_limited = 10
+        view_limited = 10,
+
+        /// <summary>
+        ///     小程序
+        /// </summary>
+        miniprogram = 11
     }
 }
