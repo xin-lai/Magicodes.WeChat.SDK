@@ -33,6 +33,13 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
     /// </summary>
     public class TenPayV3 : PayBase
     {
+        /// <summary>
+        /// 统一下单接口
+        /// https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="sceneInfo"></param>
+        /// <returns></returns>
         public UnifiedorderResult Unifiedorder(UnifiedorderRequest model, SceneInfo sceneInfo = null)
         {
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
