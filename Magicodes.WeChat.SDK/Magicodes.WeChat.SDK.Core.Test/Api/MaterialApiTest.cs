@@ -18,6 +18,8 @@ using Magicodes.WeChat.SDK.Apis.Material;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Magicodes.WeChat.SDK.Helper;
 using System.IO;
+using System.Reflection;
+using System;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
@@ -63,7 +65,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void UploadForeverMaterial_Video()
         {
-            string file = @"E:\workspace\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.Core.Test\Resource\test.mp4";
+            string file = Path.Combine(Environment.CurrentDirectory, "Resource", "test.mp4");
             var result = api.UploadForeverMaterial(file, "测试", "测试", Apis.Material.Enums.MaterialType.video);
             if (!result.IsSuccess())
             {
@@ -74,7 +76,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void UploadForeverMaterial_Image()
         {
-            string file = @"E:\workspace\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.Core.Test\Resource\test.jpg";
+            string file = Path.Combine(Environment.CurrentDirectory, "Resource", "test.jpg");
             var result = api.UploadForeverMaterial(file, "测试", "测试", Apis.Material.Enums.MaterialType.image);
             if (!result.IsSuccess())
             {
@@ -85,7 +87,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void UploadImage()
         {
-            string file = @"E:\workspace\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK\Magicodes.WeChat.SDK.Core.Test\Resource\test.jpg";
+            string file = Path.Combine(Environment.CurrentDirectory, "Resource", "test.jpg");
             var result = api.UploadImage(file);
             if (!result.IsSuccess())
             {
@@ -99,7 +101,8 @@ namespace Magicodes.WeChat.SDK.Test.Api
         {
             string id = "8jBK8ujsrMrVlS1rn-SMikIjyhlnHczeS6SBbT8ledk";
             var bytes = api.GetOtherMaterialById(id);
-            File.WriteAllBytes("E://Test.mp3", bytes);
+            var file = Path.Combine(Environment.CurrentDirectory, "Resource", "Test.mp3");
+            File.WriteAllBytes(file, bytes);
 
         }
 

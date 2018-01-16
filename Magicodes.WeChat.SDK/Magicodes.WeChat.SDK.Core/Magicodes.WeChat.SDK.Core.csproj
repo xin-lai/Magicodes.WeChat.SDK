@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Description>Magicodes.WeChat.SDK.Core为湖南心莱信息科技有限公司基于微信业务封装的工具包，以便更便捷更简单的调用和使用微信接口，以更好地和自己的业务结合，支持.NET Core。\n官方网址：http://xin-lai.com \n开源库地址:https://github.com/xin-lai \n博客地址：http://www.cnblogs.com/codelove/ \n交流QQ群（Magicodes开源库交流群）：346487194 \n小店地址：https://shop113059108.taobao.com/</Description>
@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/xin-lai</RepositoryUrl>
     <Company>湖南心莱信息科技有限公司</Company>
     <Authors>李文强</Authors>
-    <AssemblyVersion>1.4.5.0</AssemblyVersion>
-    <Version>1.6.3</Version>
-    <FileVersion>1.4.5.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <Version>2.0.0</Version>
+    <FileVersion>2.0.0.0</FileVersion>
     <PackageTags>Magicodes.WeChat.SDK.Core</PackageTags>
     <RepositoryType>git</RepositoryType>
     <!--<RepositoryUrl>https://github.com/xin-lai/Magicodes.WeChat.SDK</RepositoryUrl>-->
@@ -21,20 +21,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\net461\Magicodes.WeChat.SDK.Core.xml</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Net.Http">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Apis\Material\Input\" />
   </ItemGroup>
-
 </Project>
