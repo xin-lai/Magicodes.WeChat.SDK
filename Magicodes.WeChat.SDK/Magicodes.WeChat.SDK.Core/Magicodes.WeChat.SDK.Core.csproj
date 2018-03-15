@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Description>Magicodes.WeChat.SDK.Core为湖南心莱信息科技有限公司基于微信业务封装的工具包，以便更便捷更简单的调用和使用微信接口，以更好地和自己的业务结合，支持.NET Core。\n官方网址：http://xin-lai.com \n开源库地址:https://github.com/xin-lai \n博客地址：http://www.cnblogs.com/codelove/ \n交流QQ群（Magicodes开源库交流群）：346487194 \n小店地址：https://shop113059108.taobao.com/</Description>
+    <Description>Magicodes.WeChat.SDK.Core为湖南心莱信息科技有限公司基于微信业务封装的工具包，以便更便捷更简单的调用和使用微信接口，以更好地和自己的业务结合，支持.NET Core。\n官方网址：http://xin-lai.com \n开源库地址:https://github.com/xin-lai \n博客地址：http://www.cnblogs.com/codelove/ \n交流QQ群（.NET 技术交流群）：85318032 \n小店地址：https://shop113059108.taobao.com/</Description>
     <Copyright>Copyright ©  2017</Copyright>
     <PackageProjectUrl>https://github.com/xin-lai</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xin-lai</RepositoryUrl>
