@@ -14,6 +14,7 @@
 // ======================================================================
 
 using System;
+using Magicodes.WeChat.MiniProgram.Apis.Sns;
 using Magicodes.WeChat.MiniProgram.Apis.Token;
 
 namespace Magicodes.WeChat.MiniProgram
@@ -27,9 +28,14 @@ namespace Magicodes.WeChat.MiniProgram
             new Lazy<MiniProgramApisContext>(() => new MiniProgramApisContext());
 
         /// <summary>
-        ///     用户组相关操作API
+        ///     Accesstoken相关操作API
         /// </summary>
         public TokenApi TokenApi = new TokenApi();
+
+        /// <summary>
+        ///     登录凭证API
+        /// </summary>
+        public SnsApi SnsApi = new SnsApi();
 
 
         public static MiniProgramApisContext Current => Lazy.Value;
