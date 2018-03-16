@@ -15,6 +15,9 @@
 
 using System;
 using System.Collections.Concurrent;
+using Magicodes.WeChat.MiniProgram;
+using Magicodes.WeChat.MiniProgram.Apis.Token;
+using Magicodes.WeChat.MiniProgram.Apis.Token.Dto;
 using Magicodes.WeChat.SDK.Helper;
 
 namespace Magicodes.WeChat.SDK
@@ -30,9 +33,18 @@ namespace Magicodes.WeChat.SDK
         /// <summary>
         /// 根据key获取配置
         /// </summary>
-        internal static Func<string, IMiniProgramConfig> GetConfigByKeyFunc { get; set; }
+        internal Func<string, IMiniProgramConfig> GetConfigByKeyFunc { get; set; }
 
-        internal static Func<string> GetKeyFunc { get; set; }
+        /// <summary>
+        /// 获取配置Key
+        /// </summary>
+        internal Func<string> GetKeyFunc { get; set; }
+
+
+        /// <summary>
+        /// 获取AccessToken，比如从其他框架、接口、中控
+        /// </summary>
+        internal Func<IMiniProgramConfig, IAccesstokenInfo> GetAccessTokenFunc { get; set; }
 
         /// <summary>
         ///     公众号配置信息
@@ -44,6 +56,12 @@ namespace Magicodes.WeChat.SDK
         /// 
         /// </summary>
         public static MiniProgramConfigManager Current => Lazy.Value;
+
+        /// <summary>
+        ///     访问凭据存储
+        /// </summary>
+        internal ConcurrentDictionary<string, IAccesstokenInfo> AccessTokenConcurrentDictionary =
+            new ConcurrentDictionary<string, IAccesstokenInfo>();
 
         /// <summary>
         /// 
@@ -86,29 +104,23 @@ namespace Magicodes.WeChat.SDK
         ///     接口访问凭据
         /// </summary>
         /// <returns></returns>
-        public string GetAccessToken(object key = null)
+        public string GetAccessToken(string key = null)
         {
-            //if (key == null)
-            //    return WeChatApisContext.Current.TokenApi.SafeGet().AccessToken;
-            //var api = new TokenApi();
-            //api.SetKey(key);
-            //return api.SafeGet().AccessToken;
-            return null;
+            var api = key == null ? MiniProgramApisContext.Current.TokenApi : new TokenApi();
+            if (key != null)
+                api.Key = key;
+            return api.SafeGet().AccessToken;
         }
 
         /// <summary>
         ///     刷新访问凭据
         /// </summary>
-        public void RefreshAccessToken(object key = null)
+        public void RefreshAccessToken(string key = null)
         {
-            //if (key == null)
-            //{
-            //    WeChatApisContext.Current.TokenApi.Update();
-            //    return;
-            //}
-            //var api = new TokenApi();
-            //api.SetKey(key);
-            //api.Update();
+            var api = key == null ? MiniProgramApisContext.Current.TokenApi : new TokenApi();
+            if (key != null)
+                api.Key = key;
+            api.Get();
         }
 
         /// <summary>
@@ -116,12 +128,9 @@ namespace Magicodes.WeChat.SDK
         /// </summary>
         /// <param name="key">存储配置key</param>
         /// <param name="config">微信配置</param>
-        public void RefreshConfig(string key, IMiniProgramConfig config)
-        {
-            MiniProgramConfigs.AddOrUpdate(key, config, (tKey, existingVal) => { return config; });
-        }
+        public void RefreshConfig(string key, IMiniProgramConfig config) => MiniProgramConfigs.AddOrUpdate(key, config, (tKey, existingVal) => { return config; });
 
-        
+
         /// <summary>
         ///     刷新配置以及访问凭据
         /// </summary>

@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using Magicodes.WeChat.MiniProgram.Apis.Token.Dto;
 
 namespace Magicodes.WeChat.SDK.Builder
 {
@@ -25,16 +26,19 @@ namespace Magicodes.WeChat.SDK.Builder
     public class MiniProgramSDKBuilder
     {
         private Action<string, string> LoggerAction { get; set; }
-        private Func<string, IMiniProgramConfig> getConfigByKey { get; set; }
+        private Func<string, IMiniProgramConfig> GetConfigByKeyFunc { get; set; }
+
+        private Func<string> GetKeyFunc { get; set; }
+
+        private Func<IMiniProgramConfig, IAccesstokenInfo> GetAccessTokenFunc { get; set; }
+
+
 
         /// <summary>
         ///     创建实例
         /// </summary>
         /// <returns></returns>
-        public static MiniProgramSDKBuilder Create()
-        {
-            return new MiniProgramSDKBuilder();
-        }
+        public static MiniProgramSDKBuilder Create() => new MiniProgramSDKBuilder();
 
         /// <summary>
         ///     设置日志记录处理
@@ -54,7 +58,29 @@ namespace Magicodes.WeChat.SDK.Builder
         /// <returns></returns>
         public MiniProgramSDKBuilder RegisterGetConfigByKeyFunc(Func<string, IMiniProgramConfig> func)
         {
-            getConfigByKey = func;
+            GetConfigByKeyFunc = func;
+            return this;
+        }
+
+        /// <summary>
+        /// 注册获取配置Key逻辑
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public MiniProgramSDKBuilder RegisterGetKeyFunc(Func<string> func)
+        {
+            GetKeyFunc = func;
+            return this;
+        }
+
+        /// <summary>
+        /// 注册获取AccessToken逻辑，比如从其他框架、接口、中控
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public MiniProgramSDKBuilder RegisterGetAccessTokenFunc(Func<IMiniProgramConfig, IAccesstokenInfo> func)
+        {
+            GetAccessTokenFunc = func;
             return this;
         }
 
