@@ -91,8 +91,15 @@ namespace Magicodes.WeChat.SDK.Builder
         {
             if (LoggerAction != null)
                 WeChatHelper.LoggerAction = LoggerAction;
-            //foreach (var item in FuncDics)
-            //    WeChatFrameworkFuncsManager.Current.Register(item.Key, item.Value);
+
+            if (GetAccessTokenFunc != null)
+                MiniProgramConfigManager.Current.GetAccessTokenFunc = GetAccessTokenFunc;
+
+            if (GetConfigByKeyFunc != null)
+                MiniProgramConfigManager.Current.GetConfigByKeyFunc = GetConfigByKeyFunc;
+
+            if (GetKeyFunc != null)
+                MiniProgramConfigManager.Current.GetKeyFunc = GetKeyFunc;
         }
     }
 }
