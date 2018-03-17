@@ -17,7 +17,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Sns.Dto
         public string OpenId { get; set; }
 
         /// <summary>
-        /// 用户唯一标识
+        /// 会话密钥
         /// </summary>
         [JsonProperty("session_key")]
         public string SessionKey { get; set; }
