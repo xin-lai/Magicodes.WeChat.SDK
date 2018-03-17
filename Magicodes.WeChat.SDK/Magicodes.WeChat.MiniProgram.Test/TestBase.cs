@@ -1,4 +1,5 @@
 ﻿using System;
+using Magicodes.WeChat.MiniProgram.Test.Helper;
 using Magicodes.WeChat.SDK.Builder;
 
 namespace Magicodes.WeChat.MiniProgram.Test
@@ -17,10 +18,7 @@ namespace Magicodes.WeChat.MiniProgram.Test
                 }).RegisterGetConfigByKeyFunc((key) =>
                 {
                     //如果是一个项目多个配置,请使用key来获取相关配置
-                    return new MiniProgramConfig(){
-                        AppId = "wx0512042fa43a459d",
-                        AppSecret = "65a6adccfd14adf95a49504ce94fa510"
-                    };
+                    return ConfigHelper.LoadConfig();
                 }).Build();
     }
 }
