@@ -39,24 +39,24 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// </summary>
         /// <param name="model"></param>
         /// <param name="sceneInfo"></param>
+        /// <param name="tenPayKey"></param>
         /// <returns></returns>
-        public UnifiedorderResult Unifiedorder(UnifiedorderRequest model, SceneInfo sceneInfo = null)
+        public UnifiedorderResult Unifiedorder(UnifiedorderRequest model, SceneInfo sceneInfo = null, string tenPayKey = null)
         {
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             UnifiedorderResult result = null;
 
-            model.AppId = WeChatConfig.AppId;
-            model.MchId = PayConfig.MchId;
+            model.AppId = model.AppId ?? WeChatConfig.AppId;
+            model.MchId = model.MchId ?? PayConfig.MchId;
             model.NonceStr = PayUtil.GetNoncestr();
-            if (model.NotifyUrl == null)
-                model.NotifyUrl = PayConfig.Notify;
+            model.NotifyUrl = model.NotifyUrl ?? PayConfig.Notify;
             if (sceneInfo != null)
             {
                 model.SceneInfo = JsonConvert.SerializeObject(sceneInfo);
             }
             var dictionary = PayUtil.GetAuthors(model);
-            model.Sign = PayUtil.CreateMd5Sign(dictionary, PayConfig.TenPayKey); //生成Sign
-            
+            model.Sign = PayUtil.CreateMd5Sign(dictionary, tenPayKey ?? PayConfig.TenPayKey); //生成Sign
+
             result = PostXML<UnifiedorderResult>(url, model);
             return result;
         }
@@ -133,7 +133,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             }
         }
 
-        
+
         /// <summary>
         ///     退款查询接口
         /// </summary>
