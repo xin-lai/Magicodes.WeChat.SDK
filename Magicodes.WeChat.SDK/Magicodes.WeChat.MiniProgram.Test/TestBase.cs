@@ -1,6 +1,6 @@
 ﻿using System;
+using Magicodes.WeChat.MiniProgram.Builder;
 using Magicodes.WeChat.MiniProgram.Test.Helper;
-using Magicodes.WeChat.SDK.Builder;
 
 namespace Magicodes.WeChat.MiniProgram.Test
 {

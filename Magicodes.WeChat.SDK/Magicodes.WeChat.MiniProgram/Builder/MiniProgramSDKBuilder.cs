@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using Magicodes.WeChat.MiniProgram.Apis.Token.Dto;
 
-namespace Magicodes.WeChat.SDK.Builder
+namespace Magicodes.WeChat.MiniProgram.Builder
 {
     /// <summary>
     ///     WeChatSDK构造函数类

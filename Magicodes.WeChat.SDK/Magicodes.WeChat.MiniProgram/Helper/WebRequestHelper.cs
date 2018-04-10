@@ -6,7 +6,7 @@
 //          filename : WebRequestHelper.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 17:10
+//          created by 李文强 at  2018/04/10 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -24,7 +24,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
-namespace Magicodes.WeChat.SDK.Helper
+namespace Magicodes.WeChat.MiniProgram.Helper
 {
     /// <summary>
     ///     ** 描述：模拟HTTP POST GET请求并获取数据

@@ -6,7 +6,7 @@
 //          filename : WeChatConfigManager.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 17:10
+//          created by 李文强 at  2018/04/10 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -18,9 +18,9 @@ using System.Collections.Concurrent;
 using Magicodes.WeChat.MiniProgram;
 using Magicodes.WeChat.MiniProgram.Apis.Token;
 using Magicodes.WeChat.MiniProgram.Apis.Token.Dto;
-using Magicodes.WeChat.SDK.Helper;
+using Magicodes.WeChat.MiniProgram.Helper;
 
-namespace Magicodes.WeChat.SDK
+namespace Magicodes.WeChat.MiniProgram
 {
     /// <summary>
     ///     微信配置管理对象

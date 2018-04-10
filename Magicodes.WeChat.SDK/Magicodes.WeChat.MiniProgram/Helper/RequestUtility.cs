@@ -6,7 +6,7 @@
 //          filename : RequestUtility.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 17:10
+//          created by 李文强 at  2018/04/10 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
@@ -22,7 +22,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magicodes.WeChat.SDK.Helper
+namespace Magicodes.WeChat.MiniProgram.Helper
 {
     public static class RequestUtility
     {

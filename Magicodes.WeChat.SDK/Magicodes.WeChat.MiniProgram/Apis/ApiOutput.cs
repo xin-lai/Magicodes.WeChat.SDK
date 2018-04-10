@@ -26,18 +26,18 @@ namespace Magicodes.WeChat.MiniProgram.Apis
         ///     返回码
         /// </summary>
         [JsonProperty("errcode")]
-        public ReturnCodes ReturnCode { get; set; }
+        public virtual ReturnCodes ReturnCode { get; set; }
 
         /// <summary>
         ///     错误消息
         /// </summary>
         [JsonProperty("errmsg")]
-        public string Message { get; set; }
+        public virtual string Message { get; set; }
 
         /// <summary>
         ///     请求详情（一般请忽略）
         /// </summary>
-        public string DetailResult { get; set; }
+        public virtual string DetailResult { get; set; }
 
         /// <summary>
         ///     是否为成功返回

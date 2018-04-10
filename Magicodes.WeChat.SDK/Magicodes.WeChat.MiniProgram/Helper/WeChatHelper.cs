@@ -16,7 +16,7 @@
 
 using System;
 
-namespace Magicodes.WeChat.SDK
+namespace Magicodes.WeChat.MiniProgram
 {
     public static class WeChatHelper
     {

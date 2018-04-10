@@ -6,14 +6,14 @@
 //          filename : WeChatApiWebRequestHelper.cs
 //          description :
 //  
-//          created by 李文强 at  2016/09/23 17:10
+//          created by 李文强 at  2018/04/10 17:10
 //          Blog：http://www.cnblogs.com/codelove/
 //          GitHub ： https://github.com/xin-lai
 //          Home：http://xin-lai.com
 //  
 // ======================================================================
 
-namespace Magicodes.WeChat.SDK.Helper
+namespace Magicodes.WeChat.MiniProgram.Helper
 {
     public class WeChatApiWebRequestHelper : WebRequestHelper
     {

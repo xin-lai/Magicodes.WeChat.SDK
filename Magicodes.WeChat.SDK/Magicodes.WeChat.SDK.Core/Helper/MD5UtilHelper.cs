@@ -34,7 +34,6 @@ namespace Magicodes.WeChat.SDK.Helper
         {
             string retStr;
             var m5 = new MD5CryptoServiceProvider();
-
             //创建md5对象
             byte[] inputBye;
             byte[] outputBye;
@@ -44,12 +43,11 @@ namespace Magicodes.WeChat.SDK.Helper
             {
                 inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
             }
             outputBye = m5.ComputeHash(inputBye);
-
             retStr = BitConverter.ToString(outputBye);
             retStr = retStr.Replace("-", "").ToUpper();
             return retStr;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Magicodes.WeChat.MiniProgram.Apis.Token.Dto;
-using Magicodes.WeChat.SDK;
+using Magicodes.WeChat.MiniProgram;
 
 namespace Magicodes.WeChat.MiniProgram.Apis.Token
 {
