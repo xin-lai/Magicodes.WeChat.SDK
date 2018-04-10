@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Serialization;
 using Magicodes.WeChat.MiniProgram.Apis.Pay.Dto;
@@ -22,11 +23,29 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
         /// https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1
         /// </summary>
         /// <returns></returns>
-        public PayOutput Pay(PayInput payInput)
+        public PayOutput Pay(PayInput input)
         {
-            if (payInput == null)
+            if (input == null)
             {
-                throw new ArgumentNullException(nameof(payInput));
+                throw new ArgumentNullException(nameof(input));
+            }
+            if (input.TotalFee <= 0)
+            {
+                throw new ArgumentException("金额不能小于0!", nameof(input.TotalFee));
+            }
+            if (string.IsNullOrWhiteSpace(input.OpenId))
+            {
+                throw new ArgumentNullException("OpenId必须填写!", nameof(input.OpenId));
+            }
+
+            if (string.IsNullOrWhiteSpace(input.Body))
+            {
+                throw new ArgumentNullException("商品描述必须填写!", nameof(input.Body));
+            }
+
+            if (string.IsNullOrWhiteSpace(input.SpbillCreateIp))
+            {
+                throw new ArgumentNullException("终端IP必须填写!", nameof(input.SpbillCreateIp));
             }
 
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -34,8 +53,21 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
             {
                 AppId = AppConfig.AppId,
                 MchId = AppConfig.MchId,
+                Attach = input.Attach,
+                Body = input.Body,
+                Detail = input.Detail,
+                DeviceInfo = input.DeviceInfo,
+                FeeType = input.FeeType,
+                GoodsTag = input.GoodsTag,
+                LimitPay = input.LimitPay,
+                OpenId = input.OpenId,
+                OutTradeNo = input.OutTradeNo ?? GenerateOutTradeNo(),
+                SpbillCreateIp = input.SpbillCreateIp,
+                TimeExpire = input.TimeExpire,
+                TimeStart = input.TimeStart,
+                TotalFee = (input.TotalFee * 100).ToString(),
             };
-            model.NonceStr = GetNoncestr();
+            model.NonceStr = Guid.NewGuid().ToString("N");
             model.NotifyUrl = AppConfig.PayNotify;
             var dictionary = GetAuthors(model);
             model.Sign = CreateMd5Sign(dictionary, AppConfig.TenPayKey); //生成Sign
@@ -242,6 +274,43 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
             while ((count = stream.Read(buffer, 0, 1024)) > 0)
                 builder.Append(Encoding.UTF8.GetString(buffer, 0, count));
             return builder.ToString();
+        }
+
+        /// <summary>
+        ///     POST提交请求，返回ApiResult对象
+        /// </summary>
+        /// <typeparam name="T">ApiResult对象</typeparam>
+        /// <param name="url">请求地址</param>
+        /// <param name="obj">提交的数据对象</param>
+        /// <returns>ApiResult对象</returns>
+        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : PayOutput
+        {
+            var wr = new WeChatApiWebRequestHelper();
+            string resultStr = null;
+            var result = wr.HttpPost<T>(url, obj, out resultStr, serializeStrFunc,
+                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
+            if (result != null)
+                result.DetailResult = resultStr;
+            return result;
+        }
+
+        /// <summary>
+        ///     POST提交请求，带证书，返回ApiResult对象
+        /// </summary>
+        /// <typeparam name="T">ApiResult对象</typeparam>
+        /// <param name="url">请求地址</param>
+        /// <param name="obj">提交的数据对象</param>
+        /// <returns>ApiResult对象</returns>
+        protected T PostXML<T>(string url, object obj, X509Certificate2 cer,
+            Func<string, string> serializeStrFunc = null) where T : PayOutput
+        {
+            var wr = new WeChatApiWebRequestHelper();
+            string resultStr = null;
+            var result = wr.HttpPost<T>(url, obj, cer, out resultStr, serializeStrFunc,
+                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
+            if (result != null)
+                result.DetailResult = resultStr;
+            return result;
         }
         #endregion
     }

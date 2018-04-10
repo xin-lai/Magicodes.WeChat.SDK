@@ -23,7 +23,7 @@ namespace Magicodes.WeChat.MiniProgram.Pay.Models
     /// </summary>
     [XmlRoot("xml")]
     [Serializable]
-    internal class UnifiedorderRequest
+    public class UnifiedorderRequest
     {
         /// <summary>
         ///     小程序OpenId
@@ -32,19 +32,19 @@ namespace Magicodes.WeChat.MiniProgram.Pay.Models
         public string OpenId { get; set; }
 
         /// <summary>
-        ///     【不用填写】微信开放平台审核通过的应用APPID
+        ///     微信开放平台审核通过的应用APPID
         /// </summary>
         [XmlElement("appid")]
         public string AppId { get; set; }
 
         /// <summary>
-        ///     【不用填写】微信支付分配的商户号
+        ///     微信支付分配的商户号
         /// </summary>
         [XmlElement("mch_id")]
         public string MchId { get; set; }
 
         /// <summary>
-        ///     终端设备号(门店号或收银设备ID)，默认请传"WEB"
+        ///     终端设备号(门店号或收银设备ID)
         /// </summary>
         [XmlElement("device_info")]
         public string DeviceInfo { get; set; }
@@ -56,7 +56,7 @@ namespace Magicodes.WeChat.MiniProgram.Pay.Models
         public string NonceStr { get; set; }
 
         /// <summary>
-        ///     【不用填写】签名
+        ///     签名
         /// </summary>
         [XmlElement("sign")]
         public string Sign { get; set; }

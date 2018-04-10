@@ -7,7 +7,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay.Dto
 {
     [XmlRoot("xml")]
     [Serializable]
-    public class PayOutput : ApiOutput
+    public class PayOutput
     {
         /// <summary>
         ///     交易类型:JSAPI、NATIVE、APP
@@ -84,33 +84,27 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay.Dto
         public string PayReturnCode { get; set; }
 
         /// <summary>
-        /// 忽略此值
-        /// </summary>
-        [XmlIgnore]
-        public override ReturnCodes ReturnCode { get; set; }
-
-        /// <summary>
         /// 详细结果
         /// </summary>
         [XmlIgnore]
-        public override string DetailResult { get; set; }
+        public string DetailResult { get; set; }
 
         /// <summary>
         ///     返回信息，返回信息，如非空，为错误原因，签名失败，参数格式校验错误
         /// </summary>
         [XmlElement("return_msg")]
-        public override string Message { get; set; }
+        public string Message { get; set; }
 
         /// <summary>
         /// 是否支付成功
         /// </summary>
         /// <returns></returns>
-        public override bool IsSuccess() => PayReturnCode == "SUCCESS" && ResultCode == "SUCCESS";
+        public bool IsSuccess() => PayReturnCode == "SUCCESS" && ResultCode == "SUCCESS";
 
         /// <summary>
         /// 获取错误友好提示
         /// </summary>
         /// <returns></returns>
-        public override string GetFriendlyMessage() => $"{ErrCode}：{ErrCodeDes}";
+        public string GetFriendlyMessage() => $"{ErrCode}：{ErrCodeDes}";
     }
 }

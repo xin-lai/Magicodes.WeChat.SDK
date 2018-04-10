@@ -14,6 +14,7 @@
 // ======================================================================
 
 using System;
+using Magicodes.WeChat.MiniProgram.Apis.Pay;
 using Magicodes.WeChat.MiniProgram.Apis.Sns;
 using Magicodes.WeChat.MiniProgram.Apis.Token;
 
@@ -37,7 +38,15 @@ namespace Magicodes.WeChat.MiniProgram
         /// </summary>
         public SnsApi SnsApi = new SnsApi();
 
+        /// <summary>
+        ///     支付API
+        /// </summary>
+        public PayApi PayApi = new PayApi();
 
+
+        /// <summary>
+        /// 当前接口管理器
+        /// </summary>
         public static MiniProgramApisContext Current => Lazy.Value;
     }
 }

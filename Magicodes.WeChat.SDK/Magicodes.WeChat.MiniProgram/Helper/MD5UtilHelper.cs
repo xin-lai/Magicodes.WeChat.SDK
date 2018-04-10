@@ -44,7 +44,7 @@ namespace Magicodes.WeChat.MiniProgram.Helper
             {
                 inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
             }

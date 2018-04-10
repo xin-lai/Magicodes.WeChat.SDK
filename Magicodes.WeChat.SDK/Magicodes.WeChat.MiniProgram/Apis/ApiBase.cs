@@ -202,41 +202,6 @@ namespace Magicodes.WeChat.MiniProgram.Apis
             return obj;
         }
 
-        /// <summary>
-        ///     POST提交请求，返回ApiResult对象
-        /// </summary>
-        /// <typeparam name="T">ApiResult对象</typeparam>
-        /// <param name="url">请求地址</param>
-        /// <param name="obj">提交的数据对象</param>
-        /// <returns>ApiResult对象</returns>
-        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : ApiOutput
-        {
-            var wr = new WeChatApiWebRequestHelper();
-            string resultStr = null;
-            var result = wr.HttpPost<T>(url, obj, out resultStr, serializeStrFunc,
-                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
-            if (result != null)
-                result.DetailResult = resultStr;
-            return result;
-        }
-
-        /// <summary>
-        ///     POST提交请求，带证书，返回ApiResult对象
-        /// </summary>
-        /// <typeparam name="T">ApiResult对象</typeparam>
-        /// <param name="url">请求地址</param>
-        /// <param name="obj">提交的数据对象</param>
-        /// <returns>ApiResult对象</returns>
-        protected T PostXML<T>(string url, object obj, X509Certificate2 cer,
-            Func<string, string> serializeStrFunc = null) where T : ApiOutput
-        {
-            var wr = new WeChatApiWebRequestHelper();
-            string resultStr = null;
-            var result = wr.HttpPost<T>(url, obj, cer, out resultStr, serializeStrFunc,
-                WebRequestDataTypes.XML, WebRequestDataTypes.XML);
-            if (result != null)
-                result.DetailResult = resultStr;
-            return result;
-        }
+        
     }
 }

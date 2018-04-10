@@ -20,8 +20,12 @@ using System.Xml.Serialization;
 
 namespace Magicodes.WeChat.MiniProgram.Helper
 {
-    public class XmlHelper
+    public static class XmlHelper
     {
+        static XmlHelper()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
         /// <summary>
         ///     XML序列化
         /// </summary>

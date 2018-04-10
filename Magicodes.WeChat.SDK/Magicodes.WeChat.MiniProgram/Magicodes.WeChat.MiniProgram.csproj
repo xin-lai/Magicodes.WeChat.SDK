@@ -9,10 +9,8 @@
     <PackageProjectUrl>https://github.com/xin-lai</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xin-lai</RepositoryUrl>
     <Company>湖南心莱信息科技有限公司</Company>
-    <Authors>李文强</Authors>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>1.0.1</Version>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Authors>雪雁</Authors>
+    <Version>1.0.4</Version>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup>
@@ -21,5 +19,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
   </ItemGroup>
 </Project>
