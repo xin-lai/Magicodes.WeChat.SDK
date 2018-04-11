@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Magicodes.WeChat.MiniProgram.Apis.Pay.Dto
+namespace Magicodes.Pay.WeChat.Pay.Dto
 {
     /// <summary>
     /// 支付参数
     /// </summary>
-    public class PayInput
+    public class MiniProgramPayInput
     {
         /// <summary>
         /// 小程序用户OpenId
@@ -48,7 +48,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay.Dto
         /// <summary>
         ///     订单总金额，单位为元
         /// </summary>
-        public int TotalFee { get; set; }
+        public decimal TotalFee { get; set; }
 
         /// <summary>
         ///     用户端实际ip

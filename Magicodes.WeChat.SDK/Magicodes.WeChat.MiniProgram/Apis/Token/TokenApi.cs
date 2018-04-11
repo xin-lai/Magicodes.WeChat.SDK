@@ -23,21 +23,21 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Token
             if (MiniProgramConfigManager.Current.GetAccessTokenFunc != null)
             {
                 var token = MiniProgramConfigManager.Current.GetAccessTokenFunc(config);
-                MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(config.AppId, token,
+                MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(config.MiniProgramAppId, token,
                     (tKey, existingVal) => token);
                 return token;
             }
 
             if (config == null)
                 throw new MiniProgramArgumentException("没有找到小程序配置信息，请配置！");
-            var url = $"{ApiRoot}/cgi-bin/token?grant_type=client_credential&appid={config.AppId}&secret={config.AppSecret}";
+            var url = $"{ApiRoot}/cgi-bin/token?grant_type=client_credential&appid={config.MiniProgramAppId}&secret={config.MiniProgramAppSecret}";
             var result = Get<GetAccesstokenOutput>(url);
             if (!result.IsSuccess())
                 throw new MiniProgramArgumentException("获取接口访问凭据失败：" + result.GetFriendlyMessage() + "（" + result.DetailResult + "）");
             result.ExpiresTime = DateTime.Now.AddSeconds(result.Expires - 30);
 
             //存储
-            MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(config.AppId, result,
+            MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.AddOrUpdate(config.MiniProgramAppId, result,
                     (tKey, existingVal) => result);
             return result;
         }
@@ -49,9 +49,9 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Token
         public IAccesstokenInfo SafeGet(IMiniProgramConfig config = null)
         {
             config = config ?? AppConfig;
-            if (MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.ContainsKey(config.AppId))
+            if (MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary.ContainsKey(config.MiniProgramAppId))
             {
-                var token = MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary[config.AppId];
+                var token = MiniProgramConfigManager.Current.AccessTokenConcurrentDictionary[config.MiniProgramAppId];
                 //判断Token是否过期
                 if (DateTime.Now < token.ExpiresTime)
                     return token;

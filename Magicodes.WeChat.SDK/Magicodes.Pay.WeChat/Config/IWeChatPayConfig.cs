@@ -13,21 +13,31 @@
 //  
 // ======================================================================
 
-namespace Magicodes.WeChat.MiniProgram
+namespace Magicodes.Pay.WeChat.Config
 {
     /// <summary>
     ///     小程序配置信息
     /// </summary>
-    public interface IMiniProgramConfig
+    public interface IWeChatPayConfig
     {
         /// <summary>
         /// 小程序ID
         /// </summary>
-        string MiniProgramAppId { get; set; }
+        string PayAppId { get; set; }
 
         /// <summary>
-        /// 小程序密钥
+        /// 商户Id
         /// </summary>
-        string MiniProgramAppSecret { get; set; }
+        string MchId { get; set; }
+
+        /// <summary>
+        /// 支付回调路径
+        /// </summary>
+        string PayNotifyUrl { get; set; }
+
+        /// <summary>
+        /// 支付密钥
+        /// </summary>
+        string TenPayKey { get; set; }
     }
 }

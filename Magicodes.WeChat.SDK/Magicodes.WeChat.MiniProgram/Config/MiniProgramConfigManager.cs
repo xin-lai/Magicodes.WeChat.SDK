@@ -92,9 +92,9 @@ namespace Magicodes.WeChat.MiniProgram
             weChatConfig = result as IMiniProgramConfig ?? throw new Exception(string.Format("通过Key：{0}获取Config失败！", key));
             if (weChatConfig == null)
                 throw new MiniProgramArgumentException("获取微信配置失败。Key:" + key);
-            if (string.IsNullOrWhiteSpace(weChatConfig.AppId))
+            if (string.IsNullOrWhiteSpace(weChatConfig.MiniProgramAppId))
                 throw new MiniProgramArgumentException("微信配置错误，参数不能为空。Key:" + key, "AppId");
-            if (string.IsNullOrWhiteSpace(weChatConfig.AppSecret))
+            if (string.IsNullOrWhiteSpace(weChatConfig.MiniProgramAppSecret))
                 throw new MiniProgramArgumentException("微信配置错误，参数不能为空。Key:" + key, "AppSecret");
             MiniProgramConfigs.AddOrUpdate(key, weChatConfig, (tKey, existingVal) => weChatConfig);
             return weChatConfig;

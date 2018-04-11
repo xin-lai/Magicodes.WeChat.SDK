@@ -4,7 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Shouldly;
-using Magicodes.WeChat.MiniProgram.Apis.Pay.Dto;
+using Magicodes.Pay.WeChat;
+using Magicodes.Pay.WeChat.Pay.Dto;
 
 namespace Magicodes.WeChat.MiniProgram.Test.Pay
 {
@@ -13,7 +14,7 @@ namespace Magicodes.WeChat.MiniProgram.Test.Pay
         [Fact]
         public void Pay_Test()
         {
-            var result = MiniProgramApisContext.Current.PayApi.Pay(new PayInput()
+            var result = new WeChatPayApi().MiniProgramPay(new MiniProgramPayInput()
             {
                 Body = "Test",
                 OpenId = "oBVdJ5Os4Wkdard-6DmT5BcGWhEg",

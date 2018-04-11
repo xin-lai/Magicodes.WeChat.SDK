@@ -16,7 +16,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace Magicodes.WeChat.MiniProgram.Pay.Models
+namespace Magicodes.Pay.WeChat.Pay.Models
 {
     /// <summary>
     /// 统一下单请求参数类

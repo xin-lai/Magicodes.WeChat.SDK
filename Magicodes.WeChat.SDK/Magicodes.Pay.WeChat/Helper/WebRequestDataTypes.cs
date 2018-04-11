@@ -3,7 +3,7 @@
 //          Copyright (C) 2016-2020 湖南心莱信息科技有限公司    
 //          All rights reserved
 //  
-//          filename : IWeChatConfig.cs
+//          filename : WebRequestDataTypes.cs
 //          description :
 //  
 //          created by 李文强 at  2018/04/10 17:10
@@ -13,21 +13,14 @@
 //  
 // ======================================================================
 
-namespace Magicodes.WeChat.MiniProgram
+namespace Magicodes.Pay.WeChat.Helper
 {
     /// <summary>
-    ///     小程序配置信息
+    ///     请求数据的类型
     /// </summary>
-    public interface IMiniProgramConfig
+    public enum WebRequestDataTypes
     {
-        /// <summary>
-        /// 小程序ID
-        /// </summary>
-        string MiniProgramAppId { get; set; }
-
-        /// <summary>
-        /// 小程序密钥
-        /// </summary>
-        string MiniProgramAppSecret { get; set; }
+        JSON = 0,
+        XML = 1
     }
 }

@@ -19,7 +19,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Sns
                 throw new ArgumentException("message", nameof(code));
             }
             //获取api请求url
-            var url = $"{ApiRoot}/{ApiName}/jscode2session?appid={AppConfig.AppId}&secret={AppConfig.AppSecret}&js_code={code}&grant_type=authorization_code";
+            var url = $"{ApiRoot}/{ApiName}/jscode2session?appid={AppConfig.MiniProgramAppId}&secret={AppConfig.MiniProgramAppSecret}&js_code={code}&grant_type=authorization_code";
             return Get<GetSnsInfoByCodeOutput>(url);
         }
     }

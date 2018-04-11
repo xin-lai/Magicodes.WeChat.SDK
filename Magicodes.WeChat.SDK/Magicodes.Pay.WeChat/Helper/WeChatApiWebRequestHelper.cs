@@ -3,7 +3,7 @@
 //          Copyright (C) 2016-2020 湖南心莱信息科技有限公司    
 //          All rights reserved
 //  
-//          filename : IWeChatConfig.cs
+//          filename : WeChatApiWebRequestHelper.cs
 //          description :
 //  
 //          created by 李文强 at  2018/04/10 17:10
@@ -13,21 +13,16 @@
 //  
 // ======================================================================
 
-namespace Magicodes.WeChat.MiniProgram
+namespace Magicodes.Pay.WeChat.Helper
 {
-    /// <summary>
-    ///     小程序配置信息
-    /// </summary>
-    public interface IMiniProgramConfig
+    public class WeChatApiWebRequestHelper : WebRequestHelper
     {
-        /// <summary>
-        /// 小程序ID
-        /// </summary>
-        string MiniProgramAppId { get; set; }
-
-        /// <summary>
-        /// 小程序密钥
-        /// </summary>
-        string MiniProgramAppSecret { get; set; }
+        public WeChatApiWebRequestHelper()
+        {
+            UserAgent =
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+            ContentType = "application/json";
+            AcceptLanguage = "zh-cn";
+        }
     }
 }

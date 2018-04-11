@@ -6,24 +6,28 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.Serialization;
-using Magicodes.WeChat.MiniProgram.Apis.Pay.Dto;
-using Magicodes.WeChat.MiniProgram.Helper;
-using Magicodes.WeChat.MiniProgram.Pay.Models;
+using Magicodes.Pay.WeChat.Config;
+using Magicodes.Pay.WeChat.Helper;
+using Magicodes.Pay.WeChat.Pay.Dto;
+using Magicodes.Pay.WeChat.Pay.Models;
 
-namespace Magicodes.WeChat.MiniProgram.Apis.Pay
+namespace Magicodes.Pay.WeChat
 {
     /// <summary>
     /// 小程序支付接口
     /// </summary>
-    public class PayApi : ApiBase
+    public class WeChatPayApi
     {
+        internal static Func<IWeChatPayConfig> GetPayConfigFunc { get; set; } = () => null;
+        internal static Action<string, string> LoggerAction = (tag, log) => { };
+
         /// <summary>
         /// 小程序支付
-        /// 统一下单接口
-        /// https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1
+        /// 小程序统一下单接口
+        /// https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
         /// </summary>
         /// <returns></returns>
-        public PayOutput Pay(PayInput input)
+        public MiniProgramPayOutput MiniProgramPay(MiniProgramPayInput input)
         {
             if (input == null)
             {
@@ -49,10 +53,29 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
             }
 
             var url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+            var config = GetPayConfigFunc();
+            if (config == null)
+            {
+                throw new ArgumentNullException("请配置支付配置信息!", "PayConfig");
+            }
+            if (string.IsNullOrWhiteSpace(config.PayAppId))
+            {
+                throw new ArgumentNullException("PayAppId必须配置!", nameof(config.PayAppId));
+            }
+            if (string.IsNullOrWhiteSpace(config.MchId))
+            {
+                throw new ArgumentNullException("MchId(商户Id)必须配置!", nameof(config.MchId));
+            }
+            if (string.IsNullOrWhiteSpace(config.PayNotifyUrl))
+            {
+                throw new ArgumentNullException("PayNotifyUrl(支付回调地址)必须配置!", nameof(config.PayNotifyUrl));
+            }
+
             var model = new UnifiedorderRequest
             {
-                AppId = AppConfig.AppId,
-                MchId = AppConfig.MchId,
+                AppId = config.PayAppId,
+                MchId = config.MchId,
                 Attach = input.Attach,
                 Body = input.Body,
                 Detail = input.Detail,
@@ -67,12 +90,33 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
                 TimeStart = input.TimeStart,
                 TotalFee = (input.TotalFee * 100).ToString(),
             };
-            model.NonceStr = Guid.NewGuid().ToString("N");
-            model.NotifyUrl = AppConfig.PayNotify;
+            model.NonceStr = GetNoncestr();
+            model.NotifyUrl = config.PayNotifyUrl;
             var dictionary = GetAuthors(model);
-            model.Sign = CreateMd5Sign(dictionary, AppConfig.TenPayKey); //生成Sign
+            model.Sign = CreateMd5Sign(dictionary, config.TenPayKey); //生成Sign
 
-            return PostXML<PayOutput>(url, model);
+            return PostXML<MiniProgramPayOutput>(url, model);
+        }
+
+        /// <summary>
+        /// 支付回调通知处理
+        /// </summary>
+        /// <param name="inputStream"></param>
+        /// <returns></returns>
+        public PayNotifyOutput PayNotifyHandler(Stream inputStream)
+        {
+            PayNotifyOutput result = null;
+            var data = PostInput(inputStream);
+            try
+            {
+                result = XmlHelper.DeserializeObject<PayNotifyOutput>(data);
+            }
+            catch (Exception ex)
+            {
+                LoggerAction?.Invoke("Error", "解析支付回调参数出错：" + data + "  Exception:" + ex.ToString());
+                throw;
+            }
+            return result;
         }
 
         #region 私有方法
@@ -82,8 +126,9 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
         /// <returns></returns>
         private string GetNoncestr()
         {
-            var random = new Random();
-            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return Guid.NewGuid().ToString("N");
+            //var random = new Random();
+            //return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
         /// <summary>
@@ -117,18 +162,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
             //return instr;
             if (instr == null || instr.Trim() == "")
                 return "";
-            var res = instr.UrlEncode();
-            //try
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    res = RequestUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
-            //}
-
-
-            return res;
+            return instr.UrlEncode();
         }
 
         /// <summary>
@@ -283,7 +317,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
         /// <param name="url">请求地址</param>
         /// <param name="obj">提交的数据对象</param>
         /// <returns>ApiResult对象</returns>
-        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : PayOutput
+        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : MiniProgramPayOutput
         {
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
@@ -302,7 +336,7 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay
         /// <param name="obj">提交的数据对象</param>
         /// <returns>ApiResult对象</returns>
         protected T PostXML<T>(string url, object obj, X509Certificate2 cer,
-            Func<string, string> serializeStrFunc = null) where T : PayOutput
+            Func<string, string> serializeStrFunc = null) where T : MiniProgramPayOutput
         {
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;

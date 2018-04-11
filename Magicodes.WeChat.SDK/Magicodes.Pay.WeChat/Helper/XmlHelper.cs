@@ -18,7 +18,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Magicodes.WeChat.MiniProgram.Helper
+namespace Magicodes.Pay.WeChat.Helper
 {
     public static class XmlHelper
     {
