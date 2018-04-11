@@ -8,13 +8,13 @@ namespace Magicodes.WeChat.MiniProgram.Test.Helper
 {
     public class ConfigHelper
     {
-        public static MiniProgramConfig LoadConfig()
+        public static TestConfig LoadConfig()
         {
-            var miniProgramConfig = new MiniProgramConfig();
+            var miniProgramConfig = new TestConfig();
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "app.json");
             if (File.Exists(filePath))
             {
-                miniProgramConfig = JsonConvert.DeserializeObject<MiniProgramConfig>(File.ReadAllText(filePath));
+                miniProgramConfig = JsonConvert.DeserializeObject<TestConfig>(File.ReadAllText(filePath));
             }
             else
             {

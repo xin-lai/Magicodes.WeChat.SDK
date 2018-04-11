@@ -298,9 +298,9 @@ namespace Magicodes.Pay.WeChat.Helper
             }
             if (serializeStrFunc != null)
                 postStr = serializeStrFunc(postStr);
-            WeChatHelper.LoggerAction?.Invoke("api", "postStrs:" + postStr);
+            WeChatPayApi.LoggerAction?.Invoke("api", "postStrs:" + postStr);
             result = HttpPost(url, postStr, cer);
-            WeChatHelper.LoggerAction?.Invoke("api", "result:" + result);
+            WeChatPayApi.LoggerAction?.Invoke("api", "result:" + result);
             switch (outDataType)
             {
                 case WebRequestDataTypes.XML:
