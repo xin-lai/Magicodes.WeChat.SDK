@@ -71,6 +71,10 @@ namespace Magicodes.Pay.WeChat
             {
                 throw new ArgumentNullException("PayNotifyUrl(支付回调地址)必须配置!", nameof(config.PayNotifyUrl));
             }
+            if (string.IsNullOrWhiteSpace(config.TenPayKey))
+            {
+                throw new ArgumentNullException("TenPayKey(支付密钥)必须配置!", nameof(config.TenPayKey));
+            }
 
             var model = new UnifiedorderRequest
             {
