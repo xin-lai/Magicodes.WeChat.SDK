@@ -13,7 +13,6 @@ namespace Magicodes.WeChat.MiniProgram.Test.Pay
         [Fact]
         public void Pay_Test()
         {
-
             var result = MiniProgramApisContext.Current.PayApi.Pay(new PayInput()
             {
                 Body = "Test",

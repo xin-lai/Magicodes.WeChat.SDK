@@ -105,6 +105,6 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Pay.Dto
         /// 获取错误友好提示
         /// </summary>
         /// <returns></returns>
-        public string GetFriendlyMessage() => $"{ErrCode}：{ErrCodeDes}";
+        public string GetFriendlyMessage() => $"{ErrCode??""}：{ErrCodeDes?? Message}".TrimStart('：');
     }
 }

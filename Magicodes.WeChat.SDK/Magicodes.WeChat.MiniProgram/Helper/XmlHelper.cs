@@ -24,7 +24,7 @@ namespace Magicodes.WeChat.MiniProgram.Helper
     {
         static XmlHelper()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
         /// <summary>
         ///     XML序列化
@@ -80,8 +80,18 @@ namespace Magicodes.WeChat.MiniProgram.Helper
         /// <returns></returns>
         public static T DeserializeObject<T>(Stream stream)
         {
-            var xmlSerial = new XmlSerializer(typeof(T));
-            return (T) xmlSerial.Deserialize(stream);
+            using (var reader = new StreamReader(stream))
+            {
+                var str = reader.ReadToEnd();
+                str = str.Replace("gb2312", "utf-8");
+                var xmlSerial = new XmlSerializer(typeof(T));
+                using (var rdr = new StringReader(str))
+                {
+                    return (T)xmlSerial.Deserialize(rdr);
+                }
+            }
+            
+            
         }
 
         /// <summary>
