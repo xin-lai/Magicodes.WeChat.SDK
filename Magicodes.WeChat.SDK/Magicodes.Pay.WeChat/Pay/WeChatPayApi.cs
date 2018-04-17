@@ -92,7 +92,7 @@ namespace Magicodes.Pay.WeChat
                 SpbillCreateIp = input.SpbillCreateIp,
                 TimeExpire = input.TimeExpire,
                 TimeStart = input.TimeStart,
-                TotalFee = (input.TotalFee * 100).ToString(),
+                TotalFee = ((int)(input.TotalFee * 100)).ToString(),
             };
             model.NonceStr = GetNoncestr();
             model.NotifyUrl = config.PayNotifyUrl;
