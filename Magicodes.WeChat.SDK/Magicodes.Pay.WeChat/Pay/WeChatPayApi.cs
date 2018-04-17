@@ -99,7 +99,29 @@ namespace Magicodes.Pay.WeChat
             var dictionary = GetAuthors(model);
             model.Sign = CreateMd5Sign(dictionary, config.TenPayKey); //生成Sign
 
-            return PostXML<MiniProgramPayOutput>(url, model);
+            var result = PostXML<UnifiedorderResult>(url, model);
+            if (result.IsSuccess())
+            {
+                var data = new
+                {
+                    result.AppId,
+                    result.NonceStr,
+                    Package = "prepay_id=" + result.PrepayId,
+                    SignType = "MD5",
+                    TimeStamp = GetTimestamp(),
+                };
+                return new MiniProgramPayOutput()
+                {
+                    AppId = data.AppId,
+                    Package = data.Package,
+                    NonceStr = data.NonceStr,
+                    PaySign = CreateMd5Sign(GetAuthors(data), config.TenPayKey),
+                    SignType = data.SignType,
+                    TimeStamp = data.TimeStamp
+                };
+            }
+            LoggerAction("Error", "支付错误：" + result.GetFriendlyMessage());
+            throw new PayException("支付错误，请联系客服或重新支付！");
         }
 
         /// <summary>
@@ -321,7 +343,7 @@ namespace Magicodes.Pay.WeChat
         /// <param name="url">请求地址</param>
         /// <param name="obj">提交的数据对象</param>
         /// <returns>ApiResult对象</returns>
-        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : MiniProgramPayOutput
+        protected T PostXML<T>(string url, object obj, Func<string, string> serializeStrFunc = null) where T : PayOutputBase
         {
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
@@ -340,7 +362,7 @@ namespace Magicodes.Pay.WeChat
         /// <param name="obj">提交的数据对象</param>
         /// <returns>ApiResult对象</returns>
         protected T PostXML<T>(string url, object obj, X509Certificate2 cer,
-            Func<string, string> serializeStrFunc = null) where T : MiniProgramPayOutput
+            Func<string, string> serializeStrFunc = null) where T : PayOutputBase
         {
             var wr = new WeChatApiWebRequestHelper();
             string resultStr = null;
