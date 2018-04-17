@@ -104,20 +104,20 @@ namespace Magicodes.Pay.WeChat
             {
                 var data = new
                 {
-                    result.AppId,
-                    result.NonceStr,
-                    Package = "prepay_id=" + result.PrepayId,
-                    SignType = "MD5",
-                    TimeStamp = GetTimestamp(),
+                    appId = result.AppId,
+                    nonceStr = result.NonceStr,
+                    package = "prepay_id=" + result.PrepayId,
+                    signType = "MD5",
+                    timeStamp = GetTimestamp(),
                 };
                 return new MiniProgramPayOutput()
                 {
-                    AppId = data.AppId,
-                    Package = data.Package,
-                    NonceStr = data.NonceStr,
+                    AppId = data.appId,
+                    Package = data.package,
+                    NonceStr = data.nonceStr,
                     PaySign = CreateMd5Sign(GetAuthors(data), config.TenPayKey),
-                    SignType = data.SignType,
-                    TimeStamp = data.TimeStamp
+                    SignType = data.signType,
+                    TimeStamp = data.timeStamp
                 };
             }
             LoggerAction("Error", "支付错误：" + result.GetFriendlyMessage());
@@ -271,18 +271,15 @@ namespace Magicodes.Pay.WeChat
             foreach (var prop in props)
             {
                 var attrs = prop.GetCustomAttributes(true);
-                foreach (var attr in attrs)
+                XmlElementAttribute attr = null;
+                if (attrs.Length > 0)
                 {
-                    var authAttr = attr as XmlElementAttribute;
-                    if (authAttr != null)
-                    {
-                        var auth = authAttr.ElementName;
-
-                        var property = type.GetProperty(prop.Name);
-                        var value = property.GetValue(model, null); //获取属性值
-                        _dict.Add(auth, value?.ToString());
-                    }
+                    attr = attrs[0] as XmlElementAttribute;
                 }
+                var property = type.GetProperty(prop.Name);
+                var value = property.GetValue(model, null); //获取属性值
+                _dict.Add(attr?.ElementName ?? property.Name, value?.ToString());
+
             }
             return _dict;
         }
