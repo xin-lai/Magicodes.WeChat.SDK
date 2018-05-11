@@ -1,3 +1,3 @@
-cd ./nupkgs/
+﻿cd ./nupkgs/
 del *.nupkg /f /q /a 
 cd ../
