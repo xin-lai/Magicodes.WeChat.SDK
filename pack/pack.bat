@@ -1,22 +1,22 @@
-ï»¿:: åŒ…æœç´¢å­—ç¬¦ä¸²
+:: °üËÑË÷×Ö·û´®
 echo %1
-:: é¡¹ç›®æ–¹æ¡ˆåœ°å€
+:: ÏîÄ¿·½°¸µØÖ·
 echo %2
 
-:: åˆ é™¤å†å²åŒ…
+:: É¾³ıÀúÊ·°ü
 del %1 /f /q /a 
 
-:: åŒ…åç§°
+:: °üÃû³Æ
 set nupkg=""
 
-:: ç¼–è¯‘
+:: ±àÒë
 dotnet msbuild %2 /p:Configuration=Release
 
-:: æ‰“åŒ…
+:: ´ò°ü
 dotnet pack %2 -c Release --output ../../pack/nupkgs
 
-:: æ›´æ–°åŒ…åç§°
+:: ¸üĞÂ°üÃû³Æ
 for %%a in (dir /s /a /b "./nupkgs/%1") do (set nupkg=%%a)
 
-:: æ¨é€åŒ…
+:: ÍÆËÍ°ü
 nuget push nupkgs/%nupkg% oy2jyui74772rfnnquwq3ydszczz6w5uhjpujhmjfnpaji -Source https://www.nuget.org/api/v2/package
