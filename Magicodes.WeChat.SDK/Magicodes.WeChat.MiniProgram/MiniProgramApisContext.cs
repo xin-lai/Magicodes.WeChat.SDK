@@ -14,6 +14,7 @@
 // ======================================================================
 
 using System;
+using Magicodes.WeChat.MiniProgram.Apis.Profile;
 using Magicodes.WeChat.MiniProgram.Apis.Sns;
 using Magicodes.WeChat.MiniProgram.Apis.Token;
 
@@ -36,6 +37,12 @@ namespace Magicodes.WeChat.MiniProgram
         ///     登录凭证API
         /// </summary>
         public SnsApi SnsApi = new SnsApi();
+
+        /// <summary>
+        ///     个人配置或信息
+        /// </summary>
+        public ProfileApi ProfileApi = new ProfileApi();
+
 
         /// <summary>
         /// 当前接口管理器

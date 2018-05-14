@@ -15,6 +15,9 @@ namespace Magicodes.WeChat.MiniProgram.Apis.Profile
         /// <summary>
         /// 获取解密的手机号码
         /// </summary>
+        /// <param name="encryptedData">包括敏感数据在内的完整用户信息的加密数据</param>
+        /// <param name="iv">加密算法的初始向量</param>
+        /// <param name="sessionKey">会话密钥</param>
         /// <returns></returns>
         public GetPhoneNumberOutput GetPhoneNumber(string encryptedData, string iv, string sessionKey)
         {
