@@ -50,6 +50,8 @@ namespace Magicodes.PayNotify.Builder
 
             if (PayNotifyFunc != null)
                 PayNotifyController.PayNotifyFunc = PayNotifyFunc;
+
+            
         }
     }
 }
