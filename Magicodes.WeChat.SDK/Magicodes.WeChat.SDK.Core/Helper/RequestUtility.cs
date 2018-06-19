@@ -13,21 +13,24 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Defines the <see cref="RequestUtility" />
+    /// </summary>
     public static class RequestUtility
     {
         /// <summary>
-        ///     组装QueryString的方法
+        /// 组装QueryString的方法
         ///     参数之间用&amp;连接，首位没有符号，如：a=1&amp;b=2&amp;c=3
         /// </summary>
         /// <param name="formData"></param>
@@ -52,7 +55,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     填充表单信息的Stream
+        /// 填充表单信息的Stream
         /// </summary>
         /// <param name="formData"></param>
         /// <param name="stream"></param>
@@ -65,7 +68,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     封装System.Web.HttpUtility.HtmlEncode
+        /// 封装System.Web.HttpUtility.HtmlEncode
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
@@ -75,7 +78,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     封装System.Web.HttpUtility.HtmlDecode
+        /// 封装System.Web.HttpUtility.HtmlDecode
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
@@ -85,7 +88,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     封装System.Web.HttpUtility.UrlEncode
+        /// 封装System.Web.HttpUtility.UrlEncode
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -95,7 +98,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     封装System.Web.HttpUtility.UrlDecode
+        /// 封装System.Web.HttpUtility.UrlDecode
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -104,12 +107,13 @@ namespace Magicodes.WeChat.SDK.Helper
             return WebUtility.UrlDecode(url);
         }
 
-        #region 代理
-
+        /// <summary>
+        /// Defines the _webproxy
+        /// </summary>
         private static WebProxy _webproxy;
 
         /// <summary>
-        ///     设置Web代理
+        /// 设置Web代理
         /// </summary>
         /// <param name="host"></param>
         /// <param name="port"></param>
@@ -123,19 +127,15 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     清除Web代理状态
+        /// 清除Web代理状态
         /// </summary>
         public static void RemoveHttpProxy()
         {
             _webproxy = null;
         }
 
-        #endregion
-
-        #region 同步方法
-
         /// <summary>
-        ///     使用Get方法获取字符串结果（没有加入Cookie）
+        /// 使用Get方法获取字符串结果（没有加入Cookie）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
@@ -151,7 +151,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     使用Post方法上传数据并下载文件或结果
+        /// 使用Post方法上传数据并下载文件或结果
         /// </summary>
         /// <param name="url">请求地址</param>
         /// <param name="postData">请求数据</param>
@@ -168,7 +168,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     使用Get方法获取字符串结果（加入Cookie）
+        /// 使用Get方法获取字符串结果（加入Cookie）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
@@ -203,8 +203,13 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     使用Post方法获取字符串结果，常规提交
+        /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <param name="cookieContainer">The cookieContainer<see cref="CookieContainer"/></param>
+        /// <param name="formData">The formData<see cref="Dictionary{string, string}"/></param>
+        /// <param name="encoding">The encoding<see cref="Encoding"/></param>
+        /// <param name="timeOut">The timeOut<see cref="int"/></param>
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null,
             Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = 30000)
@@ -214,6 +219,17 @@ namespace Magicodes.WeChat.SDK.Helper
             return HttpPost(url, cookieContainer, ms, null, null, encoding, timeOut);
         }
 
+        /// <summary>
+        /// The CreateWebRequest
+        /// </summary>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <param name="contentType">The contentType<see cref="string"/></param>
+        /// <param name="acceptLanguage">The acceptLanguage<see cref="string"/></param>
+        /// <param name="accept">The accept<see cref="string"/></param>
+        /// <param name="userAgent">The userAgent<see cref="string"/></param>
+        /// <param name="timeOut">The timeOut<see cref="int"/></param>
+        /// <param name="cookieContainer">The cookieContainer<see cref="CookieContainer"/></param>
+        /// <returns>The <see cref="HttpWebRequest"/></returns>
         public static HttpWebRequest CreateWebRequest(
             string url,
             string contentType = null,
@@ -241,12 +257,12 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     POST文件
+        /// POST文件
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="files">文件路径</param>
         /// <param name="postdata">参数</param>
         /// <param name="encoding"></param>
+        /// <param name="files">文件路径</param>
         /// <returns></returns>
         public static string HttpUploadFile(string url, Dictionary<string, string> postdata, Encoding encoding, params string[] files)
         {
@@ -303,18 +319,17 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
-
         /// <summary>
-        ///     使用Post方法获取字符串结果
+        /// 使用Post方法获取字符串结果
         /// </summary>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+        /// <param name="refererUrl"></param>
         /// <param name="encoding"></param>
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
-        /// <param name="refererUrl"></param>
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null,
             Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
@@ -333,7 +348,6 @@ namespace Magicodes.WeChat.SDK.Helper
             if (!string.IsNullOrEmpty(refererUrl))
                 request.Referer = refererUrl;
 
-            #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -401,9 +415,7 @@ namespace Magicodes.WeChat.SDK.Helper
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
             request.ContentLength = postStream != null ? postStream.Length : 0;
-            #region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -419,7 +431,6 @@ namespace Magicodes.WeChat.SDK.Helper
                 }
                 postStream.Close();//关闭文件访问
             }
-            #endregion
             var response = (HttpWebResponse)request.GetResponse();
 
             if (cookieContainer != null)
@@ -437,7 +448,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     验证服务器证书
+        /// 验证服务器证书
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="certificate"></param>
@@ -450,12 +461,8 @@ namespace Magicodes.WeChat.SDK.Helper
             return true;
         }
 
-        #endregion
-
-        #region 异步方法
-
         /// <summary>
-        ///     使用Get方法获取字符串结果（没有加入Cookie）
+        /// 使用Get方法获取字符串结果（没有加入Cookie）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
@@ -475,11 +482,12 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     使用Get方法获取字符串结果（加入Cookie）
+        /// 使用Get方法获取字符串结果（加入Cookie）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="encoding"></param>
+        /// <param name="timeOut">The timeOut<see cref="int"/></param>
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null,
             Encoding encoding = null, int timeOut = 30000)
@@ -509,8 +517,13 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     使用Post方法获取字符串结果，常规提交
+        /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <param name="cookieContainer">The cookieContainer<see cref="CookieContainer"/></param>
+        /// <param name="formData">The formData<see cref="Dictionary{string, string}"/></param>
+        /// <param name="encoding">The encoding<see cref="Encoding"/></param>
+        /// <param name="timeOut">The timeOut<see cref="int"/></param>
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null,
             Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = 30000)
@@ -520,17 +533,16 @@ namespace Magicodes.WeChat.SDK.Helper
             return await HttpPostAsync(url, cookieContainer, ms, null, encoding, timeOut);
         }
 
-
         /// <summary>
-        ///     使用Post方法获取字符串结果
+        /// 使用Post方法获取字符串结果
         /// </summary>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
+        /// <param name="refererUrl"></param>
         /// <param name="encoding"></param>
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
-        /// <param name="refererUrl"></param>
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null,
             Stream postStream = null, string refererUrl = null,
@@ -557,7 +569,6 @@ namespace Magicodes.WeChat.SDK.Helper
             if (cookieContainer != null)
                 request.CookieContainer = cookieContainer;
 
-            #region 输入二进制流
 
             if (postStream != null)
             {
@@ -580,7 +591,6 @@ namespace Magicodes.WeChat.SDK.Helper
                 postStream.Close(); //关闭文件访问
             }
 
-            #endregion
 
             var response = (HttpWebResponse)await request.GetResponseAsync();
 
@@ -597,12 +607,12 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
-
         /// <summary>
-        ///     填充表单信息的Stream
+        /// 填充表单信息的Stream
         /// </summary>
         /// <param name="formData"></param>
         /// <param name="stream"></param>
+        /// <returns>The <see cref="Task"/></returns>
         public static async Task FillFormDataStreamAsync(this Dictionary<string, string> formData, Stream stream)
         {
             var dataString = GetQueryString(formData);
@@ -610,7 +620,5 @@ namespace Magicodes.WeChat.SDK.Helper
             await stream.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             stream.Seek(0, SeekOrigin.Begin); //设置指针读取位置
         }
-
-        #endregion
     }
 }

@@ -13,40 +13,57 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.CustomMessage
 {
+    using Newtonsoft.Json;
+
     /// <summary>
-    ///     视频消息
+    /// 视频消息
     /// </summary>
     public class VideoMessage : CustomMessageSendApiResultBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoMessage"/> class.
+        /// </summary>
         public VideoMessage()
         {
             Type = MessageTypes.video;
         }
 
+        /// <summary>
+        /// Gets or sets the VideoContent
+        /// </summary>
         [JsonProperty("video")]
         public Video VideoContent { get; set; }
 
+        /// <summary>
+        /// Defines the <see cref="Video" />
+        /// </summary>
         public class Video
         {
             /// <summary>
-            ///     语音
+            /// Gets or sets the MediaId
+            /// 语音
             /// </summary>
             [JsonProperty("media_id")]
             public string MediaId { get; set; }
 
             /// <summary>
-            ///     缩略图
+            /// Gets or sets the ThumbMediaId
+            /// 缩略图
             /// </summary>
             [JsonProperty("thumb_media_id")]
             public string ThumbMediaId { get; set; }
 
+            /// <summary>
+            /// Gets or sets the Title
+            /// </summary>
             [JsonProperty("title")]
             public string Title { get; set; }
 
+            /// <summary>
+            /// Gets or sets the Description
+            /// </summary>
             [JsonProperty("description")]
             public string Description { get; set; }
         }

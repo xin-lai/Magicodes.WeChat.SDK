@@ -13,24 +13,27 @@
 //  
 // ======================================================================
 
-using Magicodes.WeChat.SDK.Apis.Message.Input;
-using Magicodes.WeChat.SDK.Apis.Message.Result;
-
 namespace Magicodes.WeChat.SDK.Apis.Message
 {
+    using Magicodes.WeChat.SDK.Apis.Message.Input;
+    using Magicodes.WeChat.SDK.Apis.Message.Result;
+
     /// <summary>
-    ///     高级群发接口
+    /// 高级群发接口
     ///     http://mp.weixin.qq.com/wiki/15/40b6865b893947b764e2de8e4a1fb55f.html
     /// </summary>
     public class MessageApi : ApiBase
     {
+        /// <summary>
+        /// Defines the ApiName
+        /// </summary>
         private const string ApiName = "message";
 
         /// <summary>
-        ///     全部群发或者根据分组进行群发【订阅号与服务号认证后均可用】
+        /// 全部群发或者根据分组进行群发【订阅号与服务号认证后均可用】
         ///     https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN
         /// </summary>
-        /// <param name="menuJson">菜单请求json格式</param>
+        /// <param name="input">The input<see cref="SendAllInputBase"/></param>
         /// <returns>返回操作结果</returns>
         public MessageApiResult SendAll(SendAllInputBase input)
         {
@@ -39,7 +42,7 @@ namespace Magicodes.WeChat.SDK.Apis.Message
         }
 
         /// <summary>
-        ///     根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+        /// 根据OpenID列表群发【订阅号不可用，服务号认证后可用】
         ///     https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN
         /// </summary>
         /// <param name="input"></param>
@@ -51,7 +54,7 @@ namespace Magicodes.WeChat.SDK.Apis.Message
         }
 
         /// <summary>
-        ///     删除群发【订阅号与服务号认证后均可用】
+        /// 删除群发【订阅号与服务号认证后均可用】
         ///     https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token=ACCESS_TOKEN
         /// </summary>
         /// <param name="messageId"></param>
@@ -59,13 +62,14 @@ namespace Magicodes.WeChat.SDK.Apis.Message
         public ApiResult Delete(string messageId)
         {
             var url = GetAccessApiUrl("mass/delete", ApiName);
-            return Post<MessageApiResult>(url, new {msg_id = messageId});
+            return Post<MessageApiResult>(url, new { msg_id = messageId });
         }
 
         /// <summary>
-        ///     预览接口【订阅号与服务号认证后均可用】
+        /// 预览接口【订阅号与服务号认证后均可用】
         ///     https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN
         /// </summary>
+        /// <param name="input">The input<see cref="PreviewInputBase"/></param>
         /// <returns></returns>
         public ApiResult Preview(PreviewInputBase input)
         {

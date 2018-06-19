@@ -13,25 +13,37 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.CustomMessage
 {
+    using Newtonsoft.Json;
+
     /// <summary>
-    ///     图片消息
+    /// 图片消息
     /// </summary>
     public class ImageMessage : CustomMessageSendApiResultBase
     {
+        /// <summary>
+        /// 初始化图片消息 the <see cref="ImageMessage"/> class.
+        /// </summary>
         public ImageMessage()
         {
             Type = MessageTypes.image;
         }
 
+        /// <summary>
+        /// 图片
+        /// </summary>
         [JsonProperty("image")]
         public Image ImageContent { get; set; }
 
+        /// <summary>
+        /// 图片定义 <see cref="Image" />
+        /// </summary>
         public class Image
         {
+            /// <summary>
+            /// Gets or sets the MediaId
+            /// </summary>
             [JsonProperty("media_id")]
             public string MediaId { get; set; }
         }

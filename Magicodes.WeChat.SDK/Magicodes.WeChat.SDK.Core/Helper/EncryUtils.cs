@@ -13,21 +13,29 @@
 //  
 // ======================================================================
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+
+    /// <summary>
+    /// Defines the <see cref="EncryUtils" />
+    /// </summary>
     public static class EncryUtils
     {
+        /// <summary>
+        /// The GetWeChatMd5
+        /// </summary>
+        /// <param name="encypStr">The encypStr<see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string GetWeChatMd5(this string encypStr)
         {
             return MD5(encypStr, "GB2312");
         }
 
         /// <summary>
-        ///     获取大写的MD5签名结果
+        /// 获取大写的MD5签名结果
         /// </summary>
         /// <param name="encypStr"></param>
         /// <param name="charset"></param>

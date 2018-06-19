@@ -13,54 +13,64 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections.Concurrent;
-using Magicodes.WeChat.SDK.Apis.Ticket;
-using Magicodes.WeChat.SDK.Apis.Token;
-using Magicodes.WeChat.SDK.Helper;
-
 namespace Magicodes.WeChat.SDK
 {
+    using Magicodes.WeChat.SDK.Apis.Ticket;
+    using Magicodes.WeChat.SDK.Apis.Token;
+    using Magicodes.WeChat.SDK.Helper;
+    using System;
+    using System.Collections.Concurrent;
+
     /// <summary>
-    ///     微信配置管理对象
+    /// 微信配置管理对象
     /// </summary>
     public class WeChatConfigManager
     {
+        /// <summary>
+        /// Defines the Lazy
+        /// </summary>
         private static readonly Lazy<WeChatConfigManager> Lazy =
             new Lazy<WeChatConfigManager>(() => new WeChatConfigManager());
 
         /// <summary>
-        ///     访问凭据存储
+        /// 访问凭据存储
         /// </summary>
         internal ConcurrentDictionary<string, TokenApiResult> AccessTokenConcurrentDictionary =
             new ConcurrentDictionary<string, TokenApiResult>();
 
         /// <summary>
-        ///     卡券JSSDK访问凭证
+        /// 卡券JSSDK访问凭证
         /// </summary>
         internal ConcurrentDictionary<string, TicketApiResult> CardTicketConcurrentDictionary =
             new ConcurrentDictionary<string, TicketApiResult>();
 
         /// <summary>
-        ///     凭证
+        /// 凭证
         /// </summary>
         internal ConcurrentDictionary<string, TicketApiResult> TicketConcurrentDictionary =
             new ConcurrentDictionary<string, TicketApiResult>();
 
         /// <summary>
-        ///     公众号配置信息
+        /// 公众号配置信息
         /// </summary>
         protected ConcurrentDictionary<object, IWeChatConfig> WeChatConfigs =
             new ConcurrentDictionary<object, IWeChatConfig>();
 
         /// <summary>
-        ///     微信支付配置信息
+        /// 微信支付配置信息
         /// </summary>
         protected ConcurrentDictionary<object, IWeChatPayConfig> WeChatPayConfigs =
             new ConcurrentDictionary<object, IWeChatPayConfig>();
 
+        /// <summary>
+        /// Gets the Current
+        /// </summary>
         public static WeChatConfigManager Current => Lazy.Value;
 
+        /// <summary>
+        /// The GetKey
+        /// </summary>
+        /// <returns>The <see cref="object"/></returns>
         public object GetKey()
         {
             return WeChatFrameworkFuncsManager.Current.InvokeFunc(WeChatFrameworkFuncTypes.GetKey,
@@ -68,7 +78,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     获取支付配置
+        /// 获取支付配置
         /// </summary>
         /// <param name="key">唯一Key</param>
         /// <returns></returns>
@@ -95,7 +105,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     获取配置
+        /// 获取配置
         /// </summary>
         /// <param name="key">唯一Key</param>
         /// <returns></returns>
@@ -130,8 +140,9 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     获取当前页面JS配置信息
+        /// 获取当前页面JS配置信息
         /// </summary>
+        /// <param name="absoluteUrl">The absoluteUrl<see cref="string"/></param>
         /// <returns></returns>
         public JSSDKConfigInfo GetJSSDKConfigInfo(string absoluteUrl)
         {
@@ -148,7 +159,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     获取当前页面卡券JS配置信息
+        /// 获取当前页面卡券JS配置信息
         /// </summary>
         /// <returns></returns>
         public JSSDKConfigInfo GetCardJSSDKConfigInfo()
@@ -164,8 +175,9 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     接口访问凭据
+        /// 接口访问凭据
         /// </summary>
+        /// <param name="key">The key<see cref="object"/></param>
         /// <returns></returns>
         public string GetAccessToken(object key = null)
         {
@@ -177,8 +189,9 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     刷新访问凭据
+        /// 刷新访问凭据
         /// </summary>
+        /// <param name="key">The key<see cref="object"/></param>
         public void RefreshAccessToken(object key = null)
         {
             if (key == null)
@@ -192,7 +205,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     刷新配置
+        /// 刷新配置
         /// </summary>
         /// <param name="key">存储配置key</param>
         /// <param name="config">微信配置</param>
@@ -202,7 +215,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     刷新支付配置
+        /// 刷新支付配置
         /// </summary>
         /// <param name="key">存储配置key</param>
         /// <param name="config">支付配置，选填</param>
@@ -214,7 +227,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     刷新配置以及访问凭据
+        /// 刷新配置以及访问凭据
         /// </summary>
         /// <param name="key"></param>
         /// <param name="config"></param>

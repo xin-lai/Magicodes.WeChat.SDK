@@ -13,31 +13,40 @@
 //  
 // ======================================================================
 
-using System;
-using System.Xml.Serialization;
-
 namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 {
+    using System;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Defines the <see cref="EnterpriseResult" />
+    /// </summary>
     [XmlRoot("xml")]
     [Serializable]
     public class EnterpriseResult : PayResult
     {
+        /// <summary>
+        /// Gets or sets the result_code
+        /// </summary>
         public string result_code { get; set; }
 
         /// <summary>
-        ///     商户订单号，需保持唯一性
+        /// Gets or sets the PartnerTradeNo
+        /// 商户订单号，需保持唯一性
         /// </summary>
         [XmlAttribute("partner_trade_no")]
         public string PartnerTradeNo { get; set; }
 
         /// <summary>
-        ///     企业付款成功，返回的微信订单号
+        /// Gets or sets the PaymentNo
+        /// 企业付款成功，返回的微信订单号
         /// </summary>
         [XmlAttribute("payment_no")]
         public string PaymentNo { get; set; }
 
         /// <summary>
-        ///     企业付款成功时间
+        /// Gets or sets the PaymentTime
+        /// 企业付款成功时间
         /// </summary>
         [XmlAttribute("payment_time")]
         public string PaymentTime { get; set; }

@@ -13,21 +13,21 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     /// <summary>
-    ///     ** 描述：模拟HTTP POST GET请求并获取数据
+    /// ** 描述：模拟HTTP POST GET请求并获取数据
     ///     使用：WebRequestHelper wr = new WebRequestHelper();
     ///     //GET
     ///     var html= ws.HttpGet("http://WeiChat.Magicodes.net");
@@ -46,96 +46,89 @@ namespace Magicodes.WeChat.SDK.Helper
     public class WebRequestHelper
     {
         /// <summary>
-        ///     accept
+        /// accept
         /// </summary>
         private string accept = "*/*";
 
         /// <summary>
-        ///     是否允许重定向
+        /// 是否允许重定向
         /// </summary>
         private bool allowAutoRedirect = true;
 
         /// <summary>
-        ///     contentType
+        /// contentType
         /// </summary>
         private string contentType = "application/x-www-form-urlencoded";
 
         /// <summary>
-        ///     设置cookie
+        /// 设置cookie
         /// </summary>
         private CookieContainer cookie;
 
         /// <summary>
-        ///     过期时间（默认：30000）
+        /// 过期时间（默认：30000）
         /// </summary>
         private int timeOut = 30000;
 
         /// <summary>
-        ///     代理密码
+        /// Gets or sets the ProxyKey
+        /// 代理密码
         /// </summary>
         public string ProxyKey { get; set; }
 
         /// <summary>
-        ///     代理地址
+        /// Gets or sets the ProxyAddress
+        /// 代理地址
         /// </summary>
         public string ProxyAddress { get; set; }
 
-
         /// <summary>
-        ///     代理用户
+        /// Gets or sets the ProxyUser
+        /// 代理用户
         /// </summary>
         public string ProxyUser { get; set; }
 
-        public CookieContainer Cookie
-        {
-            get => cookie;
-            set => cookie = value;
-        }
-
         /// <summary>
-        ///     是否允许重定向(默认:true)
+        /// Gets or sets the Cookie
         /// </summary>
-        public bool AllowAutoRedirect
-        {
-            get => allowAutoRedirect;
-            set => allowAutoRedirect = value;
-        }
+        public CookieContainer Cookie { get => cookie; set => cookie = value; }
 
         /// <summary>
-        ///     设置contentType(默认:application/x-www-form-urlencoded)
+        /// Gets or sets a value indicating whether AllowAutoRedirect
+        /// 是否允许重定向(默认:true)
         /// </summary>
-        public string ContentType
-        {
-            get => contentType;
-            set => contentType = value;
-        }
+        public bool AllowAutoRedirect { get => allowAutoRedirect; set => allowAutoRedirect = value; }
 
         /// <summary>
-        ///     设置accept(默认:*/*)
+        /// Gets or sets the ContentType
+        /// 设置contentType(默认:application/x-www-form-urlencoded)
         /// </summary>
-        public string Accept
-        {
-            get => accept;
-            set => accept = value;
-        }
-
-        public int TimeOut
-        {
-            get => timeOut;
-            set => timeOut = value;
-        }
+        public string ContentType { get => contentType; set => contentType = value; }
 
         /// <summary>
+        /// Gets or sets the Accept
+        /// 设置accept(默认:*/*)
+        /// </summary>
+        public string Accept { get => accept; set => accept = value; }
+
+        /// <summary>
+        /// Gets or sets the TimeOut
+        /// </summary>
+        public int TimeOut { get => timeOut; set => timeOut = value; }
+
+        /// <summary>
+        /// Gets or sets the UserAgent
         /// </summary>
         public string UserAgent { get; set; } = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
 
         /// <summary>
-        ///     接受的语言
+        /// Gets or sets the AcceptLanguage
+        /// 接受的语言
         /// </summary>
         public string AcceptLanguage { get; set; }
 
         /// <summary>
-        ///     处理POST请求
+        /// 处理POST请求
         /// </summary>
         /// <param name="url"></param>
         /// <param name="postdata"></param>
@@ -154,7 +147,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -165,7 +158,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     带证书的post请求
+        /// 带证书的post请求
         /// </summary>
         /// <param name="url"></param>
         /// <param name="postdata"></param>
@@ -186,7 +179,7 @@ namespace Magicodes.WeChat.SDK.Helper
                     requestStream.Close();
                 }
             }
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -196,6 +189,17 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
+        /// <summary>
+        /// The HttpPost
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <param name="obj">The obj<see cref="object"/></param>
+        /// <param name="result">The result<see cref="string"/></param>
+        /// <param name="serializeStrFunc">The serializeStrFunc<see cref="Func{string, string}"/></param>
+        /// <param name="inputDataType">The inputDataType<see cref="WebRequestDataTypes"/></param>
+        /// <param name="outDataType">The outDataType<see cref="WebRequestDataTypes"/></param>
+        /// <returns>The <see cref="T"/></returns>
         public T HttpPost<T>(string url, object obj, out string result, Func<string, string> serializeStrFunc = null,
             WebRequestDataTypes inputDataType = WebRequestDataTypes.JSON,
             WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
@@ -224,6 +228,16 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
+        /// <summary>
+        /// The HttpPost
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <param name="fileName">The fileName<see cref="string"/></param>
+        /// <param name="fileStream">The fileStream<see cref="Stream"/></param>
+        /// <param name="result">The result<see cref="string"/></param>
+        /// <param name="outDataType">The outDataType<see cref="WebRequestDataTypes"/></param>
+        /// <returns>The <see cref="T"/></returns>
         public T HttpPost<T>(string url, string fileName, Stream fileStream, out string result,
             WebRequestDataTypes outDataType = WebRequestDataTypes.JSON) where T : class
         {
@@ -254,7 +268,7 @@ namespace Magicodes.WeChat.SDK.Helper
 
                 requestStream.Write(endbytes, 0, endbytes.Length);
             }
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
@@ -271,7 +285,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     带证书的post
+        /// 带证书的post
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
@@ -311,10 +325,10 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     post请求返回html
+        /// post请求返回html
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="postDataStr"></param>
+        /// <param name="postdata">The postdata<see cref="Dictionary{string, string}"/></param>
         /// <returns></returns>
         public string HttpPost(string url, Dictionary<string, string> postdata)
         {
@@ -325,7 +339,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     get请求获取返回的html
+        /// get请求获取返回的html
         /// </summary>
         /// <param name="url">无参URL</param>
         /// <param name="querydata">参数</param>
@@ -338,7 +352,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     get请求获取返回的html
+        /// get请求获取返回的html
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -347,7 +361,7 @@ namespace Magicodes.WeChat.SDK.Helper
             var request = CreateWebRequest(url);
             request.Method = "GET";
             // response.Cookies = cookie.GetCookies(response.ResponseUri);
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 using (var sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")))
                 {
@@ -357,9 +371,14 @@ namespace Magicodes.WeChat.SDK.Helper
             }
         }
 
+        /// <summary>
+        /// The CreateWebRequest
+        /// </summary>
+        /// <param name="url">The url<see cref="string"/></param>
+        /// <returns>The <see cref="HttpWebRequest"/></returns>
         protected HttpWebRequest CreateWebRequest(string url)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             if (ProxyAddress != null && ProxyAddress != "")
             {
                 var proxy = new WebProxy();
@@ -389,7 +408,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     POST文件
+        /// POST文件
         /// </summary>
         /// <param name="url"></param>
         /// <param name="file">文件路径</param>
@@ -401,7 +420,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     POST文件
+        /// POST文件
         /// </summary>
         /// <param name="url"></param>
         /// <param name="file">文件路径</param>
@@ -410,11 +429,11 @@ namespace Magicodes.WeChat.SDK.Helper
         /// <returns></returns>
         public string HttpUploadFile(string url, string file, Dictionary<string, string> postdata, Encoding encoding)
         {
-            return HttpUploadFile(url, new[] {file}, postdata, encoding);
+            return HttpUploadFile(url, new[] { file }, postdata, encoding);
         }
 
         /// <summary>
-        ///     POST文件
+        /// POST文件
         /// </summary>
         /// <param name="url"></param>
         /// <param name="files">文件路径</param>
@@ -426,7 +445,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     POST文件
+        /// POST文件
         /// </summary>
         /// <param name="url"></param>
         /// <param name="files">文件路径</param>
@@ -485,16 +504,15 @@ namespace Magicodes.WeChat.SDK.Helper
                 stream.Write(endbytes, 0, endbytes.Length);
             }
             //2.WebResponse
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
             using (var stream = new StreamReader(response.GetResponseStream()))
             {
                 return stream.ReadToEnd();
             }
         }
 
-
         /// <summary>
-        ///     获得响应中的图像
+        /// 获得响应中的图像
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -506,7 +524,7 @@ namespace Magicodes.WeChat.SDK.Helper
                 var request = CreateWebRequest(url);
                 request.KeepAlive = true;
                 request.Method = "GET";
-                var res = (HttpWebResponse) request.GetResponse();
+                var res = (HttpWebResponse)request.GetResponse();
                 stream = res.GetResponseStream();
                 return stream;
             }
@@ -517,7 +535,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     正则获取匹配的第一个值
+        /// 正则获取匹配的第一个值
         /// </summary>
         /// <param name="html"></param>
         /// <param name="pattern"></param>
@@ -532,7 +550,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     正则验证返回的response是否正确
+        /// 正则验证返回的response是否正确
         /// </summary>
         /// <param name="html">Html内容</param>
         /// <param name="pattern">正则表达式</param>
@@ -544,6 +562,9 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         //注册证书验证回调事件，在请求之前注册
+        /// <summary>
+        /// The SetCertificatePolicy
+        /// </summary>
         private void SetCertificatePolicy()
         {
             ServicePointManager.ServerCertificateValidationCallback
@@ -551,8 +572,13 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     远程证书验证，固定返回true
+        /// 远程证书验证，固定返回true
         /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="cert">The cert<see cref="X509Certificate"/></param>
+        /// <param name="chain">The chain<see cref="X509Chain"/></param>
+        /// <param name="error">The error<see cref="SslPolicyErrors"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         private static bool RemoteCertificateValidate(object sender, X509Certificate cert,
             X509Chain chain, SslPolicyErrors error)
         {

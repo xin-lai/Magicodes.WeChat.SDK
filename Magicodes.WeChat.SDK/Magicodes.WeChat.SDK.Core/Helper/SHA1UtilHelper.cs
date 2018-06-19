@@ -13,16 +13,19 @@
 //  
 // ======================================================================
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+
+    /// <summary>
+    /// Defines the <see cref="SHA1UtilHelper" />
+    /// </summary>
     public class SHA1UtilHelper
     {
         /// <summary>
-        ///     签名算法
+        /// 签名算法
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>

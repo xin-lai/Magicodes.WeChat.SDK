@@ -13,25 +13,31 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections.Concurrent;
-
 namespace Magicodes.WeChat.SDK
 {
+    using System;
+    using System.Collections.Concurrent;
+
     /// <summary>
-    ///     函数管理器
+    /// 函数管理器
     /// </summary>
     public class WeChatFrameworkFuncsManager
     {
+        /// <summary>
+        /// Defines the Lazy
+        /// </summary>
         private static readonly Lazy<WeChatFrameworkFuncsManager> Lazy =
             new Lazy<WeChatFrameworkFuncsManager>(() => new WeChatFrameworkFuncsManager());
 
         /// <summary>
-        ///     函数集合
+        /// 函数集合
         /// </summary>
         internal ConcurrentDictionary<WeChatFrameworkFuncTypes, Func<object, object>> Funcs =
             new ConcurrentDictionary<WeChatFrameworkFuncTypes, Func<object, object>>();
 
+        /// <summary>
+        /// Gets the Current
+        /// </summary>
         public static WeChatFrameworkFuncsManager Current => Lazy.Value;
 
         /// <summary>
@@ -45,7 +51,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     注册函数
+        /// 注册函数
         /// </summary>
         /// <param name="eventType"></param>
         /// <param name="func"></param>
@@ -57,7 +63,7 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     获取函数
+        /// 获取函数
         /// </summary>
         /// <param name="eventType"></param>
         /// <returns></returns>
@@ -69,10 +75,11 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     执行函数
+        /// 执行函数
         /// </summary>
         /// <param name="eventType"></param>
         /// <param name="obj"></param>
+        /// <returns>The <see cref="object"/></returns>
         public object InvokeFunc(WeChatFrameworkFuncTypes eventType, WeChatApiCallbackFuncArgInfo obj)
         {
             var func = GetFunc(eventType);
@@ -82,10 +89,11 @@ namespace Magicodes.WeChat.SDK
         }
 
         /// <summary>
-        ///     执行函数 支付
+        /// 执行函数 支付
         /// </summary>
         /// <param name="eventType"></param>
         /// <param name="obj"></param>
+        /// <returns>The <see cref="object"/></returns>
         public object InvokeFunc(WeChatFrameworkFuncTypes eventType, WeChatPayCallbackFuncArgInfo obj)
         {
             var func = GetFunc(eventType);

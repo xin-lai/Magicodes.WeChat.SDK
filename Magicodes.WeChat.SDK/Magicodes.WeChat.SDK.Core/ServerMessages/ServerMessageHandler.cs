@@ -1,38 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Magicodes.WeChat.SDK.Core.ServerMessages.From;
-using Magicodes.WeChat.SDK.Core.ServerMessages.To;
-using Magicodes.WeChat.SDK.Helper;
+﻿// ======================================================================
+//  
+//          Copyright (C) 2018-2068 湖南心莱信息科技有限公司    
+//          All rights reserved
+//  
+//          filename : ServerMessageHandler.cs
+//          description :
+//  
+//          created by codelove1314@live.cn at  2018-06-19 10:48:31
+//          Blog：http://www.cnblogs.com/codelove/
+//          GitHub ： https://github.com/xin-lai
+//          Home：http://xin-lai.com
+//  
+// =======================================================================
 
 namespace Magicodes.WeChat.SDK.Core.ServerMessages
 {
+    using Magicodes.WeChat.SDK.Core.ServerMessages.From;
+    using Magicodes.WeChat.SDK.Core.ServerMessages.To;
+    using Magicodes.WeChat.SDK.Helper;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Xml.Linq;
+
     /// <summary>
-    ///     服务器消息处理
+    /// 服务器消息处理类
     /// </summary>
     public class ServerMessageHandler
     {
         /// <summary>
-        ///     处理函数集合
+        /// 处理函数集合
         /// </summary>
         public Dictionary<Type, Func<IFromMessage, ToMessageBase>> HandleFuncs =
             new Dictionary<Type, Func<IFromMessage, ToMessageBase>>();
 
+        /// <summary>
+        /// Defines the Key
+        /// </summary>
         protected object Key;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerMessageHandler"/> class.
+        /// </summary>
+        /// <param name="key">The key<see cref="object"/></param>
         public ServerMessageHandler(object key)
         {
             Key = key;
         }
 
         /// <summary>
-        ///     检查签名
+        /// 检查签名
         /// </summary>
+        /// <param name="signature">签名</param>
+        /// <param name="timestamp">时间撮</param>
+        /// <param name="nonce">The nonce<see cref="string"/></param>
         /// <returns>返回正确的签名</returns>
         public bool CheckSignature(string signature, string timestamp, string nonce)
         {
@@ -49,9 +73,10 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
         }
 
         /// <summary>
-        ///     处理消息
+        /// 处理消息
         /// </summary>
         /// <param name="xmlStr">XML字符串</param>
+        /// <returns>The <see cref="Task{ToMessageBase}"/></returns>
         public async Task<ToMessageBase> HandleMessage(string xmlStr)
         {
             ToMessageBase toMessage = null;
@@ -145,7 +170,6 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 toMessage = resulTuple.Item1;
             }
 
-            #region 验证多图文格式
 
             if (toMessage is ToNewsMessage)
             {
@@ -157,9 +181,7 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 news.ArticleCount = news.Articles.Count;
             }
 
-            #endregion
 
-            #region 设置回复消息的时间戳等内容
 
             if (toMessage != null && toMessage.CreateTimestamp == default(long))
             {
@@ -169,13 +191,12 @@ namespace Magicodes.WeChat.SDK.Core.ServerMessages
                 toMessage.ToUserName = fromMessage.FromUserName;
             }
 
-            #endregion
 
             return await Task.FromResult(toMessage);
         }
 
         /// <summary>
-        ///     执行处理函数
+        /// 执行处理函数
         /// </summary>
         /// <typeparam name="T">接受类型</typeparam>
         /// <param name="xmlStr">XML字符串</param>

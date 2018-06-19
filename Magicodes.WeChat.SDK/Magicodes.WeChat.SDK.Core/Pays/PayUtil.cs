@@ -13,21 +13,24 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Xml.Serialization;
-using Magicodes.WeChat.SDK.Helper;
-
 namespace Magicodes.WeChat.SDK.Pays
 {
+    using Magicodes.WeChat.SDK.Helper;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Defines the <see cref="PayUtil" />
+    /// </summary>
     public static class PayUtil
     {
         /// <summary>
-        ///     随机生成Noncestr
+        /// 随机生成Noncestr
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
@@ -37,7 +40,7 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     根据当前系统时间加随机序列来生成订单号
+        /// 根据当前系统时间加随机序列来生成订单号
         /// </summary>
         /// <returns>订单号</returns>
         public static string GenerateOutTradeNo()
@@ -47,7 +50,7 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     获取时间戳
+        /// 获取时间戳
         /// </summary>
         /// <returns></returns>
         public static string GetTimestamp()
@@ -57,7 +60,7 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     对字符串进行URL编码
+        /// 对字符串进行URL编码
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -82,7 +85,7 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     对字符串进行URL解码
+        /// 对字符串进行URL解码
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -104,9 +107,8 @@ namespace Magicodes.WeChat.SDK.Pays
             return res;
         }
 
-
         /// <summary>
-        ///     取时间戳生成随即数,替换交易单号中的后10位流水号
+        /// 取时间戳生成随即数,替换交易单号中的后10位流水号
         /// </summary>
         /// <returns></returns>
         public static uint UnixStamp()
@@ -116,7 +118,7 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     取随机数
+        /// 取随机数
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
@@ -146,11 +148,11 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     循环获取一个实体类每个字段的XmlAttribute属性的值
+        /// 循环获取一个实体类每个字段的XmlAttribute属性的值
         /// </summary>
-        /// <typeparam name="T">
-        ///     <peparam>
-        ///         <returns></returns>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model">The model<see cref="T"/></param>
+        /// <returns>The <see cref="Dictionary{string, string}"/></returns>
         public static Dictionary<string, string> GetAuthors<T>(T model)
         {
             var _dict = new Dictionary<string, string>();
@@ -178,11 +180,10 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+        /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
         /// </summary>
-        /// <param name="key">参数名</param>
+        /// <param name="dict">The dict<see cref="Dictionary{string, string}"/></param>
         /// <param name="value">参数值</param>
-        /// key和value通常用于填充最后一组参数
         /// <returns></returns>
         public static string CreateMd5Sign(Dictionary<string, string> dict, string value)
         {
@@ -214,9 +215,9 @@ namespace Magicodes.WeChat.SDK.Pays
         }
 
         /// <summary>
-        ///     接收post数据
+        /// 接收post数据
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="stream">The stream<see cref="Stream"/></param>
         /// <returns></returns>
         public static string PostInput(Stream stream)
         {

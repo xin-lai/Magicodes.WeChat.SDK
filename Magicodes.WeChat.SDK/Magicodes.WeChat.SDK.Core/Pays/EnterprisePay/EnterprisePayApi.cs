@@ -13,13 +13,13 @@
 //  
 // ======================================================================
 
-using System;
-using System.Security.Cryptography.X509Certificates;
-
 namespace Magicodes.WeChat.SDK.Pays.EnterprisePay
 {
+    using System;
+    using System.Security.Cryptography.X509Certificates;
+
     /// <summary>
-    ///     企业支付
+    /// 企业支付
     /// </summary>
     public class EnterprisePayApi : PayBase
     {

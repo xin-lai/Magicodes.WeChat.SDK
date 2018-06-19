@@ -17,9 +17,14 @@
 
 namespace Magicodes.WeChat.SDK
 {
+    /// <summary>
+    /// Defines the <see cref="WeChatPayCallbackFuncArgInfo" />
+    /// </summary>
     public class WeChatPayCallbackFuncArgInfo
     {
+        /// <summary>
+        /// Gets or sets the Data
+        /// </summary>
         public object Data { get; set; }
-        //public PayBase Api { get; set; }
     }
 }

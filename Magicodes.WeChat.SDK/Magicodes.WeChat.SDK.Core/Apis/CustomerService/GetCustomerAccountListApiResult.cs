@@ -13,51 +13,55 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.CustomerService
 {
+    using Newtonsoft.Json;
+
     /// <summary>
-    ///     获取所有客服账号结果
+    /// 获取所有客服账号结果
     /// </summary>
     public class GetCustomerAccountListApiResult : ApiResult
     {
         /// <summary>
-        ///     客服账号列表
+        /// 客服账号列表
         /// </summary>
         [JsonProperty("kf_list")]
         public CustomerAccountInfo[] AccountList { get; set; }
 
+        /// <summary>
+        /// 重写客服API成功标记
+        /// </summary>
+        /// <returns>The <see cref="bool"/></returns>
         public override bool IsSuccess()
         {
             return Message == null;
         }
 
         /// <summary>
-        ///     客服账号信息
+        /// 客服账号信息
         /// </summary>
         public class CustomerAccountInfo
         {
             /// <summary>
-            ///     完整客服账号，格式为：账号前缀@公众号微信号
+            /// 完整客服账号，格式为：账号前缀@公众号微信号
             /// </summary>
             [JsonProperty("kf_account")]
             public string AccountName { get; set; }
 
             /// <summary>
-            ///     客服昵称
+            /// 客服昵称
             /// </summary>
             [JsonProperty("kf_nick")]
             public string NickName { get; set; }
 
             /// <summary>
-            ///     客服工号
+            /// 客服工号
             /// </summary>
             [JsonProperty("kf_id")]
             public string JobNumber { get; set; }
 
             /// <summary>
-            ///     客服头像
+            /// 客服头像
             /// </summary>
             [JsonProperty("kf_headimgurl")]
             public string HeadUrl { get; set; }

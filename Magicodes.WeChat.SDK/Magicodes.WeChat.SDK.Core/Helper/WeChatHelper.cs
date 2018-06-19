@@ -13,13 +13,18 @@
 //  
 // ======================================================================
 
-
-using System;
-
 namespace Magicodes.WeChat.SDK
 {
+    using System;
+
+    /// <summary>
+    /// Defines the <see cref="WeChatHelper" />
+    /// </summary>
     public static class WeChatHelper
     {
+        /// <summary>
+        /// Defines the LoggerAction
+        /// </summary>
         public static Action<string, string> LoggerAction = (tag, log) => { };
     }
 }

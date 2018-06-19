@@ -13,26 +13,30 @@
 //  
 // ======================================================================
 
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Magicodes.WeChat.SDK.Apis.Material.Enums;
-using Magicodes.WeChat.SDK.Core.Apis.Material;
-using Magicodes.WeChat.SDK.Helper;
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
+    using Magicodes.WeChat.SDK.Apis.Material.Enums;
+    using Magicodes.WeChat.SDK.Core.Apis.Material;
+    using Magicodes.WeChat.SDK.Helper;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+
     /// <summary>
-    ///     永久素材接口
+    /// 永久素材接口
     /// </summary>
     public class MaterialApi : ApiBase
     {
+        /// <summary>
+        /// Defines the ApiName
+        /// </summary>
         private const string ApiName = "material";
 
         /// <summary>
-        ///     根据ID获取素材
+        /// 根据ID获取素材
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="id">要获取的素材的media_id</param>
         /// <returns>素材结果</returns>
         public T GetMaterialById<T>(string id) where T : ApiResult
@@ -47,7 +51,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
         /// <summary>
-        ///     获取非图文、视频素材
+        /// 获取非图文、视频素材
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -62,7 +66,7 @@ namespace Magicodes.WeChat.SDK.Apis.Material
         }
 
         /// <summary>
-        ///     获取永久素材列表
+        /// 获取永久素材列表
         /// </summary>
         /// <param name="materialType">素材类型</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
@@ -82,7 +86,6 @@ namespace Magicodes.WeChat.SDK.Apis.Material
                 return Post<NewsGetApiResult>(url, data);
             return Post<OtherMaterialResult>(url, data);
         }
-
 
         /// <summary>
         /// 新增永久图文素材
@@ -139,7 +142,6 @@ namespace Magicodes.WeChat.SDK.Apis.Material
             {
                 return Post<UploadImageApiResult>(url, fileName, fileStream);
             }
-
         }
     }
 }

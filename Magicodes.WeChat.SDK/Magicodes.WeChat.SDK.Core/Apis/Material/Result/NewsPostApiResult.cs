@@ -13,18 +13,25 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.Material
 {
+    using Newtonsoft.Json;
+
     /// <summary>
-    ///     新增的图文消息素材的media_id
+    /// 新增的图文消息素材的media_id
     /// </summary>
     public class NewsPostApiResult : ApiResult
     {
+        /// <summary>
+        /// Gets or sets the MediaId
+        /// </summary>
         [JsonProperty("media_id")]
         public string MediaId { get; set; }
 
+        /// <summary>
+        /// The IsSuccess
+        /// </summary>
+        /// <returns>The <see cref="bool"/></returns>
         public override bool IsSuccess()
         {
             return base.IsSuccess() && !string.IsNullOrWhiteSpace(MediaId);

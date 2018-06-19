@@ -13,13 +13,23 @@
 //  
 // ======================================================================
 
-using Magicodes.WeChat.SDK.Apis;
-
 namespace Magicodes.WeChat.SDK
 {
+    using Magicodes.WeChat.SDK.Apis;
+
+    /// <summary>
+    /// Defines the <see cref="WeChatApiCallbackFuncArgInfo" />
+    /// </summary>
     public class WeChatApiCallbackFuncArgInfo
     {
+        /// <summary>
+        /// Gets or sets the Data
+        /// </summary>
         public object Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Api
+        /// </summary>
         public ApiBase Api { get; set; }
     }
 }

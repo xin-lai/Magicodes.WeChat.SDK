@@ -13,23 +13,23 @@
 //  
 // ======================================================================
 
-using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Magicodes.WeChat.SDK.Helper;
-using Magicodes.WeChat.SDK.Pays.MicroPay;
-using Magicodes.WeChat.SDK.Pays.OrderQuery;
-using Magicodes.WeChat.SDK.Pays.Refund;
-using Magicodes.WeChat.SDK.Pays.Reverse;
-using Magicodes.WeChat.SDK.Core.Pays.TenPayV3;
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Pays.TenPayV3
 {
+    using Magicodes.WeChat.SDK.Core.Pays.TenPayV3;
+    using Magicodes.WeChat.SDK.Helper;
+    using Magicodes.WeChat.SDK.Pays.MicroPay;
+    using Magicodes.WeChat.SDK.Pays.OrderQuery;
+    using Magicodes.WeChat.SDK.Pays.Refund;
+    using Magicodes.WeChat.SDK.Pays.Reverse;
+    using Newtonsoft.Json;
+    using System;
+    using System.IO;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
-    ///     微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
+    /// 微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
     /// </summary>
     public class TenPayV3 : PayBase
     {
@@ -62,7 +62,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     Native
+        /// Native
         /// </summary>
         /// <param name="appId">开放平台账户的唯一标识</param>
         /// <param name="timesTamp">时间戳</param>
@@ -70,6 +70,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         /// <param name="nonceStr">32 位内的随机串，防重发</param>
         /// <param name="productId">商品唯一id</param>
         /// <param name="sign">签名</param>
+        /// <returns>The <see cref="string"/></returns>
         public static string NativePay(string appId, string timesTamp, string mchId, string nonceStr, string productId,
             string sign)
         {
@@ -79,7 +80,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     订单查询接口
+        /// 订单查询接口
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -97,9 +98,9 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     订单查询接口
+        /// 订单查询接口
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="model">The model<see cref="QueryRequest"/></param>
         /// <returns></returns>
         public QueryResult OrderQuery(QueryRequest model)
         {
@@ -116,7 +117,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     关闭订单接口
+        /// 关闭订单接口
         /// </summary>
         /// <param name="data">关闭订单需要post的xml数据</param>
         /// <returns></returns>
@@ -133,9 +134,8 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
             }
         }
 
-
         /// <summary>
-        ///     退款查询接口
+        /// 退款查询接口
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -153,7 +153,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     对账单接口
+        /// 对账单接口
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -171,7 +171,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     短链接转换接口
+        /// 短链接转换接口
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -189,7 +189,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     刷卡支付
+        /// 刷卡支付
         ///     提交被扫支付
         /// </summary>
         /// <param name="data"></param>
@@ -206,10 +206,10 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     刷卡支付
+        /// 刷卡支付
         ///     提交被扫支付
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="model">The model<see cref="MicropayRequest"/></param>
         /// <returns></returns>
         public MicropayResult MicroPay(MicropayRequest model)
         {
@@ -226,6 +226,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
+        /// The Notify
         /// </summary>
         /// <param name="inputStream"></param>
         /// <returns></returns>
@@ -246,7 +247,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     通知并返回处理XML
+        /// 通知并返回处理XML
         /// </summary>
         /// <param name="inputStream">输入流</param>
         /// <param name="successAction">成功处理逻辑回调函数</param>
@@ -280,9 +281,9 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     退款申请接口
+        /// 退款申请接口
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="model">The model<see cref="RefundRequest"/></param>
         /// <returns></returns>
         public RefundResult Refund(RefundRequest model)
         {
@@ -320,7 +321,7 @@ namespace Magicodes.WeChat.SDK.Pays.TenPayV3
         }
 
         /// <summary>
-        ///     支付交易返回失败或支付系统超时，调用该接口撤销交易。如果此订单用户支付失败，微信支付系统会将此订单关闭；如果用户支付成功，微信支付系统会将此订单资金退还给用户。
+        /// 支付交易返回失败或支付系统超时，调用该接口撤销交易。如果此订单用户支付失败，微信支付系统会将此订单关闭；如果用户支付成功，微信支付系统会将此订单资金退还给用户。
         ///     注意：7天以内的交易单可调用撤销，其他正常支付的单如需实现相同功能请调用申请退款API。提交支付交易后调用【查询订单API】，没有明确的支付结果再调用【撤销订单API】。
         ///     调用支付接口后请勿立即调用撤销订单API，建议支付后至少15s后再调用撤销订单接口。
         /// </summary>

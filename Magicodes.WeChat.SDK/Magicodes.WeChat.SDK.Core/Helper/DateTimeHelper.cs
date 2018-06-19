@@ -13,19 +13,22 @@
 //  
 // ======================================================================
 
-using System;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+
     /// <summary>
-    ///     微信时间戳转换
+    /// 微信时间戳转换
     /// </summary>
     public static class DateTimeHelper
     {
+        /// <summary>
+        /// Defines the STANDARD_TIME_STAMP
+        /// </summary>
         private const long STANDARD_TIME_STAMP = 621355968000000000;
 
         /// <summary>
-        ///     转换为时间戳
+        /// 转换为时间戳
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
@@ -35,7 +38,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     转换为时间
+        /// 转换为时间
         /// </summary>
         /// <param name="timestamp"></param>
         /// <returns></returns>

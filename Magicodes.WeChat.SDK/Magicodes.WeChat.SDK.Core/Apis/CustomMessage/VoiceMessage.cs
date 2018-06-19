@@ -13,25 +13,37 @@
 //  
 // ======================================================================
 
-using Newtonsoft.Json;
-
 namespace Magicodes.WeChat.SDK.Apis.CustomMessage
 {
+    using Newtonsoft.Json;
+
     /// <summary>
-    ///     语音消息
+    /// 语音消息
     /// </summary>
     public class VoiceMessage : CustomMessageSendApiResultBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VoiceMessage"/> class.
+        /// </summary>
         public VoiceMessage()
         {
             Type = MessageTypes.voice;
         }
 
+        /// <summary>
+        /// Gets or sets the VoiceContent
+        /// </summary>
         [JsonProperty("voice")]
         public Voice VoiceContent { get; set; }
 
+        /// <summary>
+        /// Defines the <see cref="Voice" />
+        /// </summary>
         public class Voice
         {
+            /// <summary>
+            /// Gets or sets the MediaId
+            /// </summary>
             [JsonProperty("media_id")]
             public string MediaId { get; set; }
         }

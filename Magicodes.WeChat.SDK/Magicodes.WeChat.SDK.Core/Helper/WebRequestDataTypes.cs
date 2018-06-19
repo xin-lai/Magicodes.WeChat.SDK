@@ -20,7 +20,14 @@ namespace Magicodes.WeChat.SDK.Helper
     /// </summary>
     public enum WebRequestDataTypes
     {
+        /// <summary>
+        /// Defines the JSON
+        /// </summary>
         JSON = 0,
+
+        /// <summary>
+        /// Defines the XML
+        /// </summary>
         XML = 1
     }
 }

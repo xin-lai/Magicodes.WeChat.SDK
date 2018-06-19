@@ -24,22 +24,18 @@ namespace Magicodes.WeChat.SDK
         ///     根据Key获取公众号配置
         /// </summary>
         Config_GetWeChatConfigByKey = 0,
-
         /// <summary>
         ///     模板消息发送
         /// </summary>
         APIFunc_TemplateMessageApi_Create = 1,
-
         /// <summary>
         ///     获取微信支付信息
         /// </summary>
         Config_GetWeChatPayConfigByKey = 3,
-
         /// <summary>
         ///     获取AccessToken。用于中控服务器模式，即从中控服务器获取Accesstoken
         /// </summary>
         APIFunc_GetAccessToken = 4,
-
         /// <summary>
         ///     获取Key
         /// </summary>

@@ -13,19 +13,19 @@
 //  
 // ======================================================================
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+
     /// <summary>
-    ///     MD5UtilHelper 的摘要说明。
+    /// MD5UtilHelper 的摘要说明。
     /// </summary>
     public class MD5UtilHelper
     {
         /// <summary>
-        ///     获取大写的MD5签名结果
+        /// 获取大写的MD5签名结果
         /// </summary>
         /// <param name="encypStr"></param>
         /// <param name="charset"></param>

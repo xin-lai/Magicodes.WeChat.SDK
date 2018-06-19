@@ -13,18 +13,22 @@
 //  
 // ======================================================================
 
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System.IO;
+    using System.Text;
+    using System.Xml;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Defines the <see cref="XmlHelper" />
+    /// </summary>
     public class XmlHelper
     {
         /// <summary>
-        ///     XML序列化
+        /// XML序列化
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static string SerializeObject<T>(T obj)
@@ -43,7 +47,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     序列化XML不带命名空间和定义
+        /// 序列化XML不带命名空间和定义
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
@@ -69,7 +73,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     反序列化
+        /// 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="stream"></param>
@@ -77,11 +81,11 @@ namespace Magicodes.WeChat.SDK.Helper
         public static T DeserializeObject<T>(Stream stream)
         {
             var xmlSerial = new XmlSerializer(typeof(T));
-            return (T) xmlSerial.Deserialize(stream);
+            return (T)xmlSerial.Deserialize(stream);
         }
 
         /// <summary>
-        ///     反序列化
+        /// 反序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>

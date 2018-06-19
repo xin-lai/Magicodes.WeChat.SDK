@@ -13,24 +13,29 @@
 //  
 // ======================================================================
 
-
-using System;
-using System.Collections.Generic;
-
 namespace Magicodes.WeChat.SDK.Builder
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
-    ///     WeChatSDK构造函数类
+    /// WeChatSDK构造函数类
     /// </summary>
     public class WeChatSDKBuilder
     {
+        /// <summary>
+        /// Defines the FuncDics
+        /// </summary>
         private readonly Dictionary<WeChatFrameworkFuncTypes, Func<object, object>> FuncDics =
             new Dictionary<WeChatFrameworkFuncTypes, Func<object, object>>();
 
+        /// <summary>
+        /// Gets or sets the LoggerAction
+        /// </summary>
         private Action<string, string> LoggerAction { get; set; }
 
         /// <summary>
-        ///     创建实例
+        /// 创建实例
         /// </summary>
         /// <returns></returns>
         public static WeChatSDKBuilder Create()
@@ -39,9 +44,9 @@ namespace Magicodes.WeChat.SDK.Builder
         }
 
         /// <summary>
-        ///     设置日志记录处理
+        /// 设置日志记录处理
         /// </summary>
-        /// <param name="logger"></param>
+        /// <param name="loggerAction">The loggerAction<see cref="Action{string, string}"/></param>
         /// <returns></returns>
         public WeChatSDKBuilder WithLoggerAction(Action<string, string> loggerAction)
         {
@@ -49,6 +54,12 @@ namespace Magicodes.WeChat.SDK.Builder
             return this;
         }
 
+        /// <summary>
+        /// The Register
+        /// </summary>
+        /// <param name="type">The type<see cref="WeChatFrameworkFuncTypes"/></param>
+        /// <param name="func">The func<see cref="Func{object, object}"/></param>
+        /// <returns>The <see cref="WeChatSDKBuilder"/></returns>
         public WeChatSDKBuilder Register(WeChatFrameworkFuncTypes type, Func<object, object> func)
         {
             FuncDics.Add(type, func);
@@ -56,7 +67,7 @@ namespace Magicodes.WeChat.SDK.Builder
         }
 
         /// <summary>
-        ///     确定设置
+        /// 确定设置
         /// </summary>
         public void Build()
         {

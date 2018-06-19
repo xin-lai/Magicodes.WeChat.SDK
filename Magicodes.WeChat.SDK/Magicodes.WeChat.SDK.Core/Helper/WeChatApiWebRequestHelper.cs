@@ -15,8 +15,14 @@
 
 namespace Magicodes.WeChat.SDK.Helper
 {
+    /// <summary>
+    /// Defines the <see cref="WeChatApiWebRequestHelper" />
+    /// </summary>
     public class WeChatApiWebRequestHelper : WebRequestHelper
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeChatApiWebRequestHelper"/> class.
+        /// </summary>
         public WeChatApiWebRequestHelper()
         {
             UserAgent =

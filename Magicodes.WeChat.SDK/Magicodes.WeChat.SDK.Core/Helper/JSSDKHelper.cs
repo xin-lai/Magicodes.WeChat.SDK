@@ -13,16 +13,19 @@
 //  
 // ======================================================================
 
-using System;
-using System.Collections;
-using System.Text;
-
 namespace Magicodes.WeChat.SDK.Helper
 {
+    using System;
+    using System.Collections;
+    using System.Text;
+
+    /// <summary>
+    /// Defines the <see cref="JSSDKHelper" />
+    /// </summary>
     public class JSSDKHelper
     {
         /// <summary>
-        ///     获取随机字符串
+        /// 获取随机字符串
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
@@ -32,7 +35,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     获取时间戳
+        /// 获取时间戳
         /// </summary>
         /// <returns></returns>
         public static string GetTimestamp()
@@ -42,8 +45,9 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     sha1加密
+        /// sha1加密
         /// </summary>
+        /// <param name="parameters">The parameters<see cref="Hashtable"/></param>
         /// <returns></returns>
         private static string CreateSha1(Hashtable parameters)
         {
@@ -54,7 +58,7 @@ namespace Magicodes.WeChat.SDK.Helper
             foreach (var k in akeys)
                 if (parameters[k] != null)
                 {
-                    var v = (string) parameters[k];
+                    var v = (string)parameters[k];
 
                     if (sb.Length == 0)
                         sb.Append(k + "=" + v);
@@ -65,8 +69,9 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     生成cardSign的加密方法
+        /// 生成cardSign的加密方法
         /// </summary>
+        /// <param name="parameters">The parameters<see cref="Hashtable"/></param>
         /// <returns></returns>
         private static string CreateCardSha1(Hashtable parameters)
         {
@@ -82,7 +87,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     添加卡券Ext参数的签名加密方法
+        /// 添加卡券Ext参数的签名加密方法
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
@@ -98,7 +103,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     获取JS-SDK权限验证的签名Signature
+        /// 获取JS-SDK权限验证的签名Signature
         /// </summary>
         /// <param name="ticket"></param>
         /// <param name="noncestr"></param>
@@ -118,7 +123,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     获取位置签名AddrSign
+        /// 获取位置签名AddrSign
         /// </summary>
         /// <param name="accessToken">访问凭据</param>
         /// <param name="appId"></param>
@@ -142,7 +147,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     获取卡券签名CardSign
+        /// 获取卡券签名CardSign
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="api_ticket"></param>
@@ -169,7 +174,7 @@ namespace Magicodes.WeChat.SDK.Helper
         }
 
         /// <summary>
-        ///     获取添加卡券时Ext参数内的签名
+        /// 获取添加卡券时Ext参数内的签名
         /// </summary>
         /// <param name="api_ticket"></param>
         /// <param name="timestamp"></param>

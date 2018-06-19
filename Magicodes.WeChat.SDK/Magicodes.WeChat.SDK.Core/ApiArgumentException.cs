@@ -13,23 +13,35 @@
 //  
 // ======================================================================
 
-using System;
-
 namespace Magicodes.WeChat.SDK
 {
+    using System;
+
     /// <summary>
-    ///     接口参数异常
+    /// 接口参数异常
     /// </summary>
     public class ApiArgumentException : ArgumentException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiArgumentException"/> class.
+        /// </summary>
         public ApiArgumentException()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiArgumentException"/> class.
+        /// </summary>
+        /// <param name="message">The message<see cref="string"/></param>
         public ApiArgumentException(string message) : base(message)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiArgumentException"/> class.
+        /// </summary>
+        /// <param name="message">The message<see cref="string"/></param>
+        /// <param name="paramName">The paramName<see cref="string"/></param>
         public ApiArgumentException(string message, string paramName) : base(message, paramName)
         {
         }
