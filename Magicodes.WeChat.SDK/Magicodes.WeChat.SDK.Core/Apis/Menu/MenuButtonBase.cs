@@ -56,6 +56,12 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
 
         [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
+
+        /// <summary>
+        ///     小程序的appid（仅认证公众号可配置）（miniprogram类型必须）
+        /// </summary>
+        [JsonProperty(PropertyName = "appid")]
+        public string AppId { get; set; }
     }
 
 

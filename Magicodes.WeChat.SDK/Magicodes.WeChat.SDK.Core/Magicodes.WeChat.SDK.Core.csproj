@@ -11,7 +11,7 @@
     <Company>湖南心莱信息科技有限公司</Company>
     <Authors>李文强</Authors>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <Version>2.1.0</Version>
+    <Version>2.1.2</Version>
     <FileVersion>2.0.0.0</FileVersion>
     <PackageTags>Magicodes.WeChat.SDK.Core</PackageTags>
     <RepositoryType>git</RepositoryType>
