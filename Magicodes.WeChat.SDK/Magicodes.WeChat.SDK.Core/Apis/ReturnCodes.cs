@@ -61,6 +61,7 @@ namespace Magicodes.WeChat.SDK.Apis
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         不合法的appsecret = 40125,
+        小程序APPID不正确 = 40166,
         缺少access_token参数 = 41001,
         缺少appid参数 = 41002,
         缺少refresh_token参数 = 41003,

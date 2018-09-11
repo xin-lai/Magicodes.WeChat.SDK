@@ -62,6 +62,13 @@ namespace Magicodes.WeChat.SDK.Apis.Menu
         /// </summary>
         [JsonProperty(PropertyName = "appid")]
         public string AppId { get; set; }
+
+
+        /// <summary>
+        ///     小程序的页面路径
+        /// </summary>
+        [JsonProperty(PropertyName = "pagepath")]
+        public string Pagepath { get; set; }
     }
 
 
