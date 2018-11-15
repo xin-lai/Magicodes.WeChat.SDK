@@ -72,6 +72,13 @@ namespace Magicodes.WeChat.SDK.Apis.Token
                 AppConfig.AppId, redirectUrl.UrlEncode(), "code", scope, state);
         }
 
+        public string GetScanCodeAuthorizeUrl(string redirectUrl, string state, OAuthScopes scope = OAuthScopes.snsapi_userinfo)
+        {
+            return string.Format(
+                "https://open.weixin.qq.com/connect/qrconnect?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}#wechat_redirect",
+                AppConfig.AppId, redirectUrl.UrlEncode(), "code", scope, state);
+        }
+
         public void Update()
         {
             //var url = string.Format("{0}/{1}?grant_type=refresh_token&appid={2}&secret={3}&refresh_token=", "https://api.weixin.qq.com/sns", ApiName,
