@@ -93,15 +93,10 @@ namespace Magicodes.WeChat.SDK.Helper
         public static T DeserializeObject<T>(string input) where T : class
         {
             if (!input.StartsWith("<?xml"))
-                input = @"<?xml version=""1.0"" encoding=""gb2312""?>" + input;
+                input = @"<?xml version=""1.0"" encoding=""utf-8""?>" + input;
             using (var memoryStream = new MemoryStream(Encoding.Default.GetBytes(input)))
             {
                 return DeserializeObject<T>(memoryStream);
-                //using (var reader = XmlReader.Create(mem))
-                //{
-                //    var formatter = new XmlSerializer(typeof(T));
-                //    return formatter.Deserialize(reader) as T;
-                //}
             }
         }
     }
