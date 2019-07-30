@@ -17,9 +17,8 @@
     <RepositoryType>git</RepositoryType>
     <!--<RepositoryUrl>https://github.com/xin-lai/Magicodes.WeChat.SDK</RepositoryUrl>-->
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net461\Magicodes.WeChat.SDK.Core.xml</DocumentationFile>
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
